@@ -1,3 +1,5 @@
+import { Nutritients } from "./calcNutrients";
+
 export default {
   rice: {
     unitGram: 100,

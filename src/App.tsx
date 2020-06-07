@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import foodsData, { Nutritients } from "./foodsData";
+import foodsData from "./foodsData";
+import { Nutritients } from "./calcNutrients";
 
 type Props = {};
 type State = {
