@@ -6,7 +6,7 @@ type Props = {};
 type State = {
   // 目標摂取カロリー
   targetCalorie: number;
-  // PFCバランス - たんぱく質[%]
+  // PFCバランス - タンパク質[%]
   proteinPct: number;
   // PFCバランス - 脂質[%]
   fatPct: number;
@@ -67,7 +67,7 @@ class App extends React.Component<Props, State> {
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     /**
-     * 目標たんぱく質割合を更新する
+     * 目標タンパク質割合を更新する
      */
     this.setState({
       proteinPct: event.target.valueAsNumber,
@@ -214,7 +214,7 @@ class App extends React.Component<Props, State> {
           <h2>Step 2</h2>
           <p>目標PFCバランスを入力してください</p>
           <div>
-            <span>たんぱく質</span>
+            <span>タンパク質</span>
             <input
               type="number"
               value={this.state.proteinPct}
@@ -295,7 +295,7 @@ class App extends React.Component<Props, State> {
           <h3>栄養素内訳</h3>
           <div>
             <span>
-              たんぱく質 {Math.round(((totalProtein * 4) / totalCalorie) * 100)}
+              タンパク質 {Math.round(((totalProtein * 4) / totalCalorie) * 100)}
               % :{" "}
             </span>
             <span>
@@ -329,7 +329,7 @@ class App extends React.Component<Props, State> {
           <h3>栄養素内訳（再計算）</h3>
           <div>
             <span>
-              たんぱく質{" "}
+              タンパク質{" "}
               {Math.round(((totalProtein * 4) / recalcedCalorie) * 100)}% :{" "}
             </span>
             <span>

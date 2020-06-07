@@ -1,10 +1,3 @@
-export type Nutritients = {
-  unitGram: number;
-  protein: number;
-  fat: number;
-  carbo: number;
-};
-
 export default {
   rice: {
     unitGram: 100,
