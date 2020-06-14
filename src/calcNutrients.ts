@@ -3,6 +3,7 @@ export type Nutritients = {
   protein: number;
   fat: number;
   carbo: number;
+  description: string;
 };
 
 const foodsNutrients: {
@@ -13,30 +14,39 @@ const foodsNutrients: {
     protein: 6.1,
     fat: 0.9,
     carbo: 77.6,
+    description: "精白米",
   },
   chicken: {
     unitGram: 100,
     protein: 24.4,
     fat: 1.9,
     carbo: 0,
+    description: "皮無し鶏むね肉",
   },
   milk: {
     unitGram: 100,
     protein: 3.3,
     fat: 3.8,
     carbo: 4.8,
+    description: "牛乳",
   },
   egg: {
     unitGram: 100,
     protein: 12.3,
     fat: 10.3,
     carbo: 0.3,
+    description: "鶏卵",
+  },
+  wheyProtein: {
+    unitGram: 100,
+    protein: 82,
+    fat: 7.5,
+    carbo: 4.0,
+    description: "MyProtein Impactホエイプロテイン(ミルクティー)",
   },
 };
 
 export default class CalcNutrients {
-  constructor() {}
-
   static calcFoodCalorie = (gram: number, food: Nutritients): number => {
     return (
       (gram / food.unitGram) *
@@ -54,6 +64,18 @@ export default class CalcNutrients {
 
   static carboPctToGram = (totalCalorie: number, pct: number): number => {
     return (totalCalorie * (pct / 100)) / 4;
+  };
+
+  static calcProteinGram = (netGram: number, food: Nutritients): number => {
+    return (netGram / food.unitGram) * food.protein;
+  };
+
+  static calcFatGram = (netGram: number, food: Nutritients): number => {
+    return (netGram / food.unitGram) * food.fat;
+  };
+
+  static calcCarboGram = (netGram: number, food: Nutritients): number => {
+    return (netGram / food.unitGram) * food.carbo;
   };
 
   static calcRiceGramFromTargetCarboGram = (

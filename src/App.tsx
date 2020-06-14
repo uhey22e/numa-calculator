@@ -1,7 +1,10 @@
 import React from "react";
 import "./App.css";
 import foodsData from "./foodsData";
-import { Nutritients } from "./calcNutrients";
+import CalcNutrients from "./calcNutrients";
+import PercentageInput from "./PercentageInput";
+import AdditionalFoodInput from "./AdditionalFoodInput";
+import Ingredient from "./ingredient";
 
 type Props = {};
 type State = {
@@ -14,34 +17,18 @@ type State = {
   // PFCバランス - 炭水化物[%]
   carboPct: number;
   // 追加食材・サプリメント
-  additionalIngredients: {
-    [key: string]: {
-      protein: number;
-      fat: number;
-      carbo: number;
-    };
+  additionalFoods: {
+    [key: string]: Ingredient;
   };
 };
 
-const calcFoodCalorie = (gram: number, food: Nutritients): number => {
-  return (
-    (gram / food.unitGram) * (food.protein * 4 + food.fat * 9 + food.carbo * 4)
-  );
-};
+type ValidationResult =
+  | undefined
+  | {
+      message: string;
+    };
 
-const proteinPctToGram = (totalCalorie: number, pct: number): number => {
-  return (totalCalorie * (pct / 100)) / 4;
-};
-
-const fatPctToGram = (totalCalorie: number, pct: number): number => {
-  return (totalCalorie * (pct / 100)) / 9;
-};
-
-const carboPctToGram = (totalCalorie: number, pct: number): number => {
-  return (totalCalorie * (pct / 100)) / 4;
-};
-
-class App extends React.Component<Props, State> {
+export default class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -49,7 +36,7 @@ class App extends React.Component<Props, State> {
       proteinPct: 30,
       fatPct: 20,
       carboPct: 50,
-      additionalIngredients: {},
+      additionalFoods: {},
     };
   }
 
@@ -64,130 +51,196 @@ class App extends React.Component<Props, State> {
     });
   };
 
-  private handleChangeProteinPct = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  private handleChangeProteinPct = (value: number): void => {
     /**
      * 目標タンパク質割合を更新する
      */
     this.setState({
-      proteinPct: event.target.valueAsNumber,
+      proteinPct: value,
     });
   };
 
-  private handleChangeFatPct = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  private handleChangeFatPct = (value: number): void => {
     /**
      * 目標脂質割合を更新する
      */
     this.setState({
-      fatPct: event.target.valueAsNumber,
+      fatPct: value,
     });
   };
 
-  private handleChangeCarboPct = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  private handleChangeCarboPct = (value: number): void => {
     /**
      * 目標炭水化物割合を更新する
      */
     this.setState({
-      carboPct: event.target.valueAsNumber,
+      carboPct: value,
     });
   };
 
-  private validatePfcBalance = (): boolean => {
+  private validatePfcBalance = (): ValidationResult => {
     /**
      * PFCバランスのバリデーション
      */
-    return (
-      this.state.proteinPct + this.state.fatPct + this.state.carboPct === 100
-    );
+    if (
+      this.state.proteinPct + this.state.fatPct + this.state.carboPct !==
+      100
+    ) {
+      return { message: "合計が100%になるように入力してください" };
+    }
   };
 
-  private calcRiceGram = (): number => {
-    const targetCarboGram = carboPctToGram(
-      this.state.targetCalorie,
-      this.state.carboPct
-    );
+  private calcRiceGram = (): Ingredient => {
+    /**
+     * 米の量を計算する
+     *
+     * 米の炭水化物 = 目標炭水化物 - オプション食材の炭水化物
+     */
+    const targetCarboGram =
+      CalcNutrients.carboPctToGram(
+        this.state.targetCalorie,
+        this.state.carboPct
+      ) - this.calcAdditionalFoodsCarboGram();
     const riceGram =
       (targetCarboGram / foodsData.rice.carbo) * foodsData.rice.unitGram;
-    return Math.floor(riceGram);
+    return new Ingredient("米", riceGram, "g", 1, "rice");
   };
 
-  private calcChickenGram = (): number => {
+  private calcChickenGram = (): Ingredient => {
+    /**
+     * 鶏むね肉の量を計算する
+     *
+     * 鶏むね肉のタンパク質 = 目標タンパク質 - 米のタンパク質 - オプション食材のタンパク質
+     */
+    const subtractingProteinGram =
+      this.calcRiceGram().proteinGram() + this.calcAdditionalFoodsProteinGram();
     const targetProteinGram =
-      proteinPctToGram(this.state.targetCalorie, this.state.proteinPct) -
-      (this.calcRiceGram() / foodsData.rice.unitGram) * foodsData.rice.protein;
-    const chickenGram =
-      (targetProteinGram / foodsData.chicken.protein) *
-      foodsData.chicken.unitGram;
-    return Math.floor(chickenGram);
+      CalcNutrients.proteinPctToGram(
+        this.state.targetCalorie,
+        this.state.proteinPct
+      ) - subtractingProteinGram;
+    const chicken = new Ingredient("鶏むね肉(皮無し)", 0, "g", 1, "chicken");
+    chicken.setQuantityByTargetProtein(targetProteinGram);
+    return chicken;
   };
 
-  private calcTotalProteinGram = (): number => {
-    return (
-      (this.calcRiceGram() / foodsData.rice.unitGram) * foodsData.rice.protein +
-      (this.calcChickenGram() / foodsData.chicken.unitGram) *
-        foodsData.chicken.protein
-    );
-  };
-
-  private calcTotalFatGram = (): number => {
-    return (
-      (this.calcRiceGram() / foodsData.rice.unitGram) * foodsData.rice.fat +
-      (this.calcChickenGram() / foodsData.chicken.unitGram) *
-        foodsData.chicken.fat
-    );
-  };
-
-  private calcTotalCarboGram = (): number => {
-    return (
-      (this.calcRiceGram() / foodsData.rice.unitGram) * foodsData.rice.carbo +
-      (this.calcChickenGram() / foodsData.chicken.unitGram) *
-        foodsData.chicken.carbo
-    );
-  };
-
-  private calcTotalCalorie = (): number => {
-    return (
-      calcFoodCalorie(this.calcRiceGram(), foodsData.rice) +
-      calcFoodCalorie(this.calcChickenGram(), foodsData.chicken)
-    );
-  };
-
-  private handleChangeEgg = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const egg = {
-      protein:
-        ((event.target.valueAsNumber * 60) / foodsData.egg.unitGram) *
-        foodsData.egg.protein,
-      fat:
-        ((event.target.valueAsNumber * 60) / foodsData.egg.unitGram) *
-        foodsData.egg.fat,
-      carbo:
-        ((event.target.valueAsNumber * 60) / foodsData.egg.unitGram) *
-        foodsData.egg.carbo,
+  private calcAdditionalFoodsProteinGram = (): number => {
+    // オプション食材の総タンパク質量を計算する
+    const reducer = (acc: number, [key, food]: [string, Ingredient]) => {
+      if (!food.netGram) {
+        return acc;
+      }
+      return acc + food.proteinGram();
     };
+    return Object.entries(this.state.additionalFoods).reduce(reducer, 0);
+  };
+
+  private calcAdditionalFoodsCarboGram = (): number => {
+    // オプション食材の総炭水化物量を計算する
+    const reducer = (acc: number, [key, food]: [string, Ingredient]) => {
+      if (!food.netGram) {
+        return acc;
+      }
+      return acc + food.carboGram();
+    };
+    return Object.entries(this.state.additionalFoods).reduce(reducer, 0);
+  };
+
+  private calcTotalCalorie = (ingredients: Ingredient[]): number => {
+    const calorie = ingredients.reduce<number>((cal, ingredient) => {
+      return cal + ingredient.netKCal();
+    }, 0);
+    return calorie;
+  };
+
+  private calcTotalProteinGram = (ingredients: Ingredient[]): number => {
+    return ingredients.reduce<number>((protein, ingredient) => {
+      return protein + ingredient.proteinGram();
+    }, 0);
+  };
+
+  private calcTotalFatGram = (ingredients: Ingredient[]): number => {
+    return ingredients.reduce<number>((fat, ingredient) => {
+      return fat + ingredient.fatGram();
+    }, 0);
+  };
+
+  private calcTotalCarboGram = (ingredients: Ingredient[]): number => {
+    return ingredients.reduce<number>((carbo, ingredient) => {
+      return carbo + ingredient.carboGram();
+    }, 0);
+  };
+
+  private dropAdditionalFood = (droppingKey: string) => {
+    const current = this.state.additionalFoods;
+    const newKeys = Object.keys(current).filter((key) => key !== droppingKey);
     this.setState({
-      additionalIngredients: Object.assign(this.state.additionalIngredients, {
-        egg,
-      }),
+      additionalFoods: Object.assign(
+        {},
+        ...newKeys.map((key) => {
+          return { [key]: current[key] };
+        })
+      ),
     });
+  };
+
+  private handleChangeAdditionalFood = (
+    name: string,
+    foodKey: string,
+    gramPerQty: number
+  ): ((value: number) => void) => {
+    // オプション食材変更のハンドラーを返す
+    if (!(foodKey in foodsData)) {
+      return () => {};
+    }
+    return (quantity: number) => {
+      if (!quantity) {
+        // 不正なQuantityのときは削除
+        this.dropAdditionalFood(foodKey);
+        return;
+      }
+      const food = new Ingredient(name, quantity, "個", gramPerQty, foodKey);
+      this.setState({
+        additionalFoods: Object.assign(this.state.additionalFoods, {
+          [foodKey]: food,
+        }),
+      });
+    };
   };
 
   public render() {
     // 計算結果
-    const totalCalorie = this.calcTotalCalorie();
-    const totalProtein = this.calcTotalProteinGram();
-    const totalFat = this.calcTotalFatGram();
-    const totalCarbo = this.calcTotalCarboGram();
+    const ingredients: Ingredient[] = [
+      this.calcRiceGram(),
+      this.calcChickenGram(),
+      ...Object.values(this.state.additionalFoods),
+    ];
+
+    const totalCalorie = this.calcTotalCalorie(ingredients);
+    const totalProtein = this.calcTotalProteinGram(ingredients);
+    const totalFat = this.calcTotalFatGram(ingredients);
+    const totalCarbo = this.calcTotalCarboGram(ingredients);
 
     const remainingFat =
       (this.state.targetCalorie * (this.state.fatPct / 100)) / 9 - totalFat;
-    const recalcedCalorie = totalCalorie + remainingFat * 9;
+
+    const showAdditionalFoodRows = (foods: Ingredient[]) => {
+      return Object.entries(foods).map(([_, food]) => {
+        return (
+          <tr>
+            <td>{food.name}</td>
+            <td>{food.netGram.toFixed(1)}g</td>
+            <td>
+              {food.netKCal().toFixed(2)}
+              kcal
+            </td>
+            <td>{food.proteinGram().toFixed(1)}g</td>
+            <td>{food.fatGram().toFixed(1)}g</td>
+            <td>{food.carboGram().toFixed(1)}g</td>
+          </tr>
+        );
+      });
+    };
 
     return (
       <div className="App">
@@ -214,155 +267,90 @@ class App extends React.Component<Props, State> {
         <div>
           <h2>Step 2</h2>
           <p>目標PFCバランスを入力してください</p>
-          <div>
-            <span>タンパク質</span>
-            <input
-              type="number"
-              value={this.state.proteinPct}
-              onChange={this.handleChangeProteinPct}
-            />
-            <span>%</span>
-          </div>
-          <div>
-            <span>脂質</span>
-            <input
-              type="number"
-              value={this.state.fatPct}
-              onChange={this.handleChangeFatPct}
-            />
-            <span>%</span>
-          </div>
-          <div>
-            <span>炭水化物</span>
-            <input
-              type="number"
-              value={this.state.carboPct}
-              onChange={this.handleChangeCarboPct}
-            />
-            <span>%</span>
-          </div>
-          <p>
-            {this.validatePfcBalance()
-              ? ""
-              : "合計が100%になるように入力してください"}
-          </p>
+          <PercentageInput
+            title="タンパク質"
+            value={this.state.proteinPct}
+            onChange={this.handleChangeProteinPct}
+          />
+          <PercentageInput
+            title="脂質"
+            value={this.state.fatPct}
+            onChange={this.handleChangeFatPct}
+          />
+          <PercentageInput
+            title="炭水化物"
+            value={this.state.carboPct}
+            onChange={this.handleChangeCarboPct}
+          />
+          <p>{this.validatePfcBalance()?.message}</p>
         </div>
 
         <div>
           <h2>オプション</h2>
 
-          <div>
-            <input type="checkbox" />
-            <span>卵を食べる</span>
-          </div>
-          <div>
-            <span>卵</span>
-            <input type="number" onChange={this.handleChangeEgg} />
-            <span>個</span>
-          </div>
+          <AdditionalFoodInput
+            title="卵を食べる"
+            foodName="卵"
+            foodKey="egg"
+            unitName="個"
+            value={this.state.additionalFoods.egg?.getQuantity()}
+            onChange={this.handleChangeAdditionalFood("卵", "egg", 60)}
+          />
 
-          <div>
-            <input type="checkbox" />
-            <span>プロテインを飲む</span>
-          </div>
-          <div>
-            <span>プロテイン</span>
-            <input type="number" />
-            <span>g</span>
-          </div>
+          <AdditionalFoodInput
+            title="プロテインを飲む"
+            foodName="プロテイン"
+            foodKey="wheyProtein"
+            unitName="g"
+            value={this.state.additionalFoods.wheyProtein?.getQuantity()}
+            onChange={this.handleChangeAdditionalFood(
+              "プロテイン",
+              "wheyProtein",
+              1
+            )}
+          />
         </div>
 
         <div>
           <h2>計算結果</h2>
 
-          <h3>食材</h3>
-          <div>
-            <span>米</span>
-            <span>{this.calcRiceGram()}</span>
-            <span>g</span>
-          </div>
-          <div>
-            <span>鶏むね肉（皮無し）</span>
-            <span>{this.calcChickenGram()}</span>
-            <span>g</span>
-          </div>
+          <h3>食材一覧</h3>
+
+          <table>
+            <tr>
+              <th>食材</th>
+              <th>総重量</th>
+              <th>総カロリー</th>
+              <th>タンパク質</th>
+              <th>脂質</th>
+              <th>炭水化物</th>
+            </tr>
+            {showAdditionalFoodRows(ingredients)}
+          </table>
 
           <h3>総カロリー</h3>
           <div>
-            <span>{Math.floor(totalCalorie)}</span>
+            <span>{totalCalorie.toFixed(1)}</span>
             <span>kcal</span>
           </div>
 
           <h3>栄養素内訳</h3>
           <div>
-            <span>
-              タンパク質 {Math.round(((totalProtein * 4) / totalCalorie) * 100)}
-              % :{" "}
-            </span>
-            <span>
-              {Math.round(totalProtein)}g / {Math.round(totalProtein * 4)}kcal
-            </span>
+            タンパク質 {totalProtein.toFixed(1)}g (
+            {((100 * 4 * totalProtein) / this.state.targetCalorie).toFixed(1)}%)
           </div>
           <div>
-            <span>
-              脂質 {Math.round(((totalFat * 9) / totalCalorie) * 100)}% :{" "}
-            </span>
-            <span>
-              {Math.round(totalFat)}g / {Math.round(totalFat * 9)}
-              kcal
-            </span>
+            脂質 {totalFat.toFixed(1)}g (
+            {((100 * 4 * totalFat) / this.state.targetCalorie).toFixed(1)}%)
           </div>
           <div>
-            <span>
-              炭水化物 {Math.round(((totalCarbo * 4) / totalCalorie) * 100)}% :{" "}
-            </span>
-            <span>
-              {Math.round(totalCarbo)}g / {Math.round(totalCarbo * 4)}kcal
-            </span>
+            炭水化物 {totalCarbo.toFixed(1)}g (
+            {((100 * 4 * totalCarbo) / this.state.targetCalorie).toFixed(1)}%)
           </div>
 
-          <p>このままだと脂質が不足しています！</p>
-          <p>
-            {Math.round(remainingFat)}
-            gの脂質を追加で摂取してください
-          </p>
-
-          <h3>栄養素内訳（再計算）</h3>
-          <div>
-            <span>
-              タンパク質{" "}
-              {Math.round(((totalProtein * 4) / recalcedCalorie) * 100)}% :{" "}
-            </span>
-            <span>
-              {Math.round(totalProtein)}g / {Math.round(totalProtein * 4)}kcal
-            </span>
-          </div>
-          <div>
-            <span>
-              脂質{" "}
-              {Math.round(
-                (((totalFat + remainingFat) * 9) / recalcedCalorie) * 100
-              )}
-              % :{" "}
-            </span>
-            <span>
-              {Math.round(totalFat + remainingFat)}g /{" "}
-              {Math.round((totalFat + remainingFat) * 9)}kcal
-            </span>
-          </div>
-          <div>
-            <span>
-              炭水化物 {Math.round(((totalCarbo * 4) / recalcedCalorie) * 100)}%
-              :{" "}
-            </span>
-            <span>
-              {Math.round(totalCarbo)}g / {Math.round(totalCarbo * 4)}kcal
-            </span>
-          </div>
+          <div>脂質が{remainingFat.toFixed(1)}g不足しています！</div>
         </div>
       </div>
     );
   }
 }
-
-export default App;
