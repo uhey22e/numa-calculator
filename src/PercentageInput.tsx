@@ -1,4 +1,6 @@
 import React from "react";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 type Props = {
   title: string;
@@ -12,9 +14,17 @@ const PercentageInput = (props: Props) => {
   };
   return (
     <div>
-      <span>{props.title}</span>
-      <input type="number" value={props.value} onChange={handleChange} />
-      <span>%</span>
+      <TextField
+        label={props.title}
+        size="small"
+        type="number"
+        variant="outlined"
+        value={props.value}
+        onChange={handleChange}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">%</InputAdornment>,
+        }}
+      />
     </div>
   );
 };

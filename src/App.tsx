@@ -5,6 +5,8 @@ import CalcNutrients from "./calcNutrients";
 import PercentageInput from "./PercentageInput";
 import AdditionalFoodInput from "./AdditionalFoodInput";
 import Ingredient from "./ingredient";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 type Props = {};
 type State = {
@@ -250,12 +252,19 @@ export default class App extends React.Component<Props, State> {
           <h2>Step 1</h2>
           <p>1日の目標摂取カロリーを入力してください</p>
           <div>
-            <input
+            <TextField
+              label="目標摂取カロリー"
+              size="small"
               type="number"
+              variant="outlined"
               value={this.state.targetCalorie}
               onChange={this.handleChangeTargetCalorie}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">kcal</InputAdornment>
+                ),
+              }}
             />
-            <span>kcal</span>
           </div>
           <div>
             基礎代謝量の計算は

@@ -1,4 +1,6 @@
 import React from "react";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 type Props = {
   title: string;
@@ -16,11 +18,19 @@ export default function AdditionalFoodInput(props: Props) {
   return (
     <div>
       <div>{props.title}</div>
-      <div>
-        <span>{props.foodName}</span>
-        <input type="number" value={props.value} onChange={handleChangeQty} />
-        <span>{props.unitName}</span>
-      </div>
+      <TextField
+        label={props.foodName}
+        size="small"
+        type="number"
+        variant="outlined"
+        value={props.value}
+        onChange={handleChangeQty}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">{props.unitName}</InputAdornment>
+          ),
+        }}
+      />
     </div>
   );
 }
