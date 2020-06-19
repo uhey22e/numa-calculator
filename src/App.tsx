@@ -12,7 +12,7 @@ type Props = {};
 type State = {
   // 目標摂取カロリー
   targetCalorie: number;
-  // PFCバランス - タンパク質[%]
+  // PFCバランス - たんぱく質[%]
   proteinPct: number;
   // PFCバランス - 脂質[%]
   fatPct: number;
@@ -55,7 +55,7 @@ export default class App extends React.Component<Props, State> {
 
   private handleChangeProteinPct = (value: number): void => {
     /**
-     * 目標タンパク質割合を更新する
+     * 目標たんぱく質割合を更新する
      */
     this.setState({
       proteinPct: value,
@@ -112,7 +112,7 @@ export default class App extends React.Component<Props, State> {
     /**
      * 鶏むね肉の量を計算する
      *
-     * 鶏むね肉のタンパク質 = 目標タンパク質 - 米のタンパク質 - オプション食材のタンパク質
+     * 鶏むね肉のたんぱく質 = 目標たんぱく質 - 米のたんぱく質 - オプション食材のたんぱく質
      */
     const subtractingProteinGram =
       this.calcRiceGram().proteinGram() + this.calcAdditionalFoodsProteinGram();
@@ -127,7 +127,7 @@ export default class App extends React.Component<Props, State> {
   };
 
   private calcAdditionalFoodsProteinGram = (): number => {
-    // オプション食材の総タンパク質量を計算する
+    // オプション食材の総たんぱく質量を計算する
     const reducer = (acc: number, [key, food]: [string, Ingredient]) => {
       if (!food.netGram) {
         return acc;
@@ -277,7 +277,7 @@ export default class App extends React.Component<Props, State> {
           <h2>Step 2</h2>
           <p>目標PFCバランスを入力してください</p>
           <PercentageInput
-            title="タンパク質"
+            title="たんぱく質"
             value={this.state.proteinPct}
             onChange={this.handleChangeProteinPct}
           />
@@ -330,7 +330,7 @@ export default class App extends React.Component<Props, State> {
               <th>食材</th>
               <th>総重量</th>
               <th>総カロリー</th>
-              <th>タンパク質</th>
+              <th>たんぱく質</th>
               <th>脂質</th>
               <th>炭水化物</th>
             </tr>
@@ -345,7 +345,7 @@ export default class App extends React.Component<Props, State> {
 
           <h3>栄養素内訳</h3>
           <div>
-            タンパク質 {totalProtein.toFixed(1)}g (
+            たんぱく質 {totalProtein.toFixed(1)}g (
             {((100 * 4 * totalProtein) / this.state.targetCalorie).toFixed(1)}%)
           </div>
           <div>
