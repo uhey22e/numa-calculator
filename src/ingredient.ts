@@ -36,8 +36,8 @@ export default class Ingredient {
     this.netGram = this.quantity * this.gramPerUnit;
   }
 
-  public setQuantityByTargetCarbo(carboGram: number) {
-    this.netGram = (carboGram / this.nutrients.carbo) * this.nutrients.unitGram;
+  public setQuantityByTargetCarbs(carbsGram: number) {
+    this.netGram = (carbsGram / this.nutrients.carbs) * this.nutrients.unitGram;
     this.quantity = this.netGram / this.gramPerUnit;
   }
 
@@ -48,7 +48,7 @@ export default class Ingredient {
   }
 
   public netKCal(): number {
-    return 4 * this.proteinGram() + 9 * this.fatGram() + 4 * this.carboGram();
+    return 4 * this.proteinGram() + 9 * this.fatGram() + 4 * this.carbsGram();
   }
 
   public proteinGram(): number {
@@ -59,7 +59,7 @@ export default class Ingredient {
     return (this.netGram / this.nutrients.unitGram) * this.nutrients.fat;
   }
 
-  public carboGram(): number {
-    return (this.netGram / this.nutrients.unitGram) * this.nutrients.carbo;
+  public carbsGram(): number {
+    return (this.netGram / this.nutrients.unitGram) * this.nutrients.carbs;
   }
 }

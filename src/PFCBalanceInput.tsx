@@ -21,7 +21,7 @@ const nutrients: {
     label: "脂質",
   },
   {
-    key: "carboPct",
+    key: "carbsPct",
     label: "炭水化物",
   },
 ];
@@ -29,7 +29,7 @@ const nutrients: {
 const defaultPFCBalance: PFCBalance = {
   proteinPct: 30,
   fatPct: 20,
-  carboPct: 50,
+  carbsPct: 50,
 };
 
 const validationFuncs: ((values: PFCBalance) => string | undefined)[] = [

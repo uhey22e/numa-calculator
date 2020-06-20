@@ -17,7 +17,7 @@ type State = {
   // PFCバランス - 脂質[%]
   fatPct: number;
   // PFCバランス - 炭水化物[%]
-  carboPct: number;
+  carbsPct: number;
   // 追加食材・サプリメント
   additionalFoods: {
     [key: string]: Ingredient;
@@ -37,7 +37,7 @@ export default class App extends React.Component<Props, State> {
       targetCalorie: 1500,
       proteinPct: 30,
       fatPct: 20,
-      carboPct: 50,
+      carbsPct: 50,
       additionalFoods: {},
     };
   }
@@ -71,12 +71,12 @@ export default class App extends React.Component<Props, State> {
     });
   };
 
-  private handleChangeCarboPct = (value: number): void => {
+  private handleChangeCarbsPct = (value: number): void => {
     /**
      * 目標炭水化物割合を更新する
      */
     this.setState({
-      carboPct: value,
+      carbsPct: value,
     });
   };
 
@@ -85,7 +85,7 @@ export default class App extends React.Component<Props, State> {
      * PFCバランスのバリデーション
      */
     if (
-      this.state.proteinPct + this.state.fatPct + this.state.carboPct !==
+      this.state.proteinPct + this.state.fatPct + this.state.carbsPct !==
       100
     ) {
       return { message: "合計が100%になるように入力してください" };
@@ -98,13 +98,13 @@ export default class App extends React.Component<Props, State> {
      *
      * 米の炭水化物 = 目標炭水化物 - オプション食材の炭水化物
      */
-    const targetCarboGram =
-      CalcNutrients.carboPctToGram(
+    const targetCarbsGram =
+      CalcNutrients.carbsPctToGram(
         this.state.targetCalorie,
-        this.state.carboPct
-      ) - this.calcAdditionalFoodsCarboGram();
+        this.state.carbsPct
+      ) - this.calcAdditionalFoodsCarbsGram();
     const riceGram =
-      (targetCarboGram / foodsData.rice.carbo) * foodsData.rice.unitGram;
+      (targetCarbsGram / foodsData.rice.carbs) * foodsData.rice.unitGram;
     return new Ingredient("米", riceGram, "g", 1, "rice");
   };
 
@@ -137,13 +137,13 @@ export default class App extends React.Component<Props, State> {
     return Object.entries(this.state.additionalFoods).reduce(reducer, 0);
   };
 
-  private calcAdditionalFoodsCarboGram = (): number => {
+  private calcAdditionalFoodsCarbsGram = (): number => {
     // オプション食材の総炭水化物量を計算する
     const reducer = (acc: number, [key, food]: [string, Ingredient]) => {
       if (!food.netGram) {
         return acc;
       }
-      return acc + food.carboGram();
+      return acc + food.carbsGram();
     };
     return Object.entries(this.state.additionalFoods).reduce(reducer, 0);
   };
@@ -167,9 +167,9 @@ export default class App extends React.Component<Props, State> {
     }, 0);
   };
 
-  private calcTotalCarboGram = (ingredients: Ingredient[]): number => {
-    return ingredients.reduce<number>((carbo, ingredient) => {
-      return carbo + ingredient.carboGram();
+  private calcTotalCarbsGram = (ingredients: Ingredient[]): number => {
+    return ingredients.reduce<number>((carbs, ingredient) => {
+      return carbs + ingredient.carbsGram();
     }, 0);
   };
 
@@ -221,7 +221,7 @@ export default class App extends React.Component<Props, State> {
     const totalCalorie = this.calcTotalCalorie(ingredients);
     const totalProtein = this.calcTotalProteinGram(ingredients);
     const totalFat = this.calcTotalFatGram(ingredients);
-    const totalCarbo = this.calcTotalCarboGram(ingredients);
+    const totalCarbs = this.calcTotalCarbsGram(ingredients);
 
     const remainingFat =
       (this.state.targetCalorie * (this.state.fatPct / 100)) / 9 - totalFat;
@@ -238,7 +238,7 @@ export default class App extends React.Component<Props, State> {
             </td>
             <td>{food.proteinGram().toFixed(1)}g</td>
             <td>{food.fatGram().toFixed(1)}g</td>
-            <td>{food.carboGram().toFixed(1)}g</td>
+            <td>{food.carbsGram().toFixed(1)}g</td>
           </tr>
         );
       });
@@ -288,8 +288,8 @@ export default class App extends React.Component<Props, State> {
           />
           <PercentageInput
             title="炭水化物"
-            value={this.state.carboPct}
-            onChange={this.handleChangeCarboPct}
+            value={this.state.carbsPct}
+            onChange={this.handleChangeCarbsPct}
           />
           <p>{this.validatePfcBalance()?.message}</p>
         </div>
@@ -353,8 +353,8 @@ export default class App extends React.Component<Props, State> {
             {((100 * 4 * totalFat) / this.state.targetCalorie).toFixed(1)}%)
           </div>
           <div>
-            炭水化物 {totalCarbo.toFixed(1)}g (
-            {((100 * 4 * totalCarbo) / this.state.targetCalorie).toFixed(1)}%)
+            炭水化物 {totalCarbs.toFixed(1)}g (
+            {((100 * 4 * totalCarbs) / this.state.targetCalorie).toFixed(1)}%)
           </div>
 
           <div>脂質が{remainingFat.toFixed(1)}g不足しています！</div>

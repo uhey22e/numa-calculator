@@ -2,7 +2,7 @@ export type Nutritients = {
   unitGram: number;
   protein: number;
   fat: number;
-  carbo: number;
+  carbs: number;
   description: string;
 };
 
@@ -15,7 +15,7 @@ const CalcNutrients = {
     return (totalCalorie * (pct / 100)) / 9;
   },
 
-  carboPctToGram: (totalCalorie: number, pct: number): number => {
+  carbsPctToGram: (totalCalorie: number, pct: number): number => {
     return (totalCalorie * (pct / 100)) / 4;
   },
 
@@ -27,8 +27,8 @@ const CalcNutrients = {
     return (netGram / food.unitGram) * food.fat;
   },
 
-  calcCarboGram: (netGram: number, food: Nutritients): number => {
-    return (netGram / food.unitGram) * food.carbo;
+  calcCarbsGram: (netGram: number, food: Nutritients): number => {
+    return (netGram / food.unitGram) * food.carbs;
   },
 };
 
