@@ -1,5 +1,3 @@
-import { Nutritients } from "./calcNutrients";
-
 export default {
   rice: {
     unitGram: 100,
@@ -29,17 +27,11 @@ export default {
     carbs: 0.3,
     description: "鶏卵",
   },
-  wheyProtein: {
+  proteinPowder: {
     unitGram: 100,
     protein: 82,
     fat: 7.5,
     carbs: 4.0,
     description: "MyProtein Impactホエイプロテイン(ミルクティー)",
   },
-} as {
-  rice: Nutritients;
-  chicken: Nutritients;
-  milk: Nutritients;
-  egg: Nutritients;
-  wheyProtein: Nutritients;
 };

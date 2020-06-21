@@ -1,0 +1,18 @@
+import React from "react";
+import { action } from "@storybook/addon-actions";
+import AdditionalFoodInput from "../AdditionalFoodInput";
+
+export default {
+  title: "AdditionalFoodInput",
+  component: AdditionalFoodInput,
+};
+
+export const basicUsage = () => (
+  <AdditionalFoodInput
+    title="卵を食べる"
+    foodName="卵"
+    foodKey="egg"
+    unitName="個"
+    onChange={action("onChange")}
+  />
+);
