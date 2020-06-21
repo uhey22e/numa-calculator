@@ -1,10 +1,18 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
 import CalcurationResult from "../CalcurationResult";
+import Ingredient from "../ingredient";
 
 export default {
   title: "CalcurationResult",
   component: CalcurationResult,
 };
 
-export const basicUsage = () => <CalcurationResult />;
+const ingredients: Ingredient[] = [
+  Ingredient.fromTargetCarbs("rice", "米", 187.5),
+  Ingredient.fromTargetProtein("chicken", "皮無し鶏むね肉", 120),
+  new Ingredient("proteinPowder", "プロテイン", 28),
+  new Ingredient("egg", "鶏卵", 2, "個"),
+  new Ingredient("milk", "牛乳", 200, "mL"),
+];
+
+export const basicUsage = () => <CalcurationResult ingredients={ingredients} />;

@@ -1,10 +1,4 @@
-export type Nutritients = {
-  unitGram: number;
-  protein: number;
-  fat: number;
-  carbs: number;
-  description: string;
-};
+import { Nutritients } from "./foodsData";
 
 const CalcNutrients = {
   proteinPctToGram: (totalCalorie: number, pct: number): number => {

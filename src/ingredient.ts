@@ -1,28 +1,45 @@
-import foodsData from "./foodsData";
-import { Nutritients } from "./calcNutrients";
+import foodsData, { Nutritients } from "./foodsData";
 
 export default class Ingredient {
   public name: string;
   public quantity: number;
-  public unitName: string;
-  public gramPerUnit: number;
+  private _unitName: string = "g";
+  private gramPerUnit: number;
   private nutrients: Nutritients;
 
   constructor(
     foodKey: keyof typeof foodsData,
     name: string,
     quantity: number,
-    unitName: string = "g",
-    gramPerUnit: number = 1
+    unitName: string = "g"
   ) {
-    if (!(foodKey in foodsData)) {
-      throw new Error("Invalid foodKey.");
-    }
     this.name = name;
     this.quantity = quantity;
-    this.unitName = unitName;
-    this.gramPerUnit = gramPerUnit;
+    this._unitName = unitName;
     this.nutrients = foodsData[foodKey];
+
+    if (unitName === "g") {
+      this.gramPerUnit = 1;
+      return;
+    }
+
+    const units = foodsData[foodKey].availableUnits.filter(
+      (unit) => unit.unitName === unitName
+    );
+    if (unitName !== "g" && units.length === 0) {
+      const availableUnitNames = JSON.stringify(
+        foodsData[foodKey].availableUnits.map<string>((unit) => unit.unitName)
+      );
+      throw new Error(
+        "Invalid unitName." +
+          ` Available units of ${foodKey} are ${availableUnitNames}`
+      );
+    }
+    this.gramPerUnit = units[0].gramPerUnit;
+  }
+
+  public get unitName(): string {
+    return this._unitName;
   }
 
   public get netGram(): number {

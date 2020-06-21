@@ -9,8 +9,7 @@ type Props = {
   foodName: string;
   foodKey: string;
   unitName: string;
-  value?: number;
-  onChange: (food: Ingredient | undefined) => void;
+  onChange: (food: Ingredient | void) => void;
 };
 
 type ValidationFunc<T> = (value: T) => string | void;
@@ -30,18 +29,25 @@ const validationFuncs: ValidationFunc<number>[] = [
 
 export default function AdditionalFoodInput(props: Props) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value === "") {
+      // empty input
+      props.onChange();
+      return;
+    }
+
+    // Validate value
     for (let fn of validationFuncs) {
       const errMsg = fn(event.target.valueAsNumber);
       if (errMsg) {
         return;
       }
     }
+
     const newFood = new Ingredient(
-      "egg",
+      props.foodKey,
       props.foodName,
       event.target.valueAsNumber,
-      props.unitName,
-      60
+      props.unitName
     );
     props.onChange(newFood);
   };
@@ -49,7 +55,7 @@ export default function AdditionalFoodInput(props: Props) {
     <div>
       <div>{props.title}</div>
       <TextField
-        label={props.foodName}
+        // label={props.foodName}
         size="small"
         type="number"
         variant="outlined"

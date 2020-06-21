@@ -6,17 +6,12 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import Ingredient from "./ingredient";
 
-type Props = {};
+type Props = {
+  ingredients: Ingredient[];
+};
 
 export default function CalcurationResult(props: Props) {
   const [isDetailView, setIsDetailView] = React.useState<boolean>(false);
-  const ingredients: Ingredient[] = [
-    new Ingredient("rice", "米", 220),
-    new Ingredient("chicken", "皮無し鶏むね肉", 512),
-    new Ingredient("proteinPowder", "プロテイン", 1, "杯", 28),
-    new Ingredient("egg", "鶏卵", 2, "個", 60),
-    Ingredient.FromTargetCarbs("rice", "米", 187.5),
-  ];
 
   const basicCols = (row: Ingredient) => {
     return (
@@ -51,7 +46,7 @@ export default function CalcurationResult(props: Props) {
     <>
       <Table size="small">
         <TableBody>
-          {ingredients.map((row) => (
+          {props.ingredients.map((row) => (
             <TableRow key={row.name}>
               {basicCols(row)}
               {detailCols(row)}
