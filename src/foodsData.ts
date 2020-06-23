@@ -67,6 +67,15 @@ const foodsData: {
     note: "MyProtein Impactホエイプロテイン(ミルクティー)",
     availableUnits: [],
   },
+  frozenAsari: {
+    unitGram: 100,
+    protein: 13.3,
+    fat: 1.6,
+    carbs: 4.9,
+    description: "冷凍あさりむき身",
+    note: "CGC 断然お得 むきあさり",
+    availableUnits: [],
+  },
 };
 
 export default foodsData;

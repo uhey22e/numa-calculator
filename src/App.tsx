@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import foodsData from "./foodsData";
 import AdditionalFoodInput from "./AdditionalFoodInput";
 import Ingredient from "./ingredient";
 import TargetCalorieInput from "./TargetCalorieInput";
 import PFCBalanceInput from "./PFCBalanceInput";
 import CalcurationResult from "./CalcurationResult";
 import { PFCBalance } from "./types";
+import { isNullOrUndefined } from "util";
 
 type Props = {};
 type State = {
@@ -46,8 +46,8 @@ export default function App(props: Props) {
     };
   };
   // Filter out 'undefined'
-  const validAdditionalFoods = Object.values(ingredients).filter((v) =>
-    Boolean(v)
+  const validAdditionalFoods = Object.values(ingredients).filter(
+    (v) => v !== undefined
   ) as Ingredient[];
   const additionalFoodProteinGram = validAdditionalFoods.reduce<number>(
     (acc, cur) => {
@@ -55,11 +55,8 @@ export default function App(props: Props) {
     },
     0
   );
-  const additionalFoodCarbsGram = validAdditionalFoods.reduce<number>(
-    (acc, cur) => {
-      return acc + cur.carbsGram;
-    },
-    0
+  const additionalFoodCarbsGram = Ingredient.totalCarbsGram(
+    validAdditionalFoods
   );
 
   // Calc amount of rice and chicken
@@ -75,6 +72,10 @@ export default function App(props: Props) {
     "皮無し鶏むね肉",
     targetProteinGram
   );
+
+  const remainingFat =
+    (targetCalorie * pfcBalance.fatPct) / 100 / 9 -
+    Ingredient.totalFatGram([rice, chicken, ...validAdditionalFoods]);
 
   return (
     <div className="App">
@@ -105,6 +106,13 @@ export default function App(props: Props) {
         <h2>オプション</h2>
 
         <div>
+          <AdditionalFoodInput
+            title="沼に冷凍あさりを入れる"
+            foodName="冷凍あさり"
+            foodKey="frozenAsari"
+            unitName="g"
+            onChange={handleChangeAdditionalFoods("frozenAsari")}
+          />
           <AdditionalFoodInput
             title="卵を食べる"
             foodName="卵"
@@ -138,7 +146,7 @@ export default function App(props: Props) {
           ingredients={[rice, chicken, ...validAdditionalFoods]}
         />
 
-        {/* <div>脂質が{remainingFat.toFixed(1)}g不足しています！</div> */}
+        <div>脂質が{remainingFat.toFixed(1)}g不足しています！</div>
       </div>
     </div>
   );

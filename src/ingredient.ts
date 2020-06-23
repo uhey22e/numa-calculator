@@ -81,4 +81,22 @@ export default class Ingredient {
       (proteinGram / foodsData[foodKey].protein) * foodsData[foodKey].unitGram;
     return new Ingredient(foodKey, name, netGram);
   }
+
+  static totalKCal(ingredients: Ingredient[]): number {
+    return ingredients.reduce<number>((acc, cur: Ingredient) => {
+      return acc + cur.netKCal;
+    }, 0);
+  }
+
+  static totalCarbsGram(ingredients: Ingredient[]): number {
+    return ingredients.reduce<number>((acc, cur: Ingredient) => {
+      return acc + cur.carbsGram;
+    }, 0);
+  }
+
+  static totalFatGram(ingredients: Ingredient[]): number {
+    return ingredients.reduce<number>((acc, cur: Ingredient) => {
+      return acc + cur.fatGram;
+    }, 0);
+  }
 }

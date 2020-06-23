@@ -83,6 +83,7 @@ export default function PFCBalanceInput(props: Props) {
   const nutrientsInput = nutrients.map((nutrient) => {
     return (
       <TextField
+        key={nutrient.key}
         label={nutrient.label}
         size="small"
         type="number"
