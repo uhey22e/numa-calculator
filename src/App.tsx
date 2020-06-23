@@ -31,24 +31,14 @@ export default function App(props: Props) {
     fatPct: 20,
     carbsPct: 50,
   });
-  const [ingredients, setIngredients] = React.useState<{
+  const [additionalFoods, setAdditionalFoods] = React.useState<{
     [key: string]: Ingredient | undefined;
   }>({});
 
-  // Nutrients of additional foods
-  const handleChangeAdditionalFoods = (key: string) => {
-    return (food: Ingredient | undefined) => {
-      setIngredients(
-        Object.assign({}, ingredients, {
-          [key]: food,
-        })
-      );
-    };
-  };
   // Filter out 'undefined'
-  const validAdditionalFoods = Object.values(ingredients).filter(
-    (v) => v !== undefined
-  ) as Ingredient[];
+  const validAdditionalFoods = Object.values(additionalFoods).filter<
+    Ingredient
+  >((v: Ingredient | undefined): v is Ingredient => v !== undefined);
   const additionalFoodProteinGram = validAdditionalFoods.reduce<number>(
     (acc, cur) => {
       return acc + cur.proteinGram;
@@ -76,6 +66,16 @@ export default function App(props: Props) {
   const remainingFat =
     (targetCalorie * pfcBalance.fatPct) / 100 / 9 -
     Ingredient.totalFatGram([rice, chicken, ...validAdditionalFoods]);
+
+  const handleChangeAdditionalFoods = (key: string) => {
+    return (food: Ingredient | undefined) => {
+      setAdditionalFoods(
+        Object.assign({}, additionalFoods, {
+          [key]: food,
+        })
+      );
+    };
+  };
 
   return (
     <div className="App">
