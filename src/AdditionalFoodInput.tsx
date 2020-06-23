@@ -9,7 +9,8 @@ type Props = {
   foodName: string;
   foodKey: string;
   unitName: string;
-  onChange: (food: Ingredient | void) => void;
+  // Food is undefined when field is cleared
+  onChange: (food: Ingredient | undefined) => void;
 };
 
 type ValidationFunc<T> = (value: T) => string | void;
@@ -31,7 +32,7 @@ export default function AdditionalFoodInput(props: Props) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value === "") {
       // empty input
-      props.onChange();
+      props.onChange(undefined);
       return;
     }
 
