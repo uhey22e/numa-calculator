@@ -1,36 +1,23 @@
 import React from "react";
-import "./App.css";
-import AdditionalFoodInput from "./AdditionalFoodInput";
-import Ingredient from "./ingredient";
-import TargetCalorieInput from "./TargetCalorieInput";
-import PFCBalanceInput from "./PFCBalanceInput";
-import CalcurationResult from "./CalcurationResult";
-import { PFCBalance } from "./types";
-import { isNullOrUndefined } from "util";
+import AdditionalFoodInput from "../components/AdditionalFoodInput";
+import TargetCalorieInput from "../components/TargetCalorieInput";
+import PFCBalanceInput from "../components/PFCBalanceInput";
+import CalcurationResult from "../components/CalcurationResult";
+import Ingredient from "../ingredient";
+import { PFCBalance } from "../types";
 
 type Props = {};
-type State = {
-  // 目標摂取カロリー
-  targetCalorie: number;
-  // PFCバランス - たんぱく質[%]
-  proteinPct: number;
-  // PFCバランス - 脂質[%]
-  fatPct: number;
-  // PFCバランス - 炭水化物[%]
-  carbsPct: number;
-  // 追加食材・サプリメント
-  additionalFoods: {
-    [key: string]: Ingredient;
-  };
-};
 
 export default function App(props: Props) {
+  // 目標摂取カロリー
   const [targetCalorie, setTargetCalorie] = React.useState<number>(0);
+  // PFCバランス
   const [pfcBalance, setPFCBalance] = React.useState<PFCBalance>({
     proteinPct: 30,
     fatPct: 20,
     carbsPct: 50,
   });
+  // 追加食材・サプリメント
   const [additionalFoods, setAdditionalFoods] = React.useState<{
     [key: string]: Ingredient | undefined;
   }>({});

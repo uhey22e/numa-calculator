@@ -1,8 +1,8 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { PFCBalance } from "./types";
-import { validationErrorMessage } from "./messages";
+import { PFCBalance } from "../types";
+import { validationErrorMessage } from "../messages";
 
 type Props = {
   onChange?: (value: PFCBalance) => void;
