@@ -5,15 +5,45 @@ const acceptableErrorDigits = 4;
 
 test("Nutrients of rice", () => {
   const rice = new Ingredient("rice", "米", 150);
+
+  expect(rice.proteinGram).toBeCloseTo(
+    1.5 * foodsData.rice.protein,
+    acceptableErrorDigits
+  );
+  expect(rice.fatGram).toBeCloseTo(
+    1.5 * foodsData.rice.fat,
+    acceptableErrorDigits
+  );
+  expect(rice.carbsGram).toBeCloseTo(
+    1.5 * foodsData.rice.carbs,
+    acceptableErrorDigits
+  );
+});
+
+test("Aggregation", () => {
+  const rice = new Ingredient("rice", "米", 100);
+
+  expect(Ingredient.totalKCal([rice, rice])).toBeCloseTo(2 * rice.netKCal);
+  expect(Ingredient.totalCarbsGram([rice, rice])).toBeCloseTo(
+    2 * rice.carbsGram
+  );
+  expect(Ingredient.totalFatGram([rice, rice])).toBeCloseTo(2 * rice.fatGram);
+});
+
+test("Nutrients of rice", () => {
+  const rice = new Ingredient("rice", "米", 150);
   const carbs = rice.carbsGram;
   expect(carbs).toBeCloseTo(1.5 * foodsData.rice.carbs, acceptableErrorDigits);
 });
 
 test("Construct with unitName", () => {
-  const threeEggs = new Ingredient("egg", "卵", 3, "個");
+  const unitName = "個";
+  const invalidUnitName = "mL";
+  const threeEggs = new Ingredient("egg", "卵", 3, unitName);
+  expect(threeEggs.unitName).toBe(unitName);
   expect(threeEggs.netGram).toBe(180);
   expect(() => {
-    new Ingredient("egg", "卵", 3, "mL");
+    new Ingredient("egg", "卵", 3, invalidUnitName);
   }).toThrowError();
 });
 
