@@ -1,6 +1,6 @@
 import React from "react";
-import CalcurationResult from "../CalcurationResult";
-import Ingredient from "../ingredient";
+import CalcurationResult from "../src/components/CalcurationResult";
+import Ingredient from "../src/ingredient";
 
 export default {
   title: "CalcurationResult",

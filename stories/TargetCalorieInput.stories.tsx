@@ -1,6 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import TargetCalorieInput from "../TargetCalorieInput";
+import TargetCalorieInput from "../src/components/TargetCalorieInput";
 
 export default {
   title: "TargetCalorieInput",
