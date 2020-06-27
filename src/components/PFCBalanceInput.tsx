@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { PFCBalance } from "../types";
 import { validationErrorMessage } from "../messages";
+import Alert from "@material-ui/lab/Alert";
 
 type Props = {
   onChange?: (value: PFCBalance) => void;
@@ -94,14 +95,21 @@ export default function PFCBalanceInput(props: Props) {
           endAdornment: <InputAdornment position="end">%</InputAdornment>,
         }}
         error={Boolean(validationError)}
+        fullWidth
+        margin="dense"
       />
     );
   });
 
+  const validationErrorAlert = () => {
+    if (validationError === "") return;
+    return <Alert severity="error">{validationError}</Alert>;
+  };
+
   return (
     <div>
       <div>{nutrientsInput}</div>
-      <div>{validationError}</div>
+      {validationErrorAlert()}
     </div>
   );
 }
