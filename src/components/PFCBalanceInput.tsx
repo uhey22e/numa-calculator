@@ -7,6 +7,7 @@ import Alert from "@material-ui/lab/Alert";
 
 type Props = {
   onChange?: (value: PFCBalance) => void;
+  defaultValue?: PFCBalance;
 };
 
 const nutrients: {
@@ -33,29 +34,41 @@ const defaultPFCBalance: PFCBalance = {
   carbsPct: 50,
 };
 
-const validationFuncs: ((values: PFCBalance) => string | undefined)[] = [
-  (values) => {
-    for (let v of Object.values(values)) {
+const validationFuncs: ((value: PFCBalance) => string | undefined)[] = [
+  (value) => {
+    for (let v of Object.values(value)) {
       if (!v) return validationErrorMessage.INVALID_NUMBER;
     }
   },
-  (values) => {
-    for (let v of Object.values(values)) {
+  (value) => {
+    for (let v of Object.values(value)) {
       if (v < 0) return validationErrorMessage.INVALID_MINUS_VALUE;
     }
   },
-  (values) => {
-    const sum = Object.values(values).reduce<number>(
-      (acc, cur) => acc + cur,
-      0
-    );
+  (value) => {
+    const sum = Object.values(value).reduce<number>((acc, cur) => acc + cur, 0);
     if (sum !== 100) return validationErrorMessage.SUM_VALUE_IS_NOT_100;
   },
 ];
 
-export default function PFCBalanceInput(props: Props) {
-  const [values, setValues] = React.useState<PFCBalance>(defaultPFCBalance);
-  const [validationError, setValidationError] = React.useState<string>("");
+const getValidationMessage = (value: PFCBalance) => {
+  for (let fn of validationFuncs) {
+    const errMsg = fn(value);
+    if (errMsg) {
+      return errMsg;
+    }
+  }
+  return "";
+};
+
+export default function PFCBalanceInput({
+  onChange,
+  defaultValue = defaultPFCBalance,
+}: Props) {
+  const [values, setValues] = React.useState<PFCBalance>(defaultValue);
+  const [validationError, setValidationError] = React.useState<string>(
+    getValidationMessage(values)
+  );
 
   const handleChange = (prop: keyof PFCBalance) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -67,17 +80,10 @@ export default function PFCBalanceInput(props: Props) {
     setValues(newValues);
 
     // Validate value
-    for (let fn of validationFuncs) {
-      const errMsg = fn(newValues);
-      if (errMsg) {
-        setValidationError(errMsg);
-        return;
-      }
-    }
-    setValidationError("");
+    setValidationError(getValidationMessage(newValues));
 
-    if (props.onChange) {
-      props.onChange(newValues);
+    if (onChange) {
+      onChange(newValues);
     }
   };
 
@@ -89,7 +95,7 @@ export default function PFCBalanceInput(props: Props) {
         size="small"
         type="number"
         variant="outlined"
-        defaultValue={defaultPFCBalance[nutrient.key]}
+        defaultValue={defaultValue[nutrient.key]}
         onChange={handleChange(nutrient.key)}
         InputProps={{
           endAdornment: <InputAdornment position="end">%</InputAdornment>,

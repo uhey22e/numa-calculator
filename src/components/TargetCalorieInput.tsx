@@ -59,6 +59,7 @@ export default function TargetCalorieInput(props: Props) {
           endAdornment: <InputAdornment position="end">kcal</InputAdornment>,
         }}
         error={Boolean(validationError)}
+        fullWidth
       />
       <div>{validationError}</div>
     </div>

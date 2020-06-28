@@ -10,3 +10,13 @@ export default {
 export const basicUsage = () => (
   <PFCBalanceInput onChange={action("onChange")} />
 );
+
+export const withError = () => (
+  <PFCBalanceInput
+    defaultValue={{
+      proteinPct: 20,
+      fatPct: 5,
+      carbsPct: 70,
+    }}
+  />
+);

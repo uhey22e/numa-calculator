@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Ingredient from "../ingredient";
 import { validationErrorMessage } from "../messages";
+import { Typography } from "@material-ui/core";
 
 type Props = {
   title: string;
@@ -54,9 +55,8 @@ export default function AdditionalFoodInput(props: Props) {
   };
   return (
     <div>
-      <div>{props.title}</div>
+      <Typography>{props.title}</Typography>
       <TextField
-        // label={props.foodName}
         size="small"
         type="number"
         variant="outlined"
@@ -66,6 +66,8 @@ export default function AdditionalFoodInput(props: Props) {
             <InputAdornment position="end">{props.unitName}</InputAdornment>
           ),
         }}
+        fullWidth
+        margin="dense"
       />
     </div>
   );
