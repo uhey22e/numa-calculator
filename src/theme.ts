@@ -8,6 +8,15 @@ const theme = responsiveFontSizes(
       // In Chinese and Japanese the characters are usually larger,
       // so a smaller fontsize may be appropriate.
       fontSize: 14,
+      fontFamily: [
+        "Noto Sans JP",
+        "ヒラギノ角ゴ ProN W3",
+        "Hiragino Kaku Gothic ProN",
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        "sans-serif",
+      ].join(","),
     },
     palette: {
       background: {

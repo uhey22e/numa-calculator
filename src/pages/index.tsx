@@ -6,8 +6,7 @@ import CalcurationResult from "../components/CalcurationResult";
 import Ingredient from "../ingredient";
 import { PFCBalance } from "../types";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import { Container } from "@material-ui/core";
+import { Container, Box, Typography } from "@material-ui/core";
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -72,36 +71,39 @@ export default function App(props: Props) {
 
   return (
     <Container maxWidth="sm">
-      <h1>かんたん「沼」計算機</h1>
+      <Box component="div" m={3}>
+        <Typography align="center" variant="h4" component="h1">
+          かんたん「沼」計算機
+        </Typography>
+      </Box>
 
-      <p>1日の摂取カロリーとPFCバランスから、沼のレシピを逆算します。</p>
+      <Box component="div" marginBottom={2}>
+        <Typography variant="body1">
+          1日の摂取カロリーとPFCバランスから、沼のレシピを逆算します。
+        </Typography>
+      </Box>
 
-      <div>
-        <Typography variant="h6" component="h3">
+      <Box component="div" marginBottom={2}>
+        <Typography variant="subtitle1" component="h3">
           1日の目標摂取カロリーを入力
         </Typography>
-        <div>
-          <TargetCalorieInput onChange={setTargetCalorie} />
-        </div>
+        <TargetCalorieInput onChange={setTargetCalorie} />
         {/* <div>
           基礎代謝量の計算は
           <a href="https://keisan.casio.jp/exec/system/1161228736">こちら</a>
           を参考に！
         </div> */}
-      </div>
+      </Box>
 
-      <div>
-        <Typography variant="h6" component="h3">
+      <Box component="div" marginBottom={2}>
+        <Typography variant="subtitle1" component="h3">
           目標PFCバランスを入力
         </Typography>
-        <div>
-          <PFCBalanceInput onChange={setPFCBalance} />
-        </div>
-      </div>
+        <PFCBalanceInput onChange={setPFCBalance} />
+      </Box>
 
       <div>
-        <p></p>
-        <Typography variant="h6" component="h3">
+        <Typography variant="subtitle1" component="h3">
           追加食材・サプリメントを入力
         </Typography>
 

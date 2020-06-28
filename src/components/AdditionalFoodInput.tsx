@@ -55,7 +55,7 @@ export default function AdditionalFoodInput(props: Props) {
   };
   return (
     <div>
-      <Typography>{props.title}</Typography>
+      <Typography variant="body2">{props.title}</Typography>
       <TextField
         size="small"
         type="number"
@@ -67,7 +67,6 @@ export default function AdditionalFoodInput(props: Props) {
           ),
         }}
         fullWidth
-        margin="dense"
       />
     </div>
   );
