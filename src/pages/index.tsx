@@ -5,6 +5,12 @@ import PFCBalanceInput from "../components/PFCBalanceInput";
 import CalcurationResult from "../components/CalcurationResult";
 import Ingredient from "../ingredient";
 import { PFCBalance } from "../types";
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import { Container } from "@material-ui/core";
+
+let theme = createMuiTheme();
+theme = responsiveFontSizes(theme);
 
 type Props = {};
 
@@ -65,57 +71,64 @@ export default function App(props: Props) {
   };
 
   return (
-    <div className="App">
-      <h1>かんたん沼計算機</h1>
+    <Container maxWidth="sm">
+      <h1>かんたん「沼」計算機</h1>
+
+      <p>1日の摂取カロリーとPFCバランスから、沼のレシピを逆算します。</p>
 
       <div>
-        <h2>Step 1</h2>
-        <p>1日の目標摂取カロリーを入力してください</p>
+        <Typography variant="h6" component="h3">
+          1日の目標摂取カロリーを入力
+        </Typography>
         <div>
           <TargetCalorieInput onChange={setTargetCalorie} />
         </div>
-        <div>
+        {/* <div>
           基礎代謝量の計算は
           <a href="https://keisan.casio.jp/exec/system/1161228736">こちら</a>
           を参考に！
-        </div>
+        </div> */}
       </div>
 
       <div>
-        <h2>Step 2</h2>
-        <p>目標PFCバランスを入力してください</p>
+        <Typography variant="h6" component="h3">
+          目標PFCバランスを入力
+        </Typography>
         <div>
           <PFCBalanceInput onChange={setPFCBalance} />
         </div>
       </div>
 
       <div>
-        <h2>オプション</h2>
+        <p></p>
+        <Typography variant="h6" component="h3">
+          追加食材・サプリメントを入力
+        </Typography>
 
         <div>
           <AdditionalFoodInput
-            title="沼に冷凍あさりを入れる"
+            title="冷凍あさり"
             foodName="冷凍あさり"
             foodKey="frozenAsari"
             unitName="g"
             onChange={handleChangeAdditionalFoods("frozenAsari")}
           />
           <AdditionalFoodInput
-            title="卵を食べる"
+            title="卵"
             foodName="卵"
             foodKey="egg"
             unitName="個"
             onChange={handleChangeAdditionalFoods("egg")}
           />
           <AdditionalFoodInput
-            title="プロテインを飲む"
+            title="プロテイン"
             foodName="プロテインパウダー"
             foodKey="proteinPowder"
             unitName="g"
             onChange={handleChangeAdditionalFoods("proteinPowder")}
           />
           <AdditionalFoodInput
-            title="牛乳を飲む"
+            title="牛乳"
             foodName="牛乳"
             foodKey="milk"
             unitName="mL"
@@ -125,9 +138,13 @@ export default function App(props: Props) {
       </div>
 
       <div>
-        <h2>計算結果</h2>
+        <Typography variant="h5" component="h2">
+          計算結果
+        </Typography>
 
-        <h3>食材一覧</h3>
+        <Typography variant="h6" component="h3">
+          食材一覧
+        </Typography>
 
         <CalcurationResult
           ingredients={[rice, chicken, ...validAdditionalFoods]}
@@ -135,6 +152,6 @@ export default function App(props: Props) {
 
         <div>脂質が{remainingFat.toFixed(1)}g不足しています！</div>
       </div>
-    </div>
+    </Container>
   );
 }
