@@ -76,6 +76,20 @@ const foodsData: {
     note: "CGC 断然お得 むきあさり",
     availableUnits: [],
   },
+  oikos: {
+    unitGram: 113,
+    protein: 10.1,
+    fat: 0,
+    carbs: 12.3,
+    description: "オイコス",
+    note: "オイコス 加糖・プレーン",
+    availableUnits: [
+      {
+        unitName: "個",
+        gramPerUnit: 113,
+      },
+    ],
+  },
 };
 
 export default foodsData;
