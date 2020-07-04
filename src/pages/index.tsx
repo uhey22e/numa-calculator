@@ -5,11 +5,7 @@ import PFCBalanceInput from "../components/PFCBalanceInput";
 import CalcurationResult from "../components/CalcurationResult";
 import Ingredient from "../ingredient";
 import { PFCBalance } from "../types";
-import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { Container, Box, Typography } from "@material-ui/core";
-
-let theme = createMuiTheme();
-theme = responsiveFontSizes(theme);
 
 type Props = {};
 
@@ -139,12 +135,16 @@ export default function App(props: Props) {
         </div>
       </div>
 
-      <div>
-        <Typography variant="h5" component="h2">
-          計算結果
-        </Typography>
+      <Box height={50} />
 
-        <Typography variant="h6" component="h3">
+      <div>
+        <Box mb={2}>
+          <Typography variant="h5" component="h2" align="center">
+            計算結果
+          </Typography>
+        </Box>
+
+        <Typography variant="subtitle1" component="h3">
           食材一覧
         </Typography>
 
