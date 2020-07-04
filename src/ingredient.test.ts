@@ -30,12 +30,6 @@ test("Aggregation", () => {
   expect(Ingredient.totalFatGram([rice, rice])).toBeCloseTo(2 * rice.fatGram);
 });
 
-test("Nutrients of rice", () => {
-  const rice = new Ingredient("rice", "米", 150);
-  const carbs = rice.carbsGram;
-  expect(carbs).toBeCloseTo(1.5 * foodsData.rice.carbs, acceptableErrorDigits);
-});
-
 test("Construct with unitName", () => {
   const unitName = "個";
   const invalidUnitName = "mL";

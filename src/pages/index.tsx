@@ -1,11 +1,13 @@
 import React from "react";
+import Alert from "@material-ui/lab/Alert";
+import { Container, Box, Typography } from "@material-ui/core";
 import AdditionalFoodInput from "../components/AdditionalFoodInput";
 import TargetCalorieInput from "../components/TargetCalorieInput";
 import PFCBalanceInput from "../components/PFCBalanceInput";
 import CalcurationResult from "../components/CalcurationResult";
+import NutrientsDetail from "../components/NutrientsDetail";
 import Ingredient from "../ingredient";
 import { PFCBalance } from "../types";
-import { Container, Box, Typography } from "@material-ui/core";
 
 type Props = {};
 
@@ -81,6 +83,9 @@ export default function App(props: Props) {
 
       <Box component="div" marginBottom={2}>
         <Typography variant="subtitle1" component="h3">
+          <span role="img" aria-label="">
+            👉
+          </span>{" "}
           1日の目標摂取カロリーを入力
         </Typography>
         <TargetCalorieInput onChange={setTargetCalorie} />
@@ -93,6 +98,9 @@ export default function App(props: Props) {
 
       <Box component="div" marginBottom={2}>
         <Typography variant="subtitle1" component="h3">
+          <span role="img" aria-label="">
+            👉
+          </span>{" "}
           目標PFCバランスを入力
         </Typography>
         <PFCBalanceInput onChange={setPFCBalance} />
@@ -100,6 +108,9 @@ export default function App(props: Props) {
 
       <div>
         <Typography variant="subtitle1" component="h3">
+          <span role="img" aria-label="">
+            👉
+          </span>{" "}
           追加食材・サプリメントを入力
         </Typography>
 
@@ -152,7 +163,17 @@ export default function App(props: Props) {
           ingredients={[rice, chicken, ...validAdditionalFoods]}
         />
 
-        <div>脂質が{remainingFat.toFixed(1)}g不足しています！</div>
+        <Typography variant="subtitle1" component="h3">
+          栄養素詳細
+        </Typography>
+
+        <NutrientsDetail
+          ingredients={[rice, chicken, ...validAdditionalFoods]}
+        />
+
+        <Alert severity="warning">
+          脂質が{remainingFat.toFixed(1)}g不足しています
+        </Alert>
       </div>
     </Container>
   );

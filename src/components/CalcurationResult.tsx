@@ -3,7 +3,6 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import Button from "@material-ui/core/Button";
 import Ingredient from "../ingredient";
 
 type Props = {
@@ -26,10 +25,10 @@ export default function CalcurationResult(props: Props) {
     if (isDetailView) {
       return (
         <>
-          <TableCell align="right">{row.netKCal.toFixed(1)}kcal</TableCell>
-          <TableCell align="right">{row.proteinGram.toFixed(1)}g</TableCell>
-          <TableCell align="right">{row.fatGram.toFixed(1)}g</TableCell>
-          <TableCell align="right">{row.carbsGram.toFixed(1)}g</TableCell>
+          <TableCell align="right">{row.netKCal.toFixed(1)} kcal</TableCell>
+          <TableCell align="right">{row.proteinGram.toFixed(1)} g</TableCell>
+          <TableCell align="right">{row.fatGram.toFixed(1)} g</TableCell>
+          <TableCell align="right">{row.carbsGram.toFixed(1)} g</TableCell>
         </>
       );
     }
@@ -37,9 +36,9 @@ export default function CalcurationResult(props: Props) {
 
   const printQuantity = (food: Ingredient) => {
     if (food.unitName !== "g") {
-      return `${food.quantity}${food.unitName} (${food.netGram.toFixed(1)}g)`;
+      return `${food.quantity} ${food.unitName} (${food.netGram.toFixed(1)} g)`;
     }
-    return `${food.netGram.toFixed(1)}g`;
+    return `${food.netGram.toFixed(1)} g`;
   };
 
   return (
@@ -54,9 +53,6 @@ export default function CalcurationResult(props: Props) {
           ))}
         </TableBody>
       </Table>
-      <Button variant="outlined" onClick={() => setIsDetailView(!isDetailView)}>
-        {isDetailView ? "簡易表示に切り替え" : "詳細表示に切り替え"}
-      </Button>
     </>
   );
 }

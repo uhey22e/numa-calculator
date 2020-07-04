@@ -62,6 +62,24 @@ export default class Ingredient {
     return (this.netGram / this.nutrients.unitGram) * this.nutrients.carbs;
   }
 
+  public get proteinKcal(): number {
+    return 4 * this.proteinGram;
+  }
+
+  public get fatKcal(): number {
+    return 4 * this.fatGram;
+  }
+
+  public get carbsKcal(): number {
+    return 4 * this.carbsKcal;
+  }
+
+  /**
+   * Returns ingredient that meet the target carbs grams.
+   * @param foodKey Key of food
+   * @param name Name of food
+   * @param carbsGram Target carbs gram
+   */
   static fromTargetCarbs(
     foodKey: keyof typeof foodsData,
     name: string,
@@ -72,6 +90,12 @@ export default class Ingredient {
     return new Ingredient(foodKey, name, netGram);
   }
 
+  /**
+   * Returns ingredient that meet the target protein grams.
+   * @param foodKey Key of food
+   * @param name Name of food
+   * @param proteinGram Target protein gram
+   */
   static fromTargetProtein(
     foodKey: keyof typeof foodsData,
     name: string,
@@ -82,21 +106,67 @@ export default class Ingredient {
     return new Ingredient(foodKey, name, netGram);
   }
 
+  /**
+   * Sum up calories of ingredients
+   * @param ingredients List of ingredient
+   */
   static totalKCal(ingredients: Ingredient[]): number {
     return ingredients.reduce<number>((acc, cur: Ingredient) => {
       return acc + cur.netKCal;
     }, 0);
   }
 
+  /**
+   * Sum up protein grams of ingredients
+   * @param ingredients List of ingredient
+   */
+  static totalProteinGram(ingredients: Ingredient[]): number {
+    return ingredients.reduce<number>((acc, cur: Ingredient) => {
+      return acc + cur.proteinGram;
+    }, 0);
+  }
+
+  /**
+   * Sum up carbs grams of ingredients
+   * @param ingredients List of ingredient
+   */
   static totalCarbsGram(ingredients: Ingredient[]): number {
     return ingredients.reduce<number>((acc, cur: Ingredient) => {
       return acc + cur.carbsGram;
     }, 0);
   }
 
+  /**
+   * Sum up fat grams of ingredients
+   * @param ingredients List of ingredient
+   */
   static totalFatGram(ingredients: Ingredient[]): number {
     return ingredients.reduce<number>((acc, cur: Ingredient) => {
       return acc + cur.fatGram;
     }, 0);
+  }
+
+  /**
+   * Sum up protein calories of ingredients
+   * @param ingredients List of ingredient
+   */
+  static totalProteinKcal(ingredients: Ingredient[]): number {
+    return 4 * this.totalProteinGram(ingredients);
+  }
+
+  /**
+   * Sum up fat calories of ingredients
+   * @param ingredients List of ingredient
+   */
+  static totalFatKcal(ingredients: Ingredient[]): number {
+    return 9 * this.totalFatGram(ingredients);
+  }
+
+  /**
+   * Sum up carbs calories of ingredients
+   * @param ingredients List of ingredient
+   */
+  static totalCarbsKcal(ingredients: Ingredient[]): number {
+    return 4 * this.totalCarbsGram(ingredients);
   }
 }
