@@ -1,6 +1,8 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { Container, Box, Typography } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+import InputSection from "../components/InputSection";
 import AdditionalFoodInput from "../components/AdditionalFoodInput";
 import TargetCalorieInput from "../components/TargetCalorieInput";
 import PFCBalanceInput from "../components/PFCBalanceInput";
@@ -8,10 +10,13 @@ import CalcurationResult from "../components/CalcurationResult";
 import NutrientsDetail from "../components/NutrientsDetail";
 import Ingredient from "../ingredient";
 import { PFCBalance } from "../types";
+import logo from "../assets/logo_numa.png";
 
 type Props = {};
 
 export default function App(props: Props) {
+  const theme = useTheme();
+
   // 目標摂取カロリー
   const [targetCalorie, setTargetCalorie] = React.useState<number>(0);
   // PFCバランス
@@ -71,7 +76,28 @@ export default function App(props: Props) {
     <Container maxWidth="sm" style={{ backgroundColor: "#fff" }}>
       <Box component="div" p={3}>
         <Typography align="center" variant="h4" component="h1">
-          かんたん「沼」計算機
+          <span
+            style={{
+              verticalAlign: "bottom",
+            }}
+          >
+            かんたん
+          </span>
+          <img
+            src={logo}
+            style={{
+              height: theme.typography.fontSize * 3,
+              verticalAlign: "bottom",
+              margin: "0 4px",
+            }}
+          />
+          <span
+            style={{
+              verticalAlign: "bottom",
+            }}
+          >
+            計算機
+          </span>
         </Typography>
       </Box>
 
@@ -81,77 +107,51 @@ export default function App(props: Props) {
         </Typography>
       </Box>
 
-      <Box component="div" marginBottom={2}>
-        <Typography variant="subtitle1" component="h3">
-          <span role="img" aria-label="">
-            👉
-          </span>{" "}
-          1日の目標摂取カロリーを入力
-        </Typography>
+      <InputSection title="1日の目標摂取カロリーを入力">
         <TargetCalorieInput onChange={setTargetCalorie} />
-        {/* <div>
-          基礎代謝量の計算は
-          <a href="https://keisan.casio.jp/exec/system/1161228736">こちら</a>
-          を参考に！
-        </div> */}
-      </Box>
+      </InputSection>
 
-      <Box component="div" marginBottom={2}>
-        <Typography variant="subtitle1" component="h3">
-          <span role="img" aria-label="">
-            👉
-          </span>{" "}
-          目標PFCバランスを入力
-        </Typography>
+      <InputSection title="目標PFCバランスを入力">
         <PFCBalanceInput onChange={setPFCBalance} />
-      </Box>
+      </InputSection>
 
-      <div>
-        <Typography variant="subtitle1" component="h3">
-          <span role="img" aria-label="">
-            👉
-          </span>{" "}
-          追加食材・サプリメントを入力
-        </Typography>
-
-        <div>
-          <AdditionalFoodInput
-            title="冷凍あさり"
-            foodName="冷凍あさり"
-            foodKey="frozenAsari"
-            unitName="g"
-            onChange={handleChangeAdditionalFoods("frozenAsari")}
-          />
-          <AdditionalFoodInput
-            title="卵"
-            foodName="卵"
-            foodKey="egg"
-            unitName="個"
-            onChange={handleChangeAdditionalFoods("egg")}
-          />
-          <AdditionalFoodInput
-            title="プロテイン"
-            foodName="プロテインパウダー"
-            foodKey="proteinPowder"
-            unitName="g"
-            onChange={handleChangeAdditionalFoods("proteinPowder")}
-          />
-          <AdditionalFoodInput
-            title="牛乳"
-            foodName="牛乳"
-            foodKey="milk"
-            unitName="mL"
-            onChange={handleChangeAdditionalFoods("milk")}
-          />
-          <AdditionalFoodInput
-            title="オイコス"
-            foodName="オイコス"
-            foodKey="oikos"
-            unitName="個"
-            onChange={handleChangeAdditionalFoods("oikos")}
-          />
-        </div>
-      </div>
+      <InputSection title="追加食材・サプリメントを入力">
+        <AdditionalFoodInput
+          title="冷凍あさり"
+          foodName="冷凍あさり"
+          foodKey="frozenAsari"
+          unitName="g"
+          onChange={handleChangeAdditionalFoods("frozenAsari")}
+        />
+        <AdditionalFoodInput
+          title="卵"
+          foodName="卵"
+          foodKey="egg"
+          unitName="個"
+          onChange={handleChangeAdditionalFoods("egg")}
+        />
+        <AdditionalFoodInput
+          title="プロテイン"
+          foodName="プロテインパウダー"
+          foodKey="proteinPowder"
+          unitName="g"
+          onChange={handleChangeAdditionalFoods("proteinPowder")}
+        />
+        <AdditionalFoodInput
+          title="牛乳"
+          foodName="牛乳"
+          foodKey="milk"
+          unitName="mL"
+          onChange={handleChangeAdditionalFoods("milk")}
+        />
+        <AdditionalFoodInput
+          title="オイコス"
+          foodName="オイコス"
+          foodKey="oikos"
+          unitName="個"
+          onChange={handleChangeAdditionalFoods("oikos")}
+        />
+      </InputSection>
 
       <Box height={50} />
 
