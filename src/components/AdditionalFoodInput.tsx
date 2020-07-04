@@ -31,6 +31,8 @@ const validationFuncs: ValidationFunc<number>[] = [
 ];
 
 export default function AdditionalFoodInput(props: Props) {
+  const [isError, setIsError] = React.useState<boolean>(false);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value === "") {
       // empty input
@@ -42,9 +44,12 @@ export default function AdditionalFoodInput(props: Props) {
     for (let fn of validationFuncs) {
       const errMsg = fn(event.target.valueAsNumber);
       if (errMsg) {
+        setIsError(true);
+        props.onChange(undefined);
         return;
       }
     }
+    setIsError(false);
 
     const newFood = new Ingredient(
       props.foodKey,
@@ -61,6 +66,7 @@ export default function AdditionalFoodInput(props: Props) {
       </Box>
       <Box flexBasis={200} flexGrow={1}>
         <TextField
+          error={isError}
           size="small"
           type="number"
           variant="outlined"

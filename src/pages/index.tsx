@@ -68,8 +68,8 @@ export default function App(props: Props) {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box component="div" m={3}>
+    <Container maxWidth="sm" style={{ backgroundColor: "#fff" }}>
+      <Box component="div" p={3}>
         <Typography align="center" variant="h4" component="h1">
           かんたん「沼」計算機
         </Typography>
