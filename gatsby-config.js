@@ -5,9 +5,9 @@
  */
 
 module.exports = {
-  /* Your site config here */
   plugins: [
     "gatsby-plugin-react-helmet",
+    // Enable material-ui theme provider
     "gatsby-plugin-top-layout",
     "gatsby-plugin-material-ui",
   ],

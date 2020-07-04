@@ -49,7 +49,6 @@ export default function TargetCalorieInput(props: Props) {
   return (
     <div>
       <TextField
-        label="目標摂取カロリー"
         placeholder="1500"
         size="small"
         type="number"
@@ -60,6 +59,7 @@ export default function TargetCalorieInput(props: Props) {
         }}
         error={Boolean(validationError)}
         fullWidth
+        margin="dense"
       />
       <div>{validationError}</div>
     </div>

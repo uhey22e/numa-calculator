@@ -1,3 +1,9 @@
+---
+slug: "/blog/my-first-post"
+date: "2019-05-04"
+title: "My first blog post"
+---
+
 # レシピの計算方法について
 
 ここでは「かんたん沼計算機」の計算ロジックについて解説します。

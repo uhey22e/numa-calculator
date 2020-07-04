@@ -1,9 +1,10 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Box from "@material-ui/core/Box";
 import Ingredient from "../ingredient";
 import { validationErrorMessage } from "../messages";
-import { Typography } from "@material-ui/core";
 
 type Props = {
   title: string;
@@ -54,20 +55,25 @@ export default function AdditionalFoodInput(props: Props) {
     props.onChange(newFood);
   };
   return (
-    <div>
-      <Typography variant="body2">{props.title}</Typography>
-      <TextField
-        size="small"
-        type="number"
-        variant="outlined"
-        onChange={handleChange}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">{props.unitName}</InputAdornment>
-          ),
-        }}
-        fullWidth
-      />
-    </div>
+    <Box display="flex" flexDirection="row" alignItems="center">
+      <Box flexBasis={110} flexGrow={0}>
+        <Typography variant="body1">{props.title}</Typography>
+      </Box>
+      <Box flexBasis={200} flexGrow={1}>
+        <TextField
+          size="small"
+          type="number"
+          variant="outlined"
+          onChange={handleChange}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">{props.unitName}</InputAdornment>
+            ),
+          }}
+          fullWidth
+          margin="dense"
+        />
+      </Box>
+    </Box>
   );
 }

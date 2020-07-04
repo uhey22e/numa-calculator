@@ -1,6 +1,5 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import { Box, InputAdornment, TextField, Typography } from "@material-ui/core";
 import { PFCBalance } from "../types";
 import { validationErrorMessage } from "../messages";
 import Alert from "@material-ui/lab/Alert";
@@ -89,21 +88,31 @@ export default function PFCBalanceInput({
 
   const nutrientsInput = nutrients.map((nutrient) => {
     return (
-      <TextField
+      <Box
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
         key={nutrient.key}
-        label={nutrient.label}
-        size="small"
-        type="number"
-        variant="outlined"
-        defaultValue={defaultValue[nutrient.key]}
-        onChange={handleChange(nutrient.key)}
-        InputProps={{
-          endAdornment: <InputAdornment position="end">%</InputAdornment>,
-        }}
-        error={Boolean(validationError)}
-        fullWidth
-        margin="dense"
-      />
+      >
+        <Box flexBasis={110} flexGrow={0}>
+          <Typography>{nutrient.label}</Typography>
+        </Box>
+        <Box flexBasis={200} flexGrow={1}>
+          <TextField
+            size="small"
+            type="number"
+            variant="outlined"
+            defaultValue={defaultValue[nutrient.key]}
+            onChange={handleChange(nutrient.key)}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
+            error={Boolean(validationError)}
+            fullWidth
+            margin="dense"
+          />
+        </Box>
+      </Box>
     );
   });
 
@@ -113,9 +122,9 @@ export default function PFCBalanceInput({
   };
 
   return (
-    <div>
+    <>
       <div>{nutrientsInput}</div>
       {validationErrorAlert()}
-    </div>
+    </>
   );
 }
