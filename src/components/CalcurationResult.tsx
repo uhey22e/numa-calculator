@@ -25,7 +25,7 @@ export default function CalcurationResult(props: Props) {
     if (isDetailView) {
       return (
         <>
-          <TableCell align="right">{row.netKCal.toFixed(1)} kcal</TableCell>
+          <TableCell align="right">{row.netKcal.toFixed(1)} kcal</TableCell>
           <TableCell align="right">{row.proteinGram.toFixed(1)} g</TableCell>
           <TableCell align="right">{row.fatGram.toFixed(1)} g</TableCell>
           <TableCell align="right">{row.carbsGram.toFixed(1)} g</TableCell>

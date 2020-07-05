@@ -1,7 +1,6 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { Container, Box, Typography } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
 import InputSection from "../components/InputSection";
 import OutputSection from "../components/OutputSection";
 import AdditionalFoodInput from "../components/AdditionalFoodInput";
@@ -11,13 +10,11 @@ import CalcurationResult from "../components/CalcurationResult";
 import NutrientsDetail from "../components/NutrientsDetail";
 import Ingredient from "../ingredient";
 import { PFCBalance } from "../types";
-import logo from "../assets/logo_numa.png";
+import Logo from "../components/Logo";
 
 type Props = {};
 
 export default function App(props: Props) {
-  const theme = useTheme();
-
   // 目標摂取カロリー
   const [targetCalorie, setTargetCalorie] = React.useState<number>(0);
   // 目標PFCバランス
@@ -72,32 +69,8 @@ export default function App(props: Props) {
 
   return (
     <Container maxWidth="sm" style={{ backgroundColor: "#fff" }}>
-      <Box component="div" p={3}>
-        <Typography align="center" variant="h4" component="h1">
-          <span
-            style={{
-              verticalAlign: "bottom",
-            }}
-          >
-            かんたん
-          </span>
-          <img
-            alt="沼"
-            src={logo}
-            style={{
-              height: theme.typography.fontSize * 3,
-              verticalAlign: "bottom",
-              margin: "0 4px",
-            }}
-          />
-          <span
-            style={{
-              verticalAlign: "bottom",
-            }}
-          >
-            計算機
-          </span>
-        </Typography>
+      <Box display="flex" justifyContent="center" p={3}>
+        <Logo />
       </Box>
 
       <Box component="div" marginBottom={2}>
