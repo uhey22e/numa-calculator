@@ -3,6 +3,7 @@ import Alert from "@material-ui/lab/Alert";
 import { Container, Box, Typography } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import InputSection from "../components/InputSection";
+import OutputSection from "../components/OutputSection";
 import AdditionalFoodInput from "../components/AdditionalFoodInput";
 import TargetCalorieInput from "../components/TargetCalorieInput";
 import PFCBalanceInput from "../components/PFCBalanceInput";
@@ -19,7 +20,7 @@ export default function App(props: Props) {
 
   // 目標摂取カロリー
   const [targetCalorie, setTargetCalorie] = React.useState<number>(0);
-  // PFCバランス
+  // 目標PFCバランス
   const [pfcBalance, setPFCBalance] = React.useState<PFCBalance>({
     proteinPct: 30,
     fatPct: 20,
@@ -34,28 +35,25 @@ export default function App(props: Props) {
   const validAdditionalFoods = Object.values(additionalFoods).filter<
     Ingredient
   >((v: Ingredient | undefined): v is Ingredient => v !== undefined);
-  const additionalFoodProteinGram = validAdditionalFoods.reduce<number>(
-    (acc, cur) => {
-      return acc + cur.proteinGram;
-    },
-    0
+  const additionalFoodProteinKcal = Ingredient.totalProteinKcal(
+    validAdditionalFoods
   );
-  const additionalFoodCarbsGram = Ingredient.totalCarbsGram(
+  const additionalFoodCarbsKcal = Ingredient.totalCarbsKcal(
     validAdditionalFoods
   );
 
   // Calc amount of rice and chicken
-  const targetCarbsGram =
-    (targetCalorie * (pfcBalance.carbsPct / 100)) / 4 - additionalFoodCarbsGram;
-  const rice = Ingredient.fromTargetCarbs("rice", "白米", targetCarbsGram);
-  const targetProteinGram =
-    (targetCalorie * (pfcBalance.proteinPct / 100)) / 4 -
-    rice.proteinGram -
-    additionalFoodProteinGram;
-  const chicken = Ingredient.fromTargetProtein(
+  const targetCarbsKcal =
+    targetCalorie * (pfcBalance.carbsPct / 100) - additionalFoodCarbsKcal;
+  const rice = Ingredient.fromTargetCarbsKcal("rice", "白米", targetCarbsKcal);
+  const targetProteinKcal =
+    targetCalorie * (pfcBalance.proteinPct / 100) -
+    rice.proteinKcal -
+    additionalFoodProteinKcal;
+  const chicken = Ingredient.fromTargetProteinKcal(
     "chicken",
     "皮無し鶏むね肉",
-    targetProteinGram
+    targetProteinKcal
   );
 
   const remainingFat =
@@ -84,6 +82,7 @@ export default function App(props: Props) {
             かんたん
           </span>
           <img
+            alt="沼"
             src={logo}
             style={{
               height: theme.typography.fontSize * 3,
@@ -107,81 +106,77 @@ export default function App(props: Props) {
         </Typography>
       </Box>
 
-      <InputSection title="1日の目標摂取カロリーを入力">
-        <TargetCalorieInput onChange={setTargetCalorie} />
-      </InputSection>
+      <Box mb={10}>
+        <InputSection title="1日の目標摂取カロリーを入力">
+          <TargetCalorieInput onChange={setTargetCalorie} />
+        </InputSection>
 
-      <InputSection title="目標PFCバランスを入力">
-        <PFCBalanceInput onChange={setPFCBalance} />
-      </InputSection>
+        <InputSection title="目標PFCバランスを入力">
+          <PFCBalanceInput onChange={setPFCBalance} />
+        </InputSection>
 
-      <InputSection title="追加食材・サプリメントを入力">
-        <AdditionalFoodInput
-          title="冷凍あさり"
-          foodName="冷凍あさり"
-          foodKey="frozenAsari"
-          unitName="g"
-          onChange={handleChangeAdditionalFoods("frozenAsari")}
-        />
-        <AdditionalFoodInput
-          title="卵"
-          foodName="卵"
-          foodKey="egg"
-          unitName="個"
-          onChange={handleChangeAdditionalFoods("egg")}
-        />
-        <AdditionalFoodInput
-          title="プロテイン"
-          foodName="プロテインパウダー"
-          foodKey="proteinPowder"
-          unitName="g"
-          onChange={handleChangeAdditionalFoods("proteinPowder")}
-        />
-        <AdditionalFoodInput
-          title="牛乳"
-          foodName="牛乳"
-          foodKey="milk"
-          unitName="mL"
-          onChange={handleChangeAdditionalFoods("milk")}
-        />
-        <AdditionalFoodInput
-          title="オイコス"
-          foodName="オイコス"
-          foodKey="oikos"
-          unitName="個"
-          onChange={handleChangeAdditionalFoods("oikos")}
-        />
-      </InputSection>
+        <InputSection title="追加食材・サプリメントを入力">
+          <AdditionalFoodInput
+            title="冷凍あさり"
+            foodName="冷凍あさり"
+            foodKey="frozenAsari"
+            unitName="g"
+            onChange={handleChangeAdditionalFoods("frozenAsari")}
+          />
+          <AdditionalFoodInput
+            title="卵"
+            foodName="卵"
+            foodKey="egg"
+            unitName="個"
+            onChange={handleChangeAdditionalFoods("egg")}
+          />
+          <AdditionalFoodInput
+            title="プロテイン"
+            foodName="プロテインパウダー"
+            foodKey="proteinPowder"
+            unitName="g"
+            onChange={handleChangeAdditionalFoods("proteinPowder")}
+          />
+          <AdditionalFoodInput
+            title="牛乳"
+            foodName="牛乳"
+            foodKey="milk"
+            unitName="mL"
+            onChange={handleChangeAdditionalFoods("milk")}
+          />
+          <AdditionalFoodInput
+            title="オイコス"
+            foodName="オイコス"
+            foodKey="oikos"
+            unitName="個"
+            onChange={handleChangeAdditionalFoods("oikos")}
+          />
+        </InputSection>
+      </Box>
 
-      <Box height={50} />
-
-      <div>
-        <Box mb={2}>
-          <Typography variant="h5" component="h2" align="center">
-            計算結果
-          </Typography>
-        </Box>
-
-        <Typography variant="subtitle1" component="h3">
-          食材一覧
+      <Box mb={2}>
+        <Typography variant="h5" component="h2" align="center">
+          計算結果
         </Typography>
+      </Box>
 
-        <CalcurationResult
-          ingredients={[rice, chicken, ...validAdditionalFoods]}
-        />
+      <Box mb={10}>
+        <OutputSection title="食材一覧">
+          <CalcurationResult
+            ingredients={[rice, chicken, ...validAdditionalFoods]}
+          />
+        </OutputSection>
 
-        <Typography variant="subtitle1" component="h3">
-          栄養素詳細
-        </Typography>
-
-        <NutrientsDetail
-          ingredients={[rice, chicken, ...validAdditionalFoods]}
-        />
+        <OutputSection title="栄養素詳細">
+          <NutrientsDetail
+            ingredients={[rice, chicken, ...validAdditionalFoods]}
+          />
+        </OutputSection>
 
         <Alert severity="warning">
           脂質が{remainingFat.toFixed(1)}g不足しています
         </Alert>
-      </div>
+      </Box>
     </Container>
   );
 }

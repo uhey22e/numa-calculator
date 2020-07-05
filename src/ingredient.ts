@@ -1,5 +1,11 @@
 import foodsData, { Nutritients } from "./foodsData";
 
+const kcalPerGram = {
+  protein: 4,
+  fat: 9,
+  carbs: 4,
+} as const;
+
 export default class Ingredient {
   public name: string;
   public quantity: number;
@@ -46,10 +52,6 @@ export default class Ingredient {
     return this.quantity * this.gramPerUnit;
   }
 
-  public get netKCal(): number {
-    return 4 * this.proteinGram + 9 * this.fatGram + 4 * this.carbsGram;
-  }
-
   public get proteinGram(): number {
     return (this.netGram / this.nutrients.unitGram) * this.nutrients.protein;
   }
@@ -62,16 +64,20 @@ export default class Ingredient {
     return (this.netGram / this.nutrients.unitGram) * this.nutrients.carbs;
   }
 
+  public get netKcal(): number {
+    return this.proteinKcal + this.fatKcal + this.carbsKcal;
+  }
+
   public get proteinKcal(): number {
-    return 4 * this.proteinGram;
+    return kcalPerGram.protein * this.proteinGram;
   }
 
   public get fatKcal(): number {
-    return 4 * this.fatGram;
+    return kcalPerGram.fat * this.fatGram;
   }
 
   public get carbsKcal(): number {
-    return 4 * this.carbsKcal;
+    return kcalPerGram.carbs * this.carbsGram;
   }
 
   /**
@@ -80,7 +86,7 @@ export default class Ingredient {
    * @param name Name of food
    * @param carbsGram Target carbs gram
    */
-  static fromTargetCarbs(
+  static fromTargetCarbsGram(
     foodKey: keyof typeof foodsData,
     name: string,
     carbsGram: number
@@ -91,12 +97,30 @@ export default class Ingredient {
   }
 
   /**
+   * Returns ingredient that meet the target carbs calories.
+   * @param foodKey Key of food
+   * @param name Name of food
+   * @param carbsGram Target carbs gram
+   */
+  static fromTargetCarbsKcal(
+    foodKey: keyof typeof foodsData,
+    name: string,
+    carbsKcal: number
+  ) {
+    return Ingredient.fromTargetCarbsGram(
+      foodKey,
+      name,
+      carbsKcal / kcalPerGram.carbs
+    );
+  }
+
+  /**
    * Returns ingredient that meet the target protein grams.
    * @param foodKey Key of food
    * @param name Name of food
    * @param proteinGram Target protein gram
    */
-  static fromTargetProtein(
+  static fromTargetProteinGram(
     foodKey: keyof typeof foodsData,
     name: string,
     proteinGram: number
@@ -107,12 +131,30 @@ export default class Ingredient {
   }
 
   /**
+   * Returns ingredient that meet the target protein calories.
+   * @param foodKey Key of food
+   * @param name Name of food
+   * @param proteinGram Target protein gram
+   */
+  static fromTargetProteinKcal(
+    foodKey: keyof typeof foodsData,
+    name: string,
+    proteinKcal: number
+  ) {
+    return Ingredient.fromTargetProteinGram(
+      foodKey,
+      name,
+      proteinKcal / kcalPerGram.protein
+    );
+  }
+
+  /**
    * Sum up calories of ingredients
    * @param ingredients List of ingredient
    */
-  static totalKCal(ingredients: Ingredient[]): number {
+  static totalKcal(ingredients: Ingredient[]): number {
     return ingredients.reduce<number>((acc, cur: Ingredient) => {
-      return acc + cur.netKCal;
+      return acc + cur.netKcal;
     }, 0);
   }
 
@@ -127,16 +169,6 @@ export default class Ingredient {
   }
 
   /**
-   * Sum up carbs grams of ingredients
-   * @param ingredients List of ingredient
-   */
-  static totalCarbsGram(ingredients: Ingredient[]): number {
-    return ingredients.reduce<number>((acc, cur: Ingredient) => {
-      return acc + cur.carbsGram;
-    }, 0);
-  }
-
-  /**
    * Sum up fat grams of ingredients
    * @param ingredients List of ingredient
    */
@@ -147,11 +179,21 @@ export default class Ingredient {
   }
 
   /**
+   * Sum up carbs grams of ingredients
+   * @param ingredients List of ingredient
+   */
+  static totalCarbsGram(ingredients: Ingredient[]): number {
+    return ingredients.reduce<number>((acc, cur: Ingredient) => {
+      return acc + cur.carbsGram;
+    }, 0);
+  }
+
+  /**
    * Sum up protein calories of ingredients
    * @param ingredients List of ingredient
    */
   static totalProteinKcal(ingredients: Ingredient[]): number {
-    return 4 * this.totalProteinGram(ingredients);
+    return kcalPerGram.protein * this.totalProteinGram(ingredients);
   }
 
   /**
@@ -159,7 +201,7 @@ export default class Ingredient {
    * @param ingredients List of ingredient
    */
   static totalFatKcal(ingredients: Ingredient[]): number {
-    return 9 * this.totalFatGram(ingredients);
+    return kcalPerGram.fat * this.totalFatGram(ingredients);
   }
 
   /**
@@ -167,6 +209,6 @@ export default class Ingredient {
    * @param ingredients List of ingredient
    */
   static totalCarbsKcal(ingredients: Ingredient[]): number {
-    return 4 * this.totalCarbsGram(ingredients);
+    return kcalPerGram.carbs * this.totalCarbsGram(ingredients);
   }
 }

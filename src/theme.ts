@@ -19,7 +19,7 @@ const theme = responsiveFontSizes(
     },
     palette: {
       background: {
-        default: "#eee",
+        default: "#fff",
       },
     },
   })

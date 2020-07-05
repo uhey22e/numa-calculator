@@ -1,29 +1,18 @@
 import foodsData from "./foodsData";
 import Ingredient from "./ingredient";
 
-const acceptableErrorDigits = 4;
-
 test("Nutrients of rice", () => {
   const rice = new Ingredient("rice", "米", 150);
 
-  expect(rice.proteinGram).toBeCloseTo(
-    1.5 * foodsData.rice.protein,
-    acceptableErrorDigits
-  );
-  expect(rice.fatGram).toBeCloseTo(
-    1.5 * foodsData.rice.fat,
-    acceptableErrorDigits
-  );
-  expect(rice.carbsGram).toBeCloseTo(
-    1.5 * foodsData.rice.carbs,
-    acceptableErrorDigits
-  );
+  expect(rice.proteinGram).toBeCloseTo(1.5 * foodsData.rice.protein);
+  expect(rice.fatGram).toBeCloseTo(1.5 * foodsData.rice.fat);
+  expect(rice.carbsGram).toBeCloseTo(1.5 * foodsData.rice.carbs);
 });
 
 test("Aggregation", () => {
   const rice = new Ingredient("rice", "米", 100);
 
-  expect(Ingredient.totalKCal([rice, rice])).toBeCloseTo(2 * rice.netKCal);
+  expect(Ingredient.totalKcal([rice, rice])).toBeCloseTo(2 * rice.netKcal);
   expect(Ingredient.totalCarbsGram([rice, rice])).toBeCloseTo(
     2 * rice.carbsGram
   );
@@ -33,40 +22,46 @@ test("Aggregation", () => {
 test("Construct with unitName", () => {
   const unitName = "個";
   const invalidUnitName = "mL";
-  const threeEggs = new Ingredient("egg", "卵", 3, unitName);
+  const qty = 3;
+
+  // Valid unit name
+  const oneEgg = new Ingredient("egg", "卵", 1, unitName);
+  const threeEggs = new Ingredient("egg", "卵", qty, unitName);
   expect(threeEggs.unitName).toBe(unitName);
-  expect(threeEggs.netGram).toBe(180);
+  expect(threeEggs.netKcal).toBeCloseTo(qty * oneEgg.netKcal);
+
+  // Invalid unit name
   expect(() => {
     new Ingredient("egg", "卵", 3, invalidUnitName);
   }).toThrowError();
 });
 
 test("Changing quantity effects netKcal", () => {
-  const multipiler = 3;
-  const qty1 = 2;
-  const qty2 = multipiler * qty1;
+  const qty1 = 3;
+  const qty2 = 7;
 
   const food = new Ingredient("egg", "卵", qty1, "個");
-  const kcal1 = food.netKCal;
+  const kcal1 = food.netKcal;
 
+  // Change quantity and get calorie
   food.quantity = qty2;
-  const kcal2 = food.netKCal;
+  const kcal2 = food.netKcal;
 
-  expect(kcal2).toBeCloseTo(multipiler * kcal1, acceptableErrorDigits);
+  expect(kcal2).toBeCloseTo((qty2 / qty1) * kcal1);
 });
 
-test("From target carbs", () => {
-  const targetCarbs = 100;
-  const food = Ingredient.fromTargetCarbs("rice", "米", targetCarbs);
-  expect(food.carbsGram).toBeCloseTo(targetCarbs, acceptableErrorDigits);
+test("From target carbs gram", () => {
+  const targetCarbsGram = 100;
+  const food = Ingredient.fromTargetCarbsGram("rice", "米", targetCarbsGram);
+  expect(food.carbsGram).toBeCloseTo(targetCarbsGram);
 });
 
-test("From target protein", () => {
-  const targetProtein = 100;
-  const food = Ingredient.fromTargetProtein(
+test("From target protein kcal", () => {
+  const targetProteinKcal = 400;
+  const food = Ingredient.fromTargetProteinKcal(
     "proteinPowder",
     "プロテイン",
-    targetProtein
+    targetProteinKcal
   );
-  expect(food.proteinGram).toBeCloseTo(targetProtein, acceptableErrorDigits);
+  expect(food.proteinGram).toBeCloseTo(targetProteinKcal / 4);
 });
