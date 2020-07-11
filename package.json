@@ -10,6 +10,9 @@
     "gatsby": "^2.23.11",
     "gatsby-plugin-material-ui": "^2.1.9",
     "gatsby-plugin-react-helmet": "^3.3.6",
+    "gatsby-remark-responsive-iframe": "^2.4.11",
+    "gatsby-source-filesystem": "^2.3.19",
+    "gatsby-transformer-remark": "^2.8.25",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0"
