@@ -1,6 +1,5 @@
 ---
-slug: "/calc-precedure"
-date: "2019-05-04"
+slug: "/calc-procedure"
 title: "レシピの計算方法について"
 ---
 
