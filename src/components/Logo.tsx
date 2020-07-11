@@ -9,17 +9,17 @@ export default function Logo(props: Props) {
   return (
     <Typography component="h1" variant="h3">
       <Box display="flex" alignItems="flex-end">
-        <div>かんたん</div>
+        <div style={{ lineHeight: "1em" }}>かんたん</div>
         <img
           alt="沼"
           src={logo}
           style={{
             display: "block",
-            height: "1.5em",
-            margin: "0.1em",
+            height: "1.6em",
+            margin: "0 0.1em",
           }}
         />
-        <div>計算機</div>
+        <div style={{ lineHeight: "1em" }}>計算機</div>
       </Box>
     </Typography>
   );

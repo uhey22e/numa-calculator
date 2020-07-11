@@ -77,6 +77,9 @@ export default function App(props: Props) {
         <Typography variant="body1">
           1日の摂取カロリーとPFCバランスから、沼のレシピを逆算します。
         </Typography>
+        <Typography variant="body1">
+          「沼」については こちら をご覧ください。
+        </Typography>
       </Box>
 
       <Box mb={10}>
