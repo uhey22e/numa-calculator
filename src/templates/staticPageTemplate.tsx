@@ -8,7 +8,7 @@ import Link from "../components/Link";
 type StaticPageTemplate = {
   data: {
     markdownRemark: {
-      htmlAst: any;
+      html: string;
       frontmatter: {
         slug: string;
         title: string;
@@ -36,48 +36,46 @@ export default function StaticPageTemplate({ data }: StaticPageTemplate) {
   const classes = useStyles();
 
   const { markdownRemark } = data;
-  const { frontmatter, htmlAst } = markdownRemark;
+  const { frontmatter, html } = markdownRemark;
 
-  const components = {
-    h2: (props: any[]) => {
-      return (
-        <Typography
-          variant="h5"
-          component="h1"
-          className={classes.h2}
-          {...props}
-        ></Typography>
-      );
-    },
-    p: (props: any[]) => {
-      return (
-        <Typography
-          variant="body1"
-          className={classes.p}
-          {...props}
-        ></Typography>
-      );
-    },
-    a: MuiLink,
-    "internal-link": (props: any[]) => {
-      return <Link to={props.to}>{props.children}</Link>;
-    },
-  };
+  // const components = {
+  //   h2: (props: any[]) => {
+  //     return (
+  //       <Typography
+  //         variant="h5"
+  //         component="h1"
+  //         className={classes.h2}
+  //         {...props}
+  //       ></Typography>
+  //     );
+  //   },
+  //   p: (props: any[]) => {
+  //     return (
+  //       <Typography
+  //         variant="body1"
+  //         className={classes.p}
+  //         {...props}
+  //       ></Typography>
+  //     );
+  //   },
+  //   a: MuiLink,
+  //   "internal-link": (props: any[]) => {
+  //     return <Link to={props.to}>{props.children}</Link>;
+  //   },
+  // };
 
   // Markdownから生成された<h1>などのタグを好きなコンポーネントにマッピングする
   // See https://using-remark.gatsbyjs.org/custom-components/
   // @ts-ignore
-  const renderAst = new rehypeReact({
-    createElement: React.createElement,
-    components: components,
-  }).Compiler;
+  // const renderAst = new rehypeReact({
+  //   createElement: React.createElement,
+  //   components: components,
+  // }).Compiler;
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" component="h1" className={classes.h1}>
-        {frontmatter.title}
-      </Typography>
-      {renderAst(htmlAst)}
+      <h1>{frontmatter.title}</h1>
+      <section dangerouslySetInnerHTML={{ __html: html }} />
     </Container>
   );
 }
@@ -85,7 +83,7 @@ export default function StaticPageTemplate({ data }: StaticPageTemplate) {
 export const pageQuery = graphql`
   query($slug: String!) {
     markdownRemark(frontmatter: { slug: { eq: $slug } }) {
-      htmlAst
+      html
       frontmatter {
         slug
         title

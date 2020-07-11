@@ -3,21 +3,22 @@
   "version": "0.1.0",
   "license": "MIT",
   "dependencies": {
-    "@material-ui/core": "^4.10.2",
+    "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/styles": "^4.10.0",
-    "gatsby": "^2.23.11",
-    "gatsby-plugin-material-ui": "^2.1.9",
-    "gatsby-plugin-react-helmet": "^3.3.6",
+    "gatsby": "^2.24.2",
+    "gatsby-plugin-react-helmet": "^3.3.10",
+    "gatsby-plugin-typography": "^2.5.10",
     "gatsby-remark-responsive-iframe": "^2.4.11",
     "gatsby-source-filesystem": "^2.3.19",
     "gatsby-transformer-remark": "^2.8.25",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
+    "react-typography": "^0.16.19",
     "rehype-react": "^6.0.0",
-    "unified": "^9.0.0"
+    "typography": "^0.16.19"
   },
   "scripts": {
     "start": "npm run develop",
@@ -35,13 +36,14 @@
     "@storybook/addons": "^5.3.19",
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^5.3.19",
-    "@types/jest": "^26.0.3",
+    "@types/jest": "^26.0.4",
     "@types/react-helmet": "^6.0.0",
+    "@types/typography": "^0.16.3",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.1.0",
     "prettier": "^2.0.5",
     "ts-jest": "^26.1.1",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.6"
   }
 }

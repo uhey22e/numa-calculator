@@ -8,8 +8,15 @@ module.exports = {
   plugins: [
     "gatsby-plugin-react-helmet",
     // Enable material-ui theme provider
-    "gatsby-plugin-top-layout",
-    "gatsby-plugin-material-ui",
+    // "gatsby-plugin-top-layout",
+    // Enable Typography.js
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/utils/typography`,
+      },
+    },
+    // Allow to use markdown pages
     {
       resolve: "gatsby-transformer-remark",
       options: {
