@@ -32,5 +32,7 @@ module.exports = {
     },
     // Markdown中のリンクをgatsby-linkに置き換え
     "gatsby-plugin-catch-links",
+    // Allow to use material-ui
+    "gatsby-plugin-material-ui",
   ],
 };
