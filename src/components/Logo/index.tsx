@@ -1,5 +1,4 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/styles";
 import Box from "@material-ui/core/Box";
 import logo from "./numa.png";

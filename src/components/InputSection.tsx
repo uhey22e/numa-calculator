@@ -1,21 +1,30 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import CreateIcon from "@material-ui/icons/Create";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { makeStyles } from "@material-ui/styles";
 
 type Props = {
   children: React.ReactNode;
   title: string;
 };
 
+const useStyles = makeStyles({
+  icon: {
+    marginRight: "0.3em",
+  },
+});
+
 export default function InputSection(props: Props) {
+  const classes = useStyles();
   return (
-    <Box component="div" marginBottom={2}>
-      <Box display="flex" alignItems="center">
-        <CreateIcon
-          fontSize="small"
-          color="primary"
-          style={{ marginRight: "0.3em" }}
+    <Box component="div" mb={2}>
+      <Box display="flex" alignItems="center" mb={1}>
+        <FontAwesomeIcon
+          icon={faEdit}
+          color="#1976d2"
+          className={classes.icon}
         />
         <Typography variant="inherit" component="h4">
           {props.title}

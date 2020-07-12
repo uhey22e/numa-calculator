@@ -1,11 +1,6 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
-import {
-  Container,
-  Box,
-  Typography,
-  MuiThemeProvider,
-} from "@material-ui/core";
+import { Box, MuiThemeProvider, Typography } from "@material-ui/core";
 import { Link } from "gatsby";
 import InputSection from "../components/InputSection";
 import OutputSection from "../components/OutputSection";
@@ -19,6 +14,7 @@ import { PFCBalance } from "../types";
 import Logo from "../components/Logo";
 import theme from "../utils/muiTheme";
 import { makeStyles } from "@material-ui/styles";
+import Layout from "../layout/Layout";
 
 type Props = {};
 
@@ -89,8 +85,8 @@ export default function App(props: Props) {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <Container maxWidth="sm">
-        <Box display="flex" justifyContent="center" pt={3} pb={3}>
+      <Layout>
+        <Box display="flex" justifyContent="center" pb={3}>
           <Logo />
         </Box>
 
@@ -103,7 +99,7 @@ export default function App(props: Props) {
           </Typography>
         </Box>
 
-        <Box mb={10}>
+        <Box mb={5}>
           <InputSection title="1日の目標摂取カロリーを入力">
             <TargetCalorieInput onChange={setTargetCalorie} />
           </InputSection>
@@ -157,7 +153,7 @@ export default function App(props: Props) {
           </Typography>
         </Box>
 
-        <Box mb={10}>
+        <Box mb={5}>
           <OutputSection title="食材一覧">
             <CalcurationResult
               ingredients={[rice, chicken, ...validAdditionalFoods]}
@@ -174,7 +170,7 @@ export default function App(props: Props) {
             脂質が{remainingFatGram.toFixed(1)}g不足しています
           </Alert>
         </Box>
-      </Container>
+      </Layout>
     </MuiThemeProvider>
   );
 }

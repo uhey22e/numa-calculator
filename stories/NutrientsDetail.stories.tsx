@@ -1,5 +1,4 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
 import NutrientsDetail from "../src/components/NutrientsDetail";
 import Ingredient from "../src/ingredient";
 
