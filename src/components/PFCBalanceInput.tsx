@@ -95,7 +95,7 @@ export default function PFCBalanceInput({
         key={nutrient.key}
       >
         <Box flexBasis={110} flexGrow={0}>
-          <Typography>{nutrient.label}</Typography>
+          <Typography variant="inherit">{nutrient.label}</Typography>
         </Box>
         <Box flexBasis={200} flexGrow={1}>
           <TextField

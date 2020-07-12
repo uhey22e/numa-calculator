@@ -4,6 +4,7 @@ import rehypeReact from "rehype-react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Link as MuiLink, Typography } from "@material-ui/core";
 import Link from "../components/Link";
+import "../styles/global.scss";
 
 type StaticPageTemplate = {
   data: {
@@ -75,7 +76,10 @@ export default function StaticPageTemplate({ data }: StaticPageTemplate) {
   return (
     <Container maxWidth="sm">
       <h1>{frontmatter.title}</h1>
-      <section dangerouslySetInnerHTML={{ __html: html }} />
+      <section
+        className="static-page-content"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </Container>
   );
 }

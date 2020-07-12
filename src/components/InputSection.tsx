@@ -15,9 +15,9 @@ export default function InputSection(props: Props) {
         <CreateIcon
           fontSize="small"
           color="primary"
-          style={{ marginRight: "0.3rem" }}
+          style={{ marginRight: "0.3em" }}
         />
-        <Typography variant="subtitle1" component="h3">
+        <Typography variant="inherit" component="h4">
           {props.title}
         </Typography>
       </Box>

@@ -62,7 +62,7 @@ export default function AdditionalFoodInput(props: Props) {
   return (
     <Box display="flex" flexDirection="row" alignItems="center">
       <Box flexBasis={110} flexGrow={0}>
-        <Typography variant="body1">{props.title}</Typography>
+        <Typography variant="inherit">{props.title}</Typography>
       </Box>
       <Box flexBasis={200} flexGrow={1}>
         <TextField

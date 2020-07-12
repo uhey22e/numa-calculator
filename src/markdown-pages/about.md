@@ -33,10 +33,13 @@ title: "かんたん沼計算機について"
 かんたん沼計算機は、この計算を楽にするために開発しました。
 段階的にカロリーを落としていきたい方も、都度都度の計算がとても簡単になるかと思います。
 
-なお、詳しい計算ロジックについては<internal-link to="/calc-procedure">こちら</internal-link>に記載しています。
+なお、詳しい計算ロジックについては[こちら](/calc-procedure)に記載しています。
 
 
 ## 脚注
+
+- マッスルグリルさん<br>
+  https://www.youtube.com/channel/UCHoOFVQAhK-QyoXgf0iaZIg
 
 - 基礎代謝量の計算<br>
   https://keisan.casio.jp/exec/system/1161228736

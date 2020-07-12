@@ -1,6 +1,6 @@
 import Typography from "typography";
 
-const fontFamily = [
+export const fontFamily = [
   "Noto Sans JP",
   "ヒラギノ角ゴ ProN W3",
   "Hiragino Kaku Gothic ProN",

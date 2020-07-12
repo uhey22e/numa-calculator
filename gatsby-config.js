@@ -7,8 +7,8 @@
 module.exports = {
   plugins: [
     "gatsby-plugin-react-helmet",
-    // Enable material-ui theme provider
-    // "gatsby-plugin-top-layout",
+    // Enable SASS
+    "gatsby-plugin-sass",
     // Enable Typography.js
     {
       resolve: `gatsby-plugin-typography`,

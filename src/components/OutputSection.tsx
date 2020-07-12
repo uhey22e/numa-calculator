@@ -17,7 +17,7 @@ export default function OutputSection(props: Props) {
           color="primary"
           style={{ marginRight: "0.3rem" }}
         />
-        <Typography variant="subtitle1" component="h3">
+        <Typography variant="inherit" component="h4">
           {props.title}
         </Typography>
       </Box>
