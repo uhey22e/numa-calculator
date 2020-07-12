@@ -30,5 +30,7 @@ module.exports = {
         path: `${__dirname}/src/markdown-pages`,
       },
     },
+    // Markdown中のリンクをgatsby-linkに置き換え
+    "gatsby-plugin-catch-links",
   ],
 };
