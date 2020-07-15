@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Link as MuiLink } from "@material-ui/core";
+import { Box, Link as MuiLink, BoxProps } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,8 +18,6 @@ const useStyles = makeStyles({
     margin: 0,
     fontSize: "0.9rem",
     textAlign: "center",
-    paddingTop: "1.5rem",
-    paddingBottom: "1.5rem",
   },
   menu: {
     margin: 0,
@@ -28,8 +26,9 @@ const useStyles = makeStyles({
   },
   menuItem: {
     margin: 0,
-    marginTop: "0.33em",
-    marginBottom: "0.33em",
+    "&:not(:last-child)": {
+      marginBottom: "0.33em",
+    },
   },
   link: {
     color: "#777",
@@ -89,24 +88,26 @@ export default function Footer(props: Props) {
     );
   });
 
+  const FooterSection = (props: BoxProps) => {
+    return <Box mt={1} mb={1} component="section" {...props} />;
+  };
+
   return (
     <Box
+      pt={1}
+      pb={1}
       className={classes.root}
       display="flex"
       justifyContent="center"
       flexDirection="column"
     >
-      <ul className={classes.menu}>{menuItemElms}</ul>
-      <Box
-        mt={2}
-        component="section"
-        display="flex"
-        flexDirection="row"
-        justifyContent="center"
-      >
+      <FooterSection>
+        <ul className={classes.menu}>{menuItemElms}</ul>
+      </FooterSection>
+      <FooterSection display="flex" flexDirection="row" justifyContent="center">
         {snsLinkElms}
-      </Box>
-      <Box component="section" mt={2} className={classes.license}>
+      </FooterSection>
+      <FooterSection className={classes.license}>
         <div>
           <MuiLink rel="license" href="//creativecommons.org/licenses/by/4.0/">
             <img
@@ -129,13 +130,13 @@ export default function Footer(props: Props) {
             Creative Commons Attribution 4.0 International License
           </MuiLink>
         </div>
-      </Box>
-      <Box component="section" mt={2}>
+      </FooterSection>
+      <FooterSection>
         <span>Copyright &copy; {new Date().getFullYear()} </span>
         <MuiLink href="//twitter.com/uhey22e" className={classes.link}>
           uhey22e
         </MuiLink>
-      </Box>
+      </FooterSection>
     </Box>
   );
 }
