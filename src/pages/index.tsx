@@ -102,7 +102,7 @@ export default function App(props: Props) {
       </Helmet>
       <MuiThemeProvider theme={theme}>
         <Layout>
-          <Box display="flex" justifyContent="center" pb={3}>
+          <Box display="flex" justifyContent="center" mb={3}>
             <Logo />
           </Box>
 

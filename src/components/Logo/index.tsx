@@ -8,7 +8,7 @@ type Props = {};
 
 const useStyles = makeStyles({
   root: {
-    fontSize: 28,
+    fontSize: 32,
     margin: 0,
     "@media (min-width: 600px)": {
       fontSize: 36,
