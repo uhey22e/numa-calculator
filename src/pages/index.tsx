@@ -139,7 +139,7 @@ export default function App(props: Props) {
               onChange={handleChangeAdditionalFoods("milk")}
             />
             <AdditionalFoodInput
-              title="OIKOS"
+              title="オイコス"
               foodName="オイコス"
               foodKey="oikos"
               unitName="個"
