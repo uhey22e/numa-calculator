@@ -1,7 +1,9 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Alert from "@material-ui/lab/Alert";
 import { validationErrorMessage } from "../messages";
+import { ValidationFuncs, getValidationMessage } from "../utils/validation";
 
 type Props = {
   // Called when target calorie is updated to valid value
@@ -10,7 +12,7 @@ type Props = {
   onError?: (errorMessage: string) => void;
 };
 
-const validationFuncs: ((calorie: number) => string | void)[] = [
+const validationFuncs: ValidationFuncs<number> = [
   (calorie) => {
     if (!calorie) {
       return validationErrorMessage.INVALID_NUMBER;
@@ -24,26 +26,28 @@ const validationFuncs: ((calorie: number) => string | void)[] = [
 ];
 
 export default function TargetCalorieInput(props: Props) {
+  const validation = getValidationMessage<number>(validationFuncs);
+
   const [validationError, setValidationError] = React.useState<string>("");
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.valueAsNumber;
+
     // Validate value
-    for (let fn of validationFuncs) {
-      const errMsg = fn(newValue);
-      if (errMsg) {
-        setValidationError(errMsg);
-        if (props.onError) {
-          props.onError(errMsg);
-        }
-        return;
+    const errMsg = validation(newValue);
+    if (errMsg) {
+      setValidationError(errMsg);
+    } else {
+      setValidationError("");
+      if (props.onChange) {
+        props.onChange(newValue);
       }
     }
-    setValidationError("");
+  };
 
-    if (!props.onChange) {
-      return;
-    }
-    props.onChange(newValue);
+  const validationErrorAlert = () => {
+    if (validationError === "") return;
+    return <Alert severity="error">{validationError}</Alert>;
   };
 
   return (
@@ -61,7 +65,7 @@ export default function TargetCalorieInput(props: Props) {
         fullWidth
         margin="dense"
       />
-      <div>{validationError}</div>
+      {validationErrorAlert()}
     </div>
   );
 }

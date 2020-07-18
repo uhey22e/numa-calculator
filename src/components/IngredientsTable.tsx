@@ -9,7 +9,7 @@ type Props = {
   ingredients: Ingredient[];
 };
 
-export default function CalcurationResult(props: Props) {
+export default function IngredientsTable(props: Props) {
   const [isDetailView, setIsDetailView] = React.useState<boolean>(false);
 
   const basicCols = (row: Ingredient) => {

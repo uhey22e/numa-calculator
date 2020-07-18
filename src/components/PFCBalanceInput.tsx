@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, InputAdornment, TextField, Typography } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import { PFCBalance } from "../types";
 import { validationErrorMessage } from "../messages";
-import Alert from "@material-ui/lab/Alert";
+import { ValidationFuncs, getValidationMessage } from "../utils/validation";
 
 type Props = {
   onChange?: (value: PFCBalance) => void;
@@ -33,7 +34,7 @@ const defaultPFCBalance: PFCBalance = {
   carbsPct: 50,
 };
 
-const validationFuncs: ((value: PFCBalance) => string | undefined)[] = [
+const validationFuncs: ValidationFuncs<PFCBalance> = [
   (value) => {
     for (let v of Object.values(value)) {
       if (!v) return validationErrorMessage.INVALID_NUMBER;
@@ -50,23 +51,15 @@ const validationFuncs: ((value: PFCBalance) => string | undefined)[] = [
   },
 ];
 
-const getValidationMessage = (value: PFCBalance) => {
-  for (let fn of validationFuncs) {
-    const errMsg = fn(value);
-    if (errMsg) {
-      return errMsg;
-    }
-  }
-  return "";
-};
-
 export default function PFCBalanceInput({
   onChange,
   defaultValue = defaultPFCBalance,
 }: Props) {
+  const validation = getValidationMessage<PFCBalance>(validationFuncs);
+
   const [values, setValues] = React.useState<PFCBalance>(defaultValue);
   const [validationError, setValidationError] = React.useState<string>(
-    getValidationMessage(values)
+    validation(values) || ""
   );
 
   const handleChange = (prop: keyof PFCBalance) => (
@@ -79,10 +72,13 @@ export default function PFCBalanceInput({
     setValues(newValues);
 
     // Validate value
-    setValidationError(getValidationMessage(newValues));
-
-    if (onChange) {
-      onChange(newValues);
+    const errMsg = validation(newValues);
+    if (errMsg) {
+      setValidationError(errMsg);
+    } else {
+      if (onChange) {
+        onChange(newValues);
+      }
     }
   };
 

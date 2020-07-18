@@ -1,10 +1,10 @@
 import React from "react";
-import CalcurationResult from "../src/components/CalcurationResult";
+import IngredientsTable from "../src/components/IngredientsTable";
 import Ingredient from "../src/ingredient";
 
 export default {
-  title: "CalcurationResult",
-  component: CalcurationResult,
+  title: "IngredientsTable",
+  component: IngredientsTable,
 };
 
 const ingredients: Ingredient[] = [
@@ -15,4 +15,4 @@ const ingredients: Ingredient[] = [
   new Ingredient("milk", "牛乳", 200, "mL"),
 ];
 
-export const basicUsage = () => <CalcurationResult ingredients={ingredients} />;
+export const basicUsage = () => <IngredientsTable ingredients={ingredients} />;

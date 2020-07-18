@@ -5,6 +5,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Box from "@material-ui/core/Box";
 import Ingredient from "../ingredient";
 import { validationErrorMessage } from "../messages";
+import { ValidationFuncs, getValidationMessage } from "../utils/validation";
 
 type Props = {
   title: string;
@@ -15,22 +16,22 @@ type Props = {
   onChange: (food: Ingredient | undefined) => void;
 };
 
-type ValidationFunc<T> = (value: T) => string | void;
-
-const validationFuncs: ValidationFunc<number>[] = [
-  (calorie) => {
-    if (isNaN(calorie)) {
+const validationFuncs: ValidationFuncs<number> = [
+  (gram) => {
+    if (isNaN(gram)) {
       return validationErrorMessage.INVALID_NUMBER;
     }
   },
-  (calorie) => {
-    if (calorie < 0) {
+  (gram) => {
+    if (gram < 0) {
       return validationErrorMessage.INVALID_MINUS_VALUE;
     }
   },
 ];
 
 export default function AdditionalFoodInput(props: Props) {
+  const validation = getValidationMessage(validationFuncs);
+
   const [isError, setIsError] = React.useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,13 +42,11 @@ export default function AdditionalFoodInput(props: Props) {
     }
 
     // Validate value
-    for (let fn of validationFuncs) {
-      const errMsg = fn(event.target.valueAsNumber);
-      if (errMsg) {
-        setIsError(true);
-        props.onChange(undefined);
-        return;
-      }
+    const errMsg = validation(event.target.valueAsNumber);
+    if (errMsg) {
+      setIsError(true);
+      props.onChange(undefined);
+      return;
     }
     setIsError(false);
 
@@ -59,6 +58,7 @@ export default function AdditionalFoodInput(props: Props) {
     );
     props.onChange(newFood);
   };
+
   return (
     <Box display="flex" flexDirection="row" alignItems="center">
       <Box flexBasis={110} flexGrow={0}>

@@ -7,7 +7,7 @@ import OutputSection from "../components/OutputSection";
 import AdditionalFoodInput from "../components/AdditionalFoodInput";
 import TargetCalorieInput from "../components/TargetCalorieInput";
 import PFCBalanceInput from "../components/PFCBalanceInput";
-import CalcurationResult from "../components/CalcurationResult";
+import IngredientsTable from "../components/IngredientsTable";
 import NutrientsDetail from "../components/NutrientsDetail";
 import Ingredient from "../ingredient";
 import { PFCBalance } from "../types";
@@ -155,7 +155,7 @@ export default function App(props: Props) {
 
         <Box mb={5}>
           <OutputSection title="食材一覧">
-            <CalcurationResult
+            <IngredientsTable
               ingredients={[rice, chicken, ...validAdditionalFoods]}
             />
           </OutputSection>
