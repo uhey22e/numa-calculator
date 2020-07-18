@@ -1,6 +1,6 @@
 import React from "react";
 import IngredientsTable from "../src/components/IngredientsTable";
-import Ingredient from "../src/ingredient";
+import Ingredient from "../src/libs/ingredient";
 
 export default {
   title: "IngredientsTable",

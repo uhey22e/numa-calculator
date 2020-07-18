@@ -1,6 +1,6 @@
 import React from "react";
 import NutrientsDetail from "../src/components/NutrientsDetail";
-import Ingredient from "../src/ingredient";
+import Ingredient from "../src/libs/ingredient";
 
 export default {
   title: "NutrientsDetail",

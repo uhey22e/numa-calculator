@@ -3,8 +3,8 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Box from "@material-ui/core/Box";
-import Ingredient from "../ingredient";
-import { validationErrorMessage } from "../messages";
+import Ingredient from "../libs/ingredient";
+import { validationErrorMessage } from "../utils/messages";
 import { ValidationFuncs, getValidationMessage } from "../utils/validation";
 
 type Props = {

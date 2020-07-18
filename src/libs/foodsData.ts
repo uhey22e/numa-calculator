@@ -1,17 +1,4 @@
-export type FoodUnit = {
-  unitName: string;
-  gramPerUnit: number;
-};
-
-export type Nutritients = {
-  unitGram: number;
-  protein: number;
-  fat: number;
-  carbs: number;
-  description: string;
-  note?: string;
-  availableUnits: FoodUnit[];
-};
+import { Nutritients } from "./types";
 
 const foodsData: {
   [foodKey: string]: Nutritients;

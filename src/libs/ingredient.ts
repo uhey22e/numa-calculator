@@ -1,4 +1,5 @@
-import foodsData, { Nutritients } from "./foodsData";
+import foodsData from "./foodsData";
+import { Nutritients } from "./types";
 
 const kcalPerGram = {
   protein: 4,

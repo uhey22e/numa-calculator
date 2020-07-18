@@ -2,7 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Alert from "@material-ui/lab/Alert";
-import { validationErrorMessage } from "../messages";
+import { validationErrorMessage } from "../utils/messages";
 import { ValidationFuncs, getValidationMessage } from "../utils/validation";
 
 type Props = {

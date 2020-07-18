@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, InputAdornment, TextField, Typography } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import { PFCBalance } from "../types";
-import { validationErrorMessage } from "../messages";
+import { PFCBalance } from "../libs/types";
+import { validationErrorMessage } from "../utils/messages";
 import { ValidationFuncs, getValidationMessage } from "../utils/validation";
 
 type Props = {
