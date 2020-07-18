@@ -34,5 +34,7 @@ module.exports = {
     "gatsby-plugin-catch-links",
     // Allow to use material-ui
     "gatsby-plugin-material-ui",
+    // Load twitter script
+    "gatsby-plugin-twitter",
   ],
 };

@@ -1,24 +1,9 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import { Box } from "@material-ui/core";
 
 export default function ShareButtons() {
   return (
     <>
-      <Helmet>
-        <script
-          async
-          src="https://platform.twitter.com/widgets.js"
-          charSet="utf-8"
-        ></script>
-        <script
-          type="text/javascript"
-          src="https://b.st-hatena.com/js/bookmark_button.js"
-          charSet="utf-8"
-          async={true}
-        ></script>
-      </Helmet>
-
       <Box
         display="flex"
         flexDirection="row"
@@ -49,7 +34,6 @@ export default function ShareButtons() {
             style={{ border: "none", overflow: "hidden" }}
             scrolling="no"
             frameBorder="0"
-            allowTransparency={true}
             allow="encrypted-media"
           ></iframe>
         </Box>
