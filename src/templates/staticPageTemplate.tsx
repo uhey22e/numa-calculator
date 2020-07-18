@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../layout/Layout";
+import ShareButtons from "../components/ShareButtons";
 import "../styles/global.scss";
 
 type StaticPageTemplate = {
@@ -26,6 +27,7 @@ export default function StaticPageTemplate({ data }: StaticPageTemplate) {
         className="static-page-content"
         dangerouslySetInnerHTML={{ __html: html }}
       />
+      <ShareButtons />
     </Layout>
   );
 }

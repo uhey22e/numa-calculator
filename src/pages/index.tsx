@@ -15,6 +15,7 @@ import Logo from "../components/Logo";
 import theme from "../utils/muiTheme";
 import { makeStyles } from "@material-ui/styles";
 import Layout from "../layout/Layout";
+import ShareButtons from "../components/ShareButtons";
 
 type Props = {};
 
@@ -170,6 +171,8 @@ export default function App(props: Props) {
             脂質が{remainingFatGram.toFixed(1)}g不足しています
           </Alert>
         </Box>
+
+        <ShareButtons />
       </Layout>
     </MuiThemeProvider>
   );
