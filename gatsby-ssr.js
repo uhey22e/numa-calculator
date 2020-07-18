@@ -1,6 +1,7 @@
 const React = require("react");
 
 export const onRenderBody = ({ setHeadComponents }) => {
+  // 全ページ共通
   setHeadComponents([
     <script
       key="hatena"

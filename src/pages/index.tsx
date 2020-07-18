@@ -16,6 +16,7 @@ import theme from "../utils/muiTheme";
 import { makeStyles } from "@material-ui/styles";
 import Layout from "../layout/Layout";
 import ShareButtons from "../components/ShareButtons";
+import { Helmet } from "react-helmet";
 
 type Props = {};
 
@@ -95,93 +96,98 @@ export default function App(props: Props) {
   };
 
   return (
-    <MuiThemeProvider theme={theme}>
-      <Layout>
-        <Box display="flex" justifyContent="center" pb={3}>
-          <Logo />
-        </Box>
+    <>
+      <Helmet>
+        <title>かんたん沼計算機</title>
+      </Helmet>
+      <MuiThemeProvider theme={theme}>
+        <Layout>
+          <Box display="flex" justifyContent="center" pb={3}>
+            <Logo />
+          </Box>
 
-        <Box component="div" mb={3}>
-          <Typography className={classes.paragraph}>
-            1日の摂取カロリーとPFCバランスから、沼のレシピを逆算します。
-          </Typography>
-          <Typography className={classes.paragraph}>
-            「沼」については<Link to="/about">こちら</Link>をご覧ください。
-          </Typography>
-        </Box>
+          <Box component="div" mb={3}>
+            <Typography className={classes.paragraph}>
+              1日の摂取カロリーとPFCバランスから、沼のレシピを逆算します。
+            </Typography>
+            <Typography className={classes.paragraph}>
+              「沼」については<Link to="/about">こちら</Link>をご覧ください。
+            </Typography>
+          </Box>
 
-        <Box mb={5}>
-          <InputSection title="1日の目標摂取カロリーを入力">
-            <TargetCalorieInput onChange={setTargetCalorie} />
-          </InputSection>
+          <Box mb={5}>
+            <InputSection title="1日の目標摂取カロリーを入力">
+              <TargetCalorieInput onChange={setTargetCalorie} />
+            </InputSection>
 
-          <InputSection title="目標PFCバランスを入力">
-            <PFCBalanceInput onChange={setPFCBalance} />
-          </InputSection>
+            <InputSection title="目標PFCバランスを入力">
+              <PFCBalanceInput onChange={setPFCBalance} />
+            </InputSection>
 
-          <InputSection title="追加食材・サプリメントを入力">
-            <AdditionalFoodInput
-              title="冷凍あさり"
-              foodName="冷凍あさり"
-              foodKey="frozenAsari"
-              unitName="g"
-              onChange={handleChangeAdditionalFoods("frozenAsari")}
-            />
-            <AdditionalFoodInput
-              title="卵"
-              foodName="卵"
-              foodKey="egg"
-              unitName="個"
-              onChange={handleChangeAdditionalFoods("egg")}
-            />
-            <AdditionalFoodInput
-              title="プロテイン"
-              foodName="プロテインパウダー"
-              foodKey="proteinPowder"
-              unitName="g"
-              onChange={handleChangeAdditionalFoods("proteinPowder")}
-            />
-            <AdditionalFoodInput
-              title="牛乳"
-              foodName="牛乳"
-              foodKey="milk"
-              unitName="mL"
-              onChange={handleChangeAdditionalFoods("milk")}
-            />
-            <AdditionalFoodInput
-              title="オイコス"
-              foodName="オイコス"
-              foodKey="oikos"
-              unitName="個"
-              onChange={handleChangeAdditionalFoods("oikos")}
-            />
-          </InputSection>
-        </Box>
+            <InputSection title="追加食材・サプリメントを入力">
+              <AdditionalFoodInput
+                title="冷凍あさり"
+                foodName="冷凍あさり"
+                foodKey="frozenAsari"
+                unitName="g"
+                onChange={handleChangeAdditionalFoods("frozenAsari")}
+              />
+              <AdditionalFoodInput
+                title="卵"
+                foodName="卵"
+                foodKey="egg"
+                unitName="個"
+                onChange={handleChangeAdditionalFoods("egg")}
+              />
+              <AdditionalFoodInput
+                title="プロテイン"
+                foodName="プロテインパウダー"
+                foodKey="proteinPowder"
+                unitName="g"
+                onChange={handleChangeAdditionalFoods("proteinPowder")}
+              />
+              <AdditionalFoodInput
+                title="牛乳"
+                foodName="牛乳"
+                foodKey="milk"
+                unitName="mL"
+                onChange={handleChangeAdditionalFoods("milk")}
+              />
+              <AdditionalFoodInput
+                title="オイコス"
+                foodName="オイコス"
+                foodKey="oikos"
+                unitName="個"
+                onChange={handleChangeAdditionalFoods("oikos")}
+              />
+            </InputSection>
+          </Box>
 
-        <Box mb={2}>
-          <Typography variant="inherit" component="h2" align="center">
-            計算結果
-          </Typography>
-        </Box>
+          <Box mb={2}>
+            <Typography variant="inherit" component="h2" align="center">
+              計算結果
+            </Typography>
+          </Box>
 
-        <Box mb={5}>
-          <OutputSection title="食材一覧">
-            <IngredientsTable
-              ingredients={[rice, chicken, ...validAdditionalFoods]}
-            />
-          </OutputSection>
+          <Box mb={5}>
+            <OutputSection title="食材一覧">
+              <IngredientsTable
+                ingredients={[rice, chicken, ...validAdditionalFoods]}
+              />
+            </OutputSection>
 
-          <OutputSection title="栄養素詳細">
-            <NutrientsDetail
-              ingredients={[rice, chicken, ...validAdditionalFoods]}
-            />
-          </OutputSection>
+            <OutputSection title="栄養素詳細">
+              <NutrientsDetail
+                ingredients={[rice, chicken, ...validAdditionalFoods]}
+              />
+            </OutputSection>
 
-          {lackOfFatAlert()}
-        </Box>
+            {lackOfFatAlert()}
+          </Box>
 
-        <ShareButtons />
-      </Layout>
-    </MuiThemeProvider>
+          <ShareButtons />
+        </Layout>
+      </MuiThemeProvider>
+    </>
   );
 }

@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import Layout from "../layout/Layout";
 import ShareButtons from "../components/ShareButtons";
 import "../styles/global.scss";
+import { Helmet } from "react-helmet";
 
 type StaticPageTemplate = {
   data: {
@@ -21,14 +22,19 @@ export default function StaticPageTemplate({ data }: StaticPageTemplate) {
   const { frontmatter, html } = markdownRemark;
 
   return (
-    <Layout>
-      <h1>{frontmatter.title}</h1>
-      <section
-        className="static-page-content"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-      <ShareButtons />
-    </Layout>
+    <>
+      <Helmet>
+        <title>{`${frontmatter.title} | かんたん沼計算機`}</title>
+      </Helmet>
+      <Layout>
+        <h1>{frontmatter.title}</h1>
+        <section
+          className="static-page-content"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+        <ShareButtons />
+      </Layout>
+    </>
   );
 }
 

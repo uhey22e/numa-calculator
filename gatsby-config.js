@@ -5,7 +5,22 @@
  */
 
 module.exports = {
+  siteMetadata: {
+    title: `かんたん沼計算機`,
+    siteUrl: `https://numa-calculator.uhey22e.com`,
+  },
   plugins: [
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `かんたん沼計算機`,
+        start_url: `/`,
+        background_color: `#fff`,
+        theme_color: `#d20000`,
+        display: `standalone`,
+        icon: `src/assets/numa.png`,
+      },
+    },
     "gatsby-plugin-react-helmet",
     // Enable SASS
     "gatsby-plugin-sass",
