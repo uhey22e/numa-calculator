@@ -8,13 +8,19 @@ type Props = {};
 
 const useStyles = makeStyles({
   root: {
-    fontSize: 32,
+    fontSize: 28,
     margin: 0,
+    "@media (min-width: 600px)": {
+      fontSize: 36,
+    },
   },
   logoImg: {
     display: "block",
-    height: "1.67em",
+    height: "1.33em",
     margin: "0 0.1em",
+    "@media (min-width: 600px)": {
+      height: "1.67em",
+    },
   },
 });
 

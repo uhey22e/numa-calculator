@@ -76,6 +76,7 @@ export default function PFCBalanceInput({
     if (errMsg) {
       setValidationError(errMsg);
     } else {
+      setValidationError("");
       if (onChange) {
         onChange(newValues);
       }
