@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import Box from "@material-ui/core/Box";
 // @ts-ignore
-import * as logo from "./numa.png";
+import * as logo from "./numa.svg";
 
 type Props = {};
 
