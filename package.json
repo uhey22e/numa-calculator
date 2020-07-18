@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "prebuild": "run-p clean test fix typecheck",
     "build": "gatsby build",
     "build-storybook": "build-storybook",
     "clean": "gatsby clean",
@@ -13,7 +12,8 @@
     "start": "npm run develop",
     "storybook": "start-storybook -p 6006",
     "test": "jest ./src",
-    "typecheck": "tsc --pretty"
+    "typecheck": "tsc --pretty",
+    "lint": "run-p fix typecheck"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.29",

@@ -182,5 +182,7 @@ title: "レシピの計算方法について"
 特に但し書きの無い限り文部科学省発行の「日本食品標準成分表2015年版（七訂）」、
 およびこれを元にした「食品成分データベース」より引用しています。
 
-- [日本食品標準成分表2015年版（七訂）](https://www.mext.go.jp/a_menu/syokuhinseibun/1365295.htm)
-- [食品成分データベース](https://fooddb.mext.go.jp/)
+- 日本食品標準成分表2015年版（七訂）<br>
+  https://www.mext.go.jp/a_menu/syokuhinseibun/1365295.htm
+- 食品成分データベース<br>
+  https://fooddb.mext.go.jp/

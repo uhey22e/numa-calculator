@@ -74,6 +74,16 @@ export default function App(props: Props) {
     (targetCalorie * pfcBalance.fatPct) / 100 / 9 -
     Ingredient.totalFatGram([rice, chicken, ...validAdditionalFoods]);
 
+  const lackOfFatAlert = () => {
+    if (Math.abs(remainingFatGram) > 0.1) {
+      return (
+        <Alert severity="warning">
+          脂質が{remainingFatGram.toFixed(1)}g不足しています
+        </Alert>
+      );
+    }
+  };
+
   const handleChangeAdditionalFoods = (key: string) => {
     return (food: Ingredient | undefined) => {
       setAdditionalFoods(
@@ -167,9 +177,7 @@ export default function App(props: Props) {
             />
           </OutputSection>
 
-          <Alert severity="warning">
-            脂質が{remainingFatGram.toFixed(1)}g不足しています
-          </Alert>
+          {lackOfFatAlert()}
         </Box>
 
         <ShareButtons />

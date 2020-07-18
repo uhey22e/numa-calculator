@@ -25,19 +25,6 @@ export default function ShareButtons() {
           </a>
         </Box>
 
-        {/* Facebook */}
-        <Box mr={2}>
-          <iframe
-            src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fnuma-calculator.uhey22e.com%2F&width=91&layout=button_count&action=like&size=small&share=false&height=20&appId=390341601927113"
-            width="91"
-            height="20"
-            style={{ border: "none", overflow: "hidden" }}
-            scrolling="no"
-            frameBorder="0"
-            allow="encrypted-media"
-          ></iframe>
-        </Box>
-
         {/* はてな */}
         <Box>
           <a
