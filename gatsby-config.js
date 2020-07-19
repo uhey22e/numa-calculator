@@ -10,6 +10,7 @@ module.exports = {
     siteUrl: `https://numa-calculator.uhey22e.com`,
   },
   plugins: [
+    // Set favicon and manifest
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -19,6 +20,16 @@ module.exports = {
         theme_color: `#d20000`,
         display: `standalone`,
         icon: `src/assets/numa_favicon.png`,
+      },
+    },
+    // Google analytics
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        // The property ID; the tracking code won't be generated without it
+        trackingId: "UA-172990629-1",
+        // Defines where to place the tracking script - `true` in the head and `false` in the body
+        head: true,
       },
     },
     "gatsby-plugin-react-helmet",
