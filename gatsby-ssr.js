@@ -9,5 +9,12 @@ export const onRenderBody = ({ setHeadComponents }) => {
       charSet="utf-8"
       async
     />,
+    <meta
+      property="og:description"
+      content="目標摂取カロリーとPFCバランスから、沼のレシピを計算します。"
+    />,
+    <meta property="og:image" content="/numa_card_square.png" />,
+    <meta name="twitter:card" content="summary" />,
+    <meta name="twitter:site" content={"@uhey22e"} />,
   ]);
 };
