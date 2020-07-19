@@ -13,7 +13,10 @@ export const onRenderBody = ({ setHeadComponents }) => {
       property="og:description"
       content="目標摂取カロリーとPFCバランスから、沼のレシピを計算します。"
     />,
-    <meta property="og:image" content="/numa_card_square.png" />,
+    <meta
+      property="og:image"
+      content="https://numa-calculator.uhey22e.com/numa_card_square.png"
+    />,
     <meta name="twitter:card" content="summary" />,
     <meta name="twitter:site" content={"@uhey22e"} />,
   ]);
