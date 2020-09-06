@@ -2,6 +2,7 @@ import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { Box, MuiThemeProvider, Typography, Button } from "@material-ui/core";
 import { Link } from "gatsby";
+import { Helmet } from "react-helmet";
 import InputSection from "../components/InputSection";
 import OutputSection from "../components/OutputSection";
 import AdditionalFoodInput from "../components/AdditionalFoodInput";
@@ -10,18 +11,15 @@ import PFCBalanceInput from "../components/PFCBalanceInput";
 import IngredientsTable from "../components/IngredientsTable";
 import NutrientsDetail from "../components/NutrientsDetail";
 import Ingredient from "../libs/ingredient";
+import { CalcMode, calcMainFoods } from "../libs/calc";
 import { PFCBalance } from "../libs/types";
 import Logo from "../components/Logo";
 import theme from "../utils/muiTheme";
 import { makeStyles } from "@material-ui/styles";
 import Layout from "../layout/Layout";
 import ShareButtons from "../components/ShareButtons";
-import { Helmet } from "react-helmet";
 
 type Props = {};
-
-const calcModes = ["numa", "jagabird"] as const;
-type CalcMode = typeof calcModes[number];
 
 const useStyles = makeStyles({
   paragraph: {
@@ -43,52 +41,39 @@ export default function App(props: Props) {
     carbsPct: 50,
   });
 
+  // 計算モード (沼 / ジャガバード)
+  const [calcMode, setCalcMode] = React.useState<CalcMode>("numa");
+
   // 追加食材・サプリメント
   const [additionalFoods, setAdditionalFoods] = React.useState<{
     [key: string]: Ingredient | undefined;
   }>({});
 
-  // 計算モード (沼 / ジャガバード)
-  const [calcMode, setCalcMode] = React.useState<CalcMode>("numa");
-
   // Filter out 'undefined'
   const validAdditionalFoods = Object.values(additionalFoods).filter<
     Ingredient
   >((v: Ingredient | undefined): v is Ingredient => v !== undefined);
-  const additionalFoodProteinKcal = Ingredient.totalProteinKcal(
-    validAdditionalFoods
-  );
-  const additionalFoodCarbsKcal = Ingredient.totalCarbsKcal(
-    validAdditionalFoods
-  );
 
-  // Calc amount of rice and chicken
-  const targetCarbsKcal =
-    targetCalorie * (pfcBalance.carbsPct / 100) - additionalFoodCarbsKcal;
-  const rice = Ingredient.fromTargetCarbsKcal("rice", "白米", targetCarbsKcal);
-  const targetProteinKcal =
-    targetCalorie * (pfcBalance.proteinPct / 100) -
-    rice.proteinKcal -
-    additionalFoodProteinKcal;
-  const chicken = Ingredient.fromTargetProteinKcal(
-    "chicken",
-    "皮無し鶏むね肉",
-    targetProteinKcal
+  // Calc amount of mainFood and chicken
+  const { mainFood, chicken } = calcMainFoods(
+    targetCalorie,
+    pfcBalance,
+    validAdditionalFoods,
+    calcMode
   );
 
   // 不足している脂質
   const remainingFatGram =
     (targetCalorie * pfcBalance.fatPct) / 100 / 9 -
-    Ingredient.totalFatGram([rice, chicken, ...validAdditionalFoods]);
-
-  const lackOfFatAlert = () => {
-    if (Math.abs(remainingFatGram) > 0.1) {
-      return (
-        <Alert severity="warning">
-          脂質が{remainingFatGram.toFixed(1)}g不足しています
-        </Alert>
-      );
-    }
+    Ingredient.totalFatGram([mainFood, chicken, ...validAdditionalFoods]);
+  const fatAlert = () => {
+    if (Math.abs(remainingFatGram) < 0.1) return;
+    const message = remainingFatGram > 0 ? "不足しています" : "過剰です";
+    return (
+      <Alert severity="warning">
+        脂質が{Math.abs(remainingFatGram).toFixed(1)}g{message}
+      </Alert>
+    );
   };
 
   const handleChangeAdditionalFoods = (key: string) => {
@@ -189,17 +174,17 @@ export default function App(props: Props) {
           <Box mb={5}>
             <OutputSection title="食材一覧">
               <IngredientsTable
-                ingredients={[rice, chicken, ...validAdditionalFoods]}
+                ingredients={[mainFood, chicken, ...validAdditionalFoods]}
               />
             </OutputSection>
 
             <OutputSection title="栄養素詳細">
               <NutrientsDetail
-                ingredients={[rice, chicken, ...validAdditionalFoods]}
+                ingredients={[mainFood, chicken, ...validAdditionalFoods]}
               />
             </OutputSection>
 
-            {lackOfFatAlert()}
+            {fatAlert()}
           </Box>
 
           <ShareButtons />
