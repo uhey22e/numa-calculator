@@ -1,6 +1,6 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
-import { Box, MuiThemeProvider, Typography } from "@material-ui/core";
+import { Box, MuiThemeProvider, Typography, Button } from "@material-ui/core";
 import { Link } from "gatsby";
 import InputSection from "../components/InputSection";
 import OutputSection from "../components/OutputSection";
@@ -19,6 +19,9 @@ import ShareButtons from "../components/ShareButtons";
 import { Helmet } from "react-helmet";
 
 type Props = {};
+
+const calcModes = ["numa", "jagabird"] as const;
+type CalcMode = typeof calcModes[number];
 
 const useStyles = makeStyles({
   paragraph: {
@@ -44,6 +47,9 @@ export default function App(props: Props) {
   const [additionalFoods, setAdditionalFoods] = React.useState<{
     [key: string]: Ingredient | undefined;
   }>({});
+
+  // 計算モード (沼 / ジャガバード)
+  const [calcMode, setCalcMode] = React.useState<CalcMode>("numa");
 
   // Filter out 'undefined'
   const validAdditionalFoods = Object.values(additionalFoods).filter<
@@ -167,6 +173,17 @@ export default function App(props: Props) {
             <Typography variant="inherit" component="h2" align="center">
               計算結果
             </Typography>
+          </Box>
+
+          <Box display="flex" justifyContent="flex-end">
+            <Button
+              color="primary"
+              onClick={() => {
+                setCalcMode(calcMode === "numa" ? "jagabird" : "numa");
+              }}
+            >
+              {calcMode === "numa" ? "ジャガバード" : "沼"}に切り替える
+            </Button>
           </Box>
 
           <Box mb={5}>
