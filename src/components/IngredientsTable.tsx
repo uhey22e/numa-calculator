@@ -51,6 +51,10 @@ export default function IngredientsTable(props: Props) {
               {detailCols(row)}
             </TableRow>
           ))}
+          <TableRow key="omomuro">
+            <TableCell align="left">その他</TableCell>
+            <TableCell align="right">おもむろ</TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </>

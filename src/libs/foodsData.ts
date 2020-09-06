@@ -77,6 +77,15 @@ const foodsData: {
       },
     ],
   },
+  potato: {
+    unitGram: 100,
+    protein: 1.8,
+    fat: 0.1,
+    carbs: 17.3,
+    description: "じゃがいも",
+    note: "じゃがいも",
+    availableUnits: [],
+  },
 };
 
 export default foodsData;
