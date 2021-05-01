@@ -29,7 +29,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
       path: node.frontmatter.slug,
-      component: require.resolve("./src/templates/staticPageTemplate.tsx"),
+      component: require.resolve("./src/templates/StaticPageTemplate.tsx"),
       context: {
         // additional data can be passed via context
         slug: node.frontmatter.slug,

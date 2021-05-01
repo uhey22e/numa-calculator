@@ -1,11 +1,11 @@
 import React from "react";
 import { graphql } from "gatsby";
-import Layout from "../layout/Layout";
+import { Layout } from "../layouts/Layout";
 import ShareButtons from "../components/ShareButtons";
 import "../styles/global.scss";
 import { Helmet } from "react-helmet";
 
-type StaticPageTemplate = {
+type StaticPageTemplateProps = {
   data: {
     markdownRemark: {
       html: string;
@@ -17,7 +17,7 @@ type StaticPageTemplate = {
   };
 };
 
-export default function StaticPageTemplate({ data }: StaticPageTemplate) {
+const StaticPageTemplate = ({ data }: StaticPageTemplateProps) => {
   const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
 
@@ -36,7 +36,8 @@ export default function StaticPageTemplate({ data }: StaticPageTemplate) {
       </Layout>
     </>
   );
-}
+};
+export default StaticPageTemplate;
 
 export const pageQuery = graphql`
   query($slug: String!) {

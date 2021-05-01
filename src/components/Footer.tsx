@@ -59,11 +59,13 @@ export default function Footer(props: Props) {
 
   const menuItemElms = menuItems.map((v) => {
     return (
-      <li className={classes.menuItem} key={`pagelink_${v.href}`}>
-        <Link to={v.href} className={classes.link}>
-          {v.label}
-        </Link>
-      </li>
+      <footer>
+        <li className={classes.menuItem} key={`pagelink_${v.href}`}>
+          <Link to={v.href} className={classes.link}>
+            {v.label}
+          </Link>
+        </li>
+      </footer>
     );
   });
 

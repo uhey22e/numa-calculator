@@ -1,91 +1,141 @@
-import { Nutritients } from "./types";
+export interface Nutrients {
+  protein: number;
+  fat: number;
+  carbs: number;
+}
 
-const foodsData: {
-  [foodKey: string]: Nutritients;
-} = {
-  rice: {
-    unitGram: 100,
-    protein: 6.1,
-    fat: 0.9,
-    carbs: 77.6,
-    description: "精白米",
-    availableUnits: [],
-  },
-  chicken: {
-    unitGram: 100,
-    protein: 24.4,
-    fat: 1.9,
+export interface FoodNutrients extends Nutrients {
+  id: string;
+  shortName: string;
+  unitGram: number;
+  availableUnits: Unit[];
+  detailName?: string;
+  note?: string;
+}
+
+export interface Unit {
+  unitName: string;
+  gramsPerUnit: number;
+}
+
+export const getExtraFood = (id: string): FoodNutrients => {
+  const food = extras.find((f) => f.id === id);
+  if (!food) {
+    throw new Error(`Invalid food ID: ${id}`);
+  }
+  return food;
+};
+
+export const rice: FoodNutrients = {
+  id: "rice",
+  shortName: "白米",
+  detailName: "精白米",
+  unitGram: 100,
+  protein: 6.1,
+  fat: 0.9,
+  carbs: 77.6,
+  availableUnits: [],
+};
+
+export const potato: FoodNutrients = {
+  id: "potato",
+  shortName: "じゃがいも",
+  detailName: "じゃがいも",
+  unitGram: 100,
+  protein: 1.8,
+  fat: 0.1,
+  carbs: 17.3,
+  availableUnits: [],
+};
+
+export const chicken: FoodNutrients = {
+  id: "chicken",
+  shortName: "皮無し鶏むね肉",
+  detailName: "皮無し鶏むね肉",
+  unitGram: 100,
+  protein: 24.4,
+  fat: 1.9,
+  carbs: 0,
+  availableUnits: [],
+};
+
+const extras: FoodNutrients[] = [
+  {
+    id: "oil",
+    shortName: "油",
+    detailName: "油",
+    unitGram: 1,
+    protein: 0,
+    fat: 1,
     carbs: 0,
-    description: "皮無し鶏むね肉",
     availableUnits: [],
   },
-  milk: {
+  {
+    id: "milk",
+    shortName: "牛乳",
+    detailName: "牛乳",
     unitGram: 100,
     protein: 3.3,
     fat: 3.8,
     carbs: 4.8,
-    description: "牛乳",
     availableUnits: [
       {
         unitName: "mL",
-        gramPerUnit: 1.032,
+        gramsPerUnit: 1.032,
       },
     ],
   },
-  egg: {
+  {
+    id: "egg",
+    shortName: "卵",
+    detailName: "鶏卵",
     unitGram: 100,
     protein: 12.3,
     fat: 10.3,
     carbs: 0.3,
-    description: "鶏卵",
     availableUnits: [
       {
         unitName: "個",
-        gramPerUnit: 60,
+        gramsPerUnit: 60,
       },
     ],
   },
-  proteinPowder: {
+  {
+    id: "proteinPowder",
+    shortName: "プロテイン",
+    detailName: "プロテインパウダー",
     unitGram: 100,
     protein: 82,
     fat: 7.5,
-    carbs: 4.0,
-    description: "プロテインパウダー",
+    carbs: 4,
     note: "MyProtein Impactホエイプロテイン(ミルクティー)",
     availableUnits: [],
   },
-  frozenAsari: {
+  {
+    id: "asari",
+    shortName: "冷凍あさり",
+    detailName: "冷凍あさりむき身",
     unitGram: 100,
     protein: 13.3,
     fat: 1.6,
     carbs: 4.9,
-    description: "冷凍あさりむき身",
     note: "CGC 断然お得 むきあさり",
     availableUnits: [],
   },
-  oikos: {
+  {
+    id: "oikos",
+    shortName: "オイコス",
+    detailName: "オイコス",
     unitGram: 113,
     protein: 10.1,
     fat: 0,
     carbs: 12.3,
-    description: "オイコス",
     note: "オイコス 加糖・プレーン",
     availableUnits: [
       {
         unitName: "個",
-        gramPerUnit: 113,
+        gramsPerUnit: 113,
       },
     ],
   },
-  potato: {
-    unitGram: 100,
-    protein: 1.8,
-    fat: 0.1,
-    carbs: 17.3,
-    description: "じゃがいも",
-    note: "じゃがいも",
-    availableUnits: [],
-  },
-};
-
-export default foodsData;
+];
