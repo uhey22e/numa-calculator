@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField, { TextFieldProps } from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Box from "@material-ui/core/Box";
-import { Ingredient } from "../libs/calc";
+import { Ingredient } from "../libs/calculator/calc";
 
 export interface ExtraFoodInputProps {
   ingredient: Ingredient;

@@ -1,7 +1,7 @@
 import React from "react";
 import { NutrientsDetail } from "../src/components/NutrientsDetail";
-import { Ingredient } from "../src/libs/calc";
-import { rice, chicken, getExtraFood } from "../src/libs/foodsData";
+import { Ingredient } from "../src/libs/calculator/calc";
+import { rice, chicken, getExtraFood } from "../src/libs/calculator/foodsData";
 
 export default {
   title: "NutrientsDetail",

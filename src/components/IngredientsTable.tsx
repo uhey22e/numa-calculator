@@ -8,7 +8,7 @@ import {
   calcNetGrams,
   calcNetNutrients,
   Ingredient,
-} from "../libs/calc";
+} from "../libs/calculator/calc";
 
 interface IngredientsTableProps {
   ingredients: Ingredient[];

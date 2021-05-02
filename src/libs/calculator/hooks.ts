@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { calcMainFoods, PFCBalance, CalcMode, Ingredient } from "../libs/calc";
+import { calcMainFoods, PFCBalance, CalcMode, Ingredient } from "./calc";
 
 export const useCalculator = (extraFoods: Ingredient[]) => {
   const [targetKcals, setTargetKcals] = useState<number>(1500);
