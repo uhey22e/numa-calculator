@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
-import Layout from "../layout/Layout";
+import { Layout } from "../layouts/Layout";
 
 export default function NotFound() {
   return (

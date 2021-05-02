@@ -1,6 +1,7 @@
 import React from "react";
-import NutrientsDetail from "../src/components/NutrientsDetail";
-import Ingredient from "../src/libs/ingredient";
+import { NutrientsDetail } from "../src/components/NutrientsDetail";
+import { Ingredient } from "../src/libs/calculator/calc";
+import { rice, chicken, getExtraFood } from "../src/libs/calculator/foodsData";
 
 export default {
   title: "NutrientsDetail",
@@ -8,11 +9,18 @@ export default {
 };
 
 const ingredients: Ingredient[] = [
-  Ingredient.fromTargetCarbsGram("rice", "米", 187.5),
-  Ingredient.fromTargetProteinGram("chicken", "皮無し鶏むね肉", 120),
-  new Ingredient("proteinPowder", "プロテイン", 28),
-  new Ingredient("egg", "鶏卵", 2, "個"),
-  new Ingredient("milk", "牛乳", 200, "mL"),
+  {
+    food: { ...rice },
+    quantity: 100,
+  },
+  {
+    food: { ...chicken },
+    quantity: 200,
+  },
+  {
+    food: getExtraFood("milk"),
+    quantity: 200,
+  },
 ];
 
 export const basicUsage = () => <NutrientsDetail ingredients={ingredients} />;

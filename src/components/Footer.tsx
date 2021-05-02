@@ -39,23 +39,23 @@ const useStyles = makeStyles({
   },
 });
 
+const menuItems = [
+  {
+    label: "トップページ",
+    href: "/",
+  },
+  {
+    label: "このアプリについて",
+    href: "/about",
+  },
+  {
+    label: "レシピの計算方法について",
+    href: "/calc-procedure",
+  },
+];
+
 export default function Footer(props: Props) {
   const classes = useStyles();
-
-  const menuItems = [
-    {
-      label: "トップページ",
-      href: "/",
-    },
-    {
-      label: "このアプリについて",
-      href: "/about",
-    },
-    {
-      label: "レシピの計算方法について",
-      href: "/calc-procedure",
-    },
-  ];
 
   const menuItemElms = menuItems.map((v) => {
     return (
