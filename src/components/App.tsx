@@ -9,7 +9,7 @@ import PFCBalanceInput from "../components/PFCBalanceInput";
 import { IngredientsTable } from "../components/IngredientsTable";
 import { NutrientsDetail } from "../components/NutrientsDetail";
 import { Ingredient } from "../libs/calculator/calc";
-import Logo from "../components/Logo";
+import { Logo } from "../components/Logo";
 import { makeStyles } from "@material-ui/styles";
 import ShareButtons from "../components/ShareButtons";
 import { useCalculator } from "../libs/calculator/hooks";
