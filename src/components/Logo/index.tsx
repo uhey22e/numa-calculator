@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-type Props = {};
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "inline-flex",

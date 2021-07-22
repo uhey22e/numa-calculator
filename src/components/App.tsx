@@ -88,12 +88,12 @@ export const App = () => {
   }, [diffs]);
 
   return (
-    <>
-      <Box display="flex" justifyContent="center" mb={3}>
-        <Logo />
-      </Box>
+    <div>
+      <Box component="section" marginBottom={3}>
+        <Box display="flex" justifyContent="center" marginBottom={3}>
+          <Logo />
+        </Box>
 
-      <Box mb={3}>
         <Typography className={classes.paragraph}>
           1日の摂取カロリーとPFCバランスから、沼のレシピを逆算します。
         </Typography>
@@ -102,7 +102,7 @@ export const App = () => {
         </Typography>
       </Box>
 
-      <Box mb={5}>
+      <Box component="section" marginBottom={5}>
         <InputSection title="1日の目標摂取カロリーを入力">
           <TargetCalorieInput onChange={setTargetKcals} />
         </InputSection>
@@ -124,19 +124,17 @@ export const App = () => {
         </InputSection>
       </Box>
 
-      <Box mb={2}>
-        <Typography variant="inherit" component="h2" align="center">
-          計算結果
-        </Typography>
-      </Box>
-
-      <Box display="flex" justifyContent="flex-end">
-        <Button color="primary" onClick={toggleCalcMode}>
-          {calcMode === "numa" ? "ジャガバード" : "沼"}に切り替える
-        </Button>
-      </Box>
-
-      <Box mb={5}>
+      <Box component="section" marginBottom={5}>
+        <Box marginBottom={2}>
+          <Typography variant="inherit" component="h2" align="center">
+            計算結果
+          </Typography>
+        </Box>
+        <Box display="flex" justifyContent="flex-end">
+          <Button color="primary" onClick={toggleCalcMode}>
+            {calcMode === "numa" ? "ジャガバード" : "沼"}に切り替える
+          </Button>
+        </Box>
         <OutputSection title="食材一覧">
           <IngredientsTable ingredients={[main, chicken, ...validExtraFoods]} />
         </OutputSection>
@@ -147,6 +145,6 @@ export const App = () => {
       </Box>
 
       <ShareButtons />
-    </>
+    </div>
   );
 };
