@@ -1,38 +1,44 @@
 import React from "react";
-import { makeStyles } from "@material-ui/styles";
-import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
 // @ts-ignore
-import * as logo from "./numa.svg";
+import * as logo from "./numa_logo.png";
+// @ts-ignore
+import * as logo2x from "./numa_logo@2x.png";
 
-type Props = {};
-
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
+    display: "inline-flex",
+    alignItems: "flex-end",
     fontSize: 32,
     margin: 0,
-    "@media (min-width: 600px)": {
+    [theme.breakpoints.up("md")]: {
       fontSize: 36,
     },
   },
   logoImg: {
     display: "block",
-    height: "1.33em",
+    width: 48,
+    height: 48,
     margin: "0 0.1em",
-    "@media (min-width: 600px)": {
-      height: "1.67em",
+    [theme.breakpoints.up("md")]: {
+      width: 60,
+      height: 60,
     },
   },
-});
+}));
 
-export default function Logo(props: Props) {
+export const Logo: React.FC = () => {
   const classes = useStyles();
   return (
     <h1 className={classes.root}>
-      <Box display="flex" alignItems="flex-end">
-        <div>かんたん</div>
-        <img alt="沼" src={logo} className={classes.logoImg} />
-        <div>計算機</div>
-      </Box>
+      <span>かんたん</span>
+      <img
+        alt="沼"
+        src={logo}
+        srcSet={`${logo} 1x, ${logo2x} 2x`}
+        className={classes.logoImg}
+      />
+      <span>計算機</span>
     </h1>
   );
-}
+};
