@@ -27,9 +27,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const logo = "/numa_logo.png";
-// const logo2x = "/numa_logo@2x.png";
-
 export const Logo: React.FC = () => {
   const classes = useStyles();
   return (
