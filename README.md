@@ -11,3 +11,14 @@
 - [マッスルグリルさん](https://www.youtube.com/channel/UCHoOFVQAhK-QyoXgf0iaZIg)
 - [沼の動画](https://www.youtube.com/watch?v=NJtgQEXAjNI)
 
+## Prerequisites
+
+- Node.js v18
+
+## Development guides
+
+Run a development server
+
+```sh
+npm run develop
+```
