@@ -2,8 +2,6 @@ import React from "react";
 import { graphql } from "gatsby";
 import { Layout } from "../layouts/Layout";
 import ShareButtons from "../components/ShareButtons";
-import "../styles/global.css";
-import { Helmet } from "react-helmet";
 
 type StaticPageTemplateProps = {
   data: {
@@ -22,19 +20,14 @@ const StaticPageTemplate = ({ data }: StaticPageTemplateProps) => {
   const { frontmatter, html } = markdownRemark;
 
   return (
-    <>
-      <Helmet>
-        <title>{`${frontmatter.title} | かんたん沼計算機`}</title>
-      </Helmet>
-      <Layout>
-        <h1>{frontmatter.title}</h1>
-        <section
-          className="static-page-content"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-        <ShareButtons />
-      </Layout>
-    </>
+    <Layout title={`${frontmatter.title} | かんたん沼計算機`}>
+      <h1>{frontmatter.title}</h1>
+      <section
+        className="static-page-content mb-8"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+      <ShareButtons />
+    </Layout>
   );
 };
 export default StaticPageTemplate;

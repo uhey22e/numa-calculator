@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+a {
+  @apply text-sky-600;
+}
+
+a:hover {
+  @apply underline;
+}
+
 .static-page-content p {
   @apply mt-2 mb-2;
+}
+
+.static-page-content h1 {
+  @apply text-lg;
 }

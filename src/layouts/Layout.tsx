@@ -15,7 +15,7 @@ export const Layout: React.FunctionComponent<LayoutProps> = ({
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <main className=" w-full max-w-lg mx-auto mt-4 px-4">{children}</main>
+      <main className="w-full max-w-lg mx-auto mt-4 mb-8 px-4">{children}</main>
       <Footer />
     </>
   );

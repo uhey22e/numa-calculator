@@ -7,7 +7,6 @@ export default {
   component: Alert,
 } as ComponentMeta<typeof Alert>;
 
-//👇 We create a “template” of how args map to rendering
 const Template: ComponentStory<typeof Alert> = (args) => <Alert {...args} />;
 
 export const Warning = Template.bind({});

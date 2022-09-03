@@ -5,8 +5,7 @@ import {
   faTwitterSquare,
   faGithubSquare,
 } from "@fortawesome/free-brands-svg-icons";
-
-type Props = {};
+import classNames from "classnames";
 
 type MenuItem = {
   label: string;
@@ -28,55 +27,58 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-export default function Footer(props: Props) {
-  const menuItemElms = menuItems.map((v) => {
-    return (
-      <li key={`pagelink_${v.href}`}>
-        <Link to={v.href}>{v.label}</Link>
-      </li>
-    );
-  });
+const snsLinks = [
+  {
+    key: "link-twitter",
+    icon: faTwitterSquare,
+    href: "//twitter.com/uhey22e",
+  },
+  {
+    key: "link-github",
+    icon: faGithubSquare,
+    href: "//github.com/uhey22e/numa-calcurator",
+  },
+];
 
-  const snsLinks = [
-    {
-      icon: faTwitterSquare,
-      href: "//twitter.com/uhey22e",
-    },
-    {
-      icon: faGithubSquare,
-      href: "//github.com/uhey22e/numa-calcurator",
-    },
-  ];
-
-  const snsLinkElms = snsLinks.map((v) => {
-    return (
-      <div key={`snslink_${v.href}`}>
-        <a href={v.href}>
-          <FontAwesomeIcon icon={v.icon} color="#505050" size="3x" />
-        </a>
-      </div>
-    );
-  });
-
+export default function Footer(props: {}) {
   return (
-    <div className=" py-4 flex flex-col justify-center gap-4">
-      <div>
-        <ul>{menuItemElms}</ul>
+    <div
+      className={classNames(
+        "w-full py-4 flex flex-col items-center gap-3",
+        "bg-slate-100 text-gray-500",
+        "text-center text-sm",
+        "[&_a]:text-inherit [&_a]:underline"
+      )}
+    >
+      <ul className=" flex flex-col gap-1">
+        {menuItems.map(({ label, href }) => (
+          <li key={`pagelink-${href}`}>
+            <Link to={href}>{label}</Link>
+          </li>
+        ))}
+      </ul>
+      <div className="flex flex-row gap-2">
+        {snsLinks.map((v) => (
+          <div key={v.key}>
+            <a href={v.href}>
+              <FontAwesomeIcon icon={v.icon} color="#505050" size="3x" />
+            </a>
+          </div>
+        ))}
       </div>
-      <div>{snsLinkElms}</div>
-      <div>
-        <div>
-          <a rel="license" href="//creativecommons.org/licenses/by/4.0/">
-            <img
-              alt="Creative Commons License"
-              style={{
-                borderWidth: 0,
-                margin: 0,
-              }}
-              src="//i.creativecommons.org/l/by/4.0/88x31.png"
-            />
-          </a>
-        </div>
+      <div className="flex flex-col items-center">
+        <a
+          className="block"
+          rel="license"
+          href="//creativecommons.org/licenses/by/4.0/"
+        >
+          <img
+            alt="Creative Commons License"
+            src="//i.creativecommons.org/l/by/4.0/88x31.png"
+            width={88}
+            height={31}
+          />
+        </a>
         <div>
           <span>This work is licensed under a </span>
           <a rel="license" href="//creativecommons.org/licenses/by/4.0/">
