@@ -37,12 +37,6 @@ module.exports = {
         },
       },
     },
-    {
-      resolve: `gatsby-plugin-google-adsense`,
-      options: {
-        publisherId: process.env.GOOGLE_ADSENSE_PUBLISHER_ID,
-      },
-    },
     "gatsby-plugin-react-helmet",
     // Enable SASS
     "gatsby-plugin-sass",
