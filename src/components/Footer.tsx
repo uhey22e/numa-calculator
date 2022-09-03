@@ -44,7 +44,7 @@ export default function Footer(props: {}) {
   return (
     <div
       className={classNames(
-        "w-full py-4 flex flex-col items-center gap-3",
+        "w-full py-4 px-2 flex flex-col items-center gap-3",
         "bg-slate-100 text-gray-500",
         "text-center text-sm",
         "[&_a]:text-inherit [&_a]:underline"

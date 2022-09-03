@@ -14,6 +14,10 @@ p {
   @apply leading-relaxed;
 }
 
+.static-page-content {
+  @apply break-words;
+}
+
 .static-page-content h2 {
   @apply text-xl;
   @apply border-b-2 border-b-gray-200;
@@ -26,15 +30,14 @@ p {
 
 .static-page-content ul {
   @apply list-disc list-outside ml-6;
-  @apply leading-loose;
 }
 
 .static-page-content li {
-  @apply list-item;
+  @apply list-item my-1;
 }
 
 .static-page-content .highlight {
-  @apply p-2 text-sm;
+  @apply px-2 py-3 text-sm;
   @apply bg-slate-50;
   @apply whitespace-nowrap overflow-x-auto;
 }
