@@ -36,7 +36,6 @@
     "gatsby-remark-responsive-iframe": "^5.22.0",
     "gatsby-source-filesystem": "^4.22.0",
     "gatsby-transformer-remark": "^5.22.0",
-    "node-sass": "^4.14.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-helmet": "^6.1.0",
