@@ -1,40 +1,18 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import logo from "./numa_logo.png";
 import logo2x from "./numa_logo@2x.png";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "inline-flex",
-    alignItems: "flex-end",
-    fontSize: 32,
-    margin: 0,
-    [theme.breakpoints.up("md")]: {
-      fontSize: 36,
-    },
-  },
-  logoImg: {
-    display: "block",
-    width: 48,
-    height: 48,
-    margin: "0 0.1em",
-    [theme.breakpoints.up("md")]: {
-      width: 60,
-      height: 60,
-    },
-  },
-}));
-
 export const Logo: React.FC = () => {
-  const classes = useStyles();
   return (
-    <h1 className={classes.root}>
+    <h1 className="flex flex-row justify-center items-end text-3xl mb-3">
       <span>かんたん</span>
       <img
         alt="沼"
         src={logo}
         srcSet={`${logo} 1x, ${logo2x} 2x`}
-        className={classes.logoImg}
+        width={48}
+        height={48}
+        className="mx-1"
       />
       <span>計算機</span>
     </h1>

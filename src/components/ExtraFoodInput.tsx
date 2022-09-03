@@ -1,8 +1,4 @@
 import React, { useCallback } from "react";
-import Typography from "@material-ui/core/Typography";
-import TextField, { TextFieldProps } from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Box from "@material-ui/core/Box";
 import { Ingredient } from "../libs/calculator/calc";
 
 export interface ExtraFoodInputProps {
@@ -14,8 +10,8 @@ export const ExtraFoodInput: React.FunctionComponent<ExtraFoodInputProps> = ({
   ingredient,
   onChange,
 }) => {
-  const handleChange = useCallback<NonNullable<TextFieldProps["onChange"]>>(
-    (e) => {
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       const v = e.target.value;
       if (v && Number(v) > 0) {
         onChange({
@@ -33,28 +29,22 @@ export const ExtraFoodInput: React.FunctionComponent<ExtraFoodInputProps> = ({
   );
 
   return (
-    <Box display="flex" flexDirection="row" alignItems="center">
-      <Box flexBasis={110} flexGrow={0}>
-        <Typography variant="inherit">{ingredient.food.shortName}</Typography>
-      </Box>
-      <Box flexBasis={200} flexGrow={1}>
-        <TextField
-          //   error={isError}
-          size="small"
-          type="number"
-          variant="outlined"
-          onChange={handleChange}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                {ingredient.unitName || "g"}
-              </InputAdornment>
-            ),
-          }}
-          fullWidth
-          margin="dense"
-        />
-      </Box>
-    </Box>
+    <div className="flex flex-row items-center mb-2">
+      <div className="basis-32">
+        <div>{ingredient.food.shortName}</div>
+      </div>
+      <div className="flex-grow">
+        <div className="relative">
+          <input
+            type="number"
+            className="block p-2 pr-10 w-full rounded-md border border-gray-300 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+            onChange={handleChange}
+          />
+          <div className="flex items-center absolute inset-y-0 right-4 pointer-events-none text-gray-500">
+            {ingredient.unitName ?? "g"}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };

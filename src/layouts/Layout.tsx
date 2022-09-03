@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Container, MuiThemeProvider } from "@material-ui/core";
 import { Helmet } from "react-helmet";
 import Footer from "../components/Footer";
-import theme from "../utils/muiTheme";
+import { config, dom } from "@fortawesome/fontawesome-svg-core";
+
+config.autoAddCss = false;
 
 type LayoutProps = {
   title?: string;
@@ -13,18 +14,15 @@ export const Layout: React.FunctionComponent<LayoutProps> = ({
   children,
 }) => {
   return (
-    <MuiThemeProvider theme={theme}>
+    <>
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <main>
-        <Container maxWidth="sm">
-          <Box mt={3} mb={3}>
-            {children}
-          </Box>
-        </Container>
-      </main>
+      <main className="w-full max-w-lg mx-auto mt-4 mb-8 px-4">{children}</main>
       <Footer />
-    </MuiThemeProvider>
+      {/* アイコンの巨大化対策 */}
+      {/* cf. https://fontawesome.com/v5/docs/web/other-topics/server-side-rendering#css */}
+      <style>{dom.css()}</style>
+    </>
   );
 };

@@ -1,45 +1,18 @@
 import React from "react";
-import { Box, Link as MuiLink, BoxProps } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTwitterSquare,
   faGithubSquare,
 } from "@fortawesome/free-brands-svg-icons";
+import classNames from "classnames";
 
-type Props = {};
+type MenuItem = {
+  label: string;
+  href: string;
+};
 
-const useStyles = makeStyles({
-  root: {
-    color: "#777",
-    backgroundColor: "#efefef",
-    width: "100%",
-    margin: 0,
-    fontSize: "0.9rem",
-    textAlign: "center",
-  },
-  menu: {
-    margin: 0,
-    padding: 0,
-    listStyleType: "none",
-  },
-  menuItem: {
-    margin: 0,
-    "&:not(:last-child)": {
-      marginBottom: "0.33em",
-    },
-  },
-  link: {
-    color: "#777",
-    textDecoration: "underline",
-  },
-  license: {
-    fontSize: "0.85rem",
-  },
-});
-
-const menuItems = [
+const menuItems: MenuItem[] = [
   {
     label: "トップページ",
     href: "/",
@@ -54,89 +27,80 @@ const menuItems = [
   },
 ];
 
-export default function Footer(props: Props) {
-  const classes = useStyles();
+const snsLinks = [
+  {
+    key: "link-twitter",
+    icon: faTwitterSquare,
+    href: "//twitter.com/uhey22e",
+  },
+  {
+    key: "link-github",
+    icon: faGithubSquare,
+    href: "//github.com/uhey22e/numa-calcurator",
+  },
+];
 
-  const menuItemElms = menuItems.map((v) => {
-    return (
-      <li className={classes.menuItem} key={`pagelink_${v.href}`}>
-        <Link to={v.href} className={classes.link}>
-          {v.label}
-        </Link>
-      </li>
-    );
-  });
-
-  const snsLinks = [
-    {
-      icon: faTwitterSquare,
-      href: "//twitter.com/uhey22e",
-    },
-    {
-      icon: faGithubSquare,
-      href: "//github.com/uhey22e/numa-calcurator",
-    },
-  ];
-
-  const snsLinkElms = snsLinks.map((v) => {
-    return (
-      <Box ml={1} mr={1} key={`snslink_${v.href}`}>
-        <MuiLink href={v.href}>
-          <FontAwesomeIcon icon={v.icon} color="#505050" size="3x" />
-        </MuiLink>
-      </Box>
-    );
-  });
-
-  const FooterSection = (props: BoxProps) => {
-    return <Box mt={1} mb={1} component="section" {...props} />;
-  };
-
+export default function Footer(props: {}) {
   return (
-    <Box
-      pt={1}
-      pb={1}
-      className={classes.root}
-      display="flex"
-      justifyContent="center"
-      flexDirection="column"
+    <div
+      className={classNames(
+        "w-full py-4 px-2 flex flex-col items-center gap-3",
+        "bg-slate-100 text-gray-500",
+        "text-center text-sm",
+        "[&_a]:text-inherit [&_a]:underline"
+      )}
     >
-      <FooterSection>
-        <ul className={classes.menu}>{menuItemElms}</ul>
-      </FooterSection>
-      <FooterSection display="flex" flexDirection="row" justifyContent="center">
-        {snsLinkElms}
-      </FooterSection>
-      <FooterSection className={classes.license}>
-        <div>
-          <MuiLink rel="license" href="//creativecommons.org/licenses/by/4.0/">
-            <img
-              alt="Creative Commons License"
-              style={{
-                borderWidth: 0,
-                margin: 0,
-              }}
-              src="//i.creativecommons.org/l/by/4.0/88x31.png"
-            />
-          </MuiLink>
-        </div>
+      <ul className=" flex flex-col gap-1">
+        {menuItems.map(({ label, href }) => (
+          <li key={`pagelink-${href}`}>
+            <Link to={href}>{label}</Link>
+          </li>
+        ))}
+      </ul>
+      <div className="flex flex-row gap-2">
+        {snsLinks.map((v) => (
+          <div key={v.key}>
+            <a href={v.href} target="_blank" rel="noopener noreferrer">
+              <FontAwesomeIcon icon={v.icon} color="#505050" size="3x" />
+            </a>
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-col items-center">
+        <a
+          className="block"
+          href="//creativecommons.org/licenses/by/4.0/"
+          target="_blank"
+          rel="license noopener noreferrer"
+        >
+          <img
+            alt="Creative Commons License"
+            src="//i.creativecommons.org/l/by/4.0/88x31.png"
+            width={88}
+            height={31}
+          />
+        </a>
         <div>
           <span>This work is licensed under a </span>
-          <MuiLink
-            rel="license"
+          <a
+            target="_blank"
+            rel="license noopener noreferrer"
             href="//creativecommons.org/licenses/by/4.0/"
-            className={classes.link}
           >
             Creative Commons Attribution 4.0 International License
-          </MuiLink>
+          </a>
         </div>
-      </FooterSection>
-      <FooterSection>
+      </div>
+      <div>
         <span>Copyright &copy; {new Date().getFullYear()} </span>
-        <MuiLink href="//twitter.com/uhey22e" className={classes.link}>
+        <a
+          href="//twitter.com/uhey22e"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           uhey22e
-        </MuiLink>
-      </FooterSection>
-    </Box>
+        </a>
+      </div>
+    </div>
   );
 }

@@ -10,9 +10,12 @@ module.exports = {
     siteUrl: `https://numa-calculator.uhey22e.com`,
   },
   plugins: [
+    "gatsby-plugin-postcss",
+    // React Helmet
+    "gatsby-plugin-react-helmet",
     // Set favicon and manifest
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: "gatsby-plugin-manifest",
       options: {
         name: `かんたん沼計算機`,
         start_url: `/`,
@@ -37,16 +40,6 @@ module.exports = {
         },
       },
     },
-    "gatsby-plugin-react-helmet",
-    // Enable SASS
-    "gatsby-plugin-sass",
-    // Enable Typography.js
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
     // Allow to use markdown pages
     {
       resolve: "gatsby-transformer-remark",
@@ -63,8 +56,6 @@ module.exports = {
     },
     // Markdown中のリンクをgatsby-linkに置き換え
     "gatsby-plugin-catch-links",
-    // Allow to use material-ui
-    "gatsby-plugin-material-ui",
     // Load twitter script
     "gatsby-plugin-twitter",
   ],
