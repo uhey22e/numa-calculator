@@ -1,11 +1,10 @@
 import React from "react";
-import { Box } from "@material-ui/core";
 
 export default function ShareButtons() {
   return (
-    <Box display="flex" flexDirection="row" flexWrap="wrap" alignItems="center">
+    <div className="flex flex-row flex-wrap items-center gap-4">
       {/* Twitter */}
-      <Box mr={2}>
+      <div>
         <a
           href="https://twitter.com/share?ref_src=twsrc%5Etfw"
           className="twitter-share-button"
@@ -17,10 +16,10 @@ export default function ShareButtons() {
         >
           ツイート
         </a>
-      </Box>
+      </div>
 
       {/* はてな */}
-      <Box>
+      <div>
         <a
           href="https://b.hatena.ne.jp/entry/s/numa-calculator.uhey22e.com/"
           className="hatena-bookmark-button"
@@ -36,7 +35,7 @@ export default function ShareButtons() {
             style={{ border: "none" }}
           />
         </a>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 }

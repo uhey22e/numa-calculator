@@ -1,9 +1,8 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Alert from "@material-ui/lab/Alert";
 import { validationErrorMessage } from "../utils/messages";
 import { ValidationFuncs, getValidationMessage } from "../utils/validation";
+import { Alert } from "./Alert";
+import { Input } from "./Input";
 
 type Props = {
   // Called when target calorie is updated to valid value
@@ -52,18 +51,11 @@ export default function TargetCalorieInput(props: Props) {
 
   return (
     <div>
-      <TextField
-        placeholder="1500"
-        size="small"
+      <Input
         type="number"
-        variant="outlined"
+        placeholder="1500"
         onChange={handleChange}
-        InputProps={{
-          endAdornment: <InputAdornment position="end">kcal</InputAdornment>,
-        }}
-        error={Boolean(validationError)}
-        fullWidth
-        margin="dense"
+        unitName="kcal"
       />
       {validationErrorAlert()}
     </div>

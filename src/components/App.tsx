@@ -1,8 +1,6 @@
 import React, { useMemo, useState } from "react";
-import Alert from "@material-ui/lab/Alert";
-import { Box, Typography, Button } from "@material-ui/core";
 import { Link } from "gatsby";
-import { InputSection } from "../components/InputSection";
+import { InputSection } from "./InputSection";
 import { OutputSection } from "../components/OutputSection";
 import TargetCalorieInput from "../components/TargetCalorieInput";
 import PFCBalanceInput from "../components/PFCBalanceInput";
@@ -10,22 +8,13 @@ import { IngredientsTable } from "../components/IngredientsTable";
 import { NutrientsDetail } from "../components/NutrientsDetail";
 import { Ingredient } from "../libs/calculator/calc";
 import { Logo } from "../components/Logo";
-import { makeStyles } from "@material-ui/styles";
 import ShareButtons from "../components/ShareButtons";
 import { useCalculator } from "../libs/calculator/hooks";
 import { ExtraFoodInput } from "../components/ExtraFoodInput";
 import { getExtraFood } from "../libs/calculator/foodsData";
-import "../styles/global.css";
-
-const useStyles = makeStyles({
-  paragraph: {
-    marginBottom: "0.5rem",
-  },
-});
+import { Alert } from "./Alert";
 
 export const App = () => {
-  const classes = useStyles();
-
   const [egg, setEgg] = useState<Ingredient>({
     food: getExtraFood("egg"),
     quantity: 0,
@@ -91,16 +80,14 @@ export const App = () => {
   return (
     <div>
       <section className="mb-6">
-        <Box display="flex" justifyContent="center" marginBottom={3}>
-          <Logo />
-        </Box>
+        <Logo />
         <p>1日の摂取カロリーとPFCバランスから、沼のレシピを逆算します。</p>
         <p>
           「沼」については<Link to="/about">こちら</Link>をご覧ください。
         </p>
       </section>
 
-      <Box component="section" marginBottom={5}>
+      <section className="mb-6">
         <InputSection title="1日の目標摂取カロリーを入力">
           <TargetCalorieInput onChange={setTargetKcals} />
         </InputSection>
@@ -120,19 +107,21 @@ export const App = () => {
           <ExtraFoodInput ingredient={oikos} onChange={setOikos} />
           <ExtraFoodInput ingredient={oil} onChange={setOil} />
         </InputSection>
-      </Box>
+      </section>
 
-      <Box component="section" marginBottom={5}>
-        <Box marginBottom={2}>
-          <Typography variant="inherit" component="h2" align="center">
-            計算結果
-          </Typography>
-        </Box>
-        <Box display="flex" justifyContent="flex-end">
-          <Button color="primary" onClick={toggleCalcMode}>
+      <section className="mb-6">
+        <div className="mb-4">
+          <h3 className="text-center text-lg">計算結果</h3>
+        </div>
+        <div className=" flex flex-row justify-end">
+          <button
+            type="button"
+            className="block p-2 rounded-md text-sm text-sky-500 hover:bg-sky-50"
+            onClick={toggleCalcMode}
+          >
             {calcMode === "numa" ? "ジャガバード" : "沼"}に切り替える
-          </Button>
-        </Box>
+          </button>
+        </div>
         <OutputSection title="食材一覧">
           <IngredientsTable ingredients={[main, chicken, ...validExtraFoods]} />
         </OutputSection>
@@ -140,7 +129,7 @@ export const App = () => {
           <NutrientsDetail ingredients={[main, chicken, ...validExtraFoods]} />
         </OutputSection>
         {fatAlert}
-      </Box>
+      </section>
 
       <ShareButtons />
     </div>

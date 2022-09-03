@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, InputAdornment, TextField, Typography } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
 import { PFCBalance } from "../libs/calculator/calc";
 import { validationErrorMessage } from "../utils/messages";
 import { ValidationFuncs, getValidationMessage } from "../utils/validation";
+import classNames from "classnames";
+import { Alert } from "./Alert";
 
 type Props = {
   onChange?: (value: PFCBalance) => void;
@@ -83,45 +83,56 @@ export default function PFCBalanceInput({
     }
   };
 
-  const nutrientsInput = nutrients.map((nutrient) => {
-    return (
-      <Box
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-        key={nutrient.key}
-      >
-        <Box flexBasis={110} flexGrow={0}>
-          <Typography variant="inherit">{nutrient.label}</Typography>
-        </Box>
-        <Box flexBasis={200} flexGrow={1}>
-          <TextField
-            size="small"
-            type="number"
-            variant="outlined"
-            defaultValue={defaultValue[nutrient.key]}
-            onChange={handleChange(nutrient.key)}
-            InputProps={{
-              endAdornment: <InputAdornment position="end">%</InputAdornment>,
-            }}
-            error={Boolean(validationError)}
-            fullWidth
-            margin="dense"
-          />
-        </Box>
-      </Box>
-    );
-  });
-
-  const validationErrorAlert = () => {
-    if (validationError === "") return;
-    return <Alert severity="error">{validationError}</Alert>;
-  };
-
   return (
-    <>
-      <div>{nutrientsInput}</div>
-      {validationErrorAlert()}
-    </>
+    <div>
+      {nutrients.map((nutrient) => (
+        <div key={nutrient.key} className="flex flex-row items-center mb-2">
+          <div className="basis-32">
+            <div>{nutrient.label}</div>
+          </div>
+          <div className="flex-grow">
+            <Input
+              type="number"
+              value={values[nutrient.key]}
+              onChange={handleChange(nutrient.key)}
+              unitName="%"
+            />
+          </div>
+        </div>
+      ))}
+      {validationError !== "" && (
+        <Alert severity="error">{validationError}</Alert>
+      )}
+    </div>
   );
 }
+
+type InputProps = JSX.IntrinsicElements["input"] & {
+  unitName?: string;
+};
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ unitName, ...inputProps }, ref) => {
+    return (
+      <div className="relative">
+        <input
+          ref={ref}
+          className={classNames(
+            "block w-full px-3 py-2",
+            "rounded-md border border-gray-300",
+            "focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500",
+            {
+              "pr-10": unitName != null,
+            }
+          )}
+          {...inputProps}
+        />
+        {unitName && (
+          <div className="flex items-center absolute inset-y-0 right-3 pointer-events-none text-gray-500">
+            {unitName}
+          </div>
+        )}
+      </div>
+    );
+  }
+);

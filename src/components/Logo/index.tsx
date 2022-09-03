@@ -4,7 +4,7 @@ import logo2x from "./numa_logo@2x.png";
 
 export const Logo: React.FC = () => {
   return (
-    <h1 className="flex flex-row items-end text-3xl">
+    <h1 className="flex flex-row justify-center items-end text-3xl mb-3">
       <span>かんたん</span>
       <img
         alt="沼"

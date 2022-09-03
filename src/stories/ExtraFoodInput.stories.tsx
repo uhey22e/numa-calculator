@@ -11,6 +11,7 @@ export const basicUsage = () => (
   <ExtraFoodInput
     ingredient={{
       quantity: 10,
+      unitName: "個",
       food: {
         id: "oil",
         shortName: "油",
