@@ -60,7 +60,7 @@ export default function Footer(props: {}) {
       <div className="flex flex-row gap-2">
         {snsLinks.map((v) => (
           <div key={v.key}>
-            <a href={v.href}>
+            <a href={v.href} target="_blank" rel="noopener noreferrer">
               <FontAwesomeIcon icon={v.icon} color="#505050" size="3x" />
             </a>
           </div>
@@ -69,8 +69,9 @@ export default function Footer(props: {}) {
       <div className="flex flex-col items-center">
         <a
           className="block"
-          rel="license"
           href="//creativecommons.org/licenses/by/4.0/"
+          target="_blank"
+          rel="license noopener noreferrer"
         >
           <img
             alt="Creative Commons License"
@@ -81,14 +82,24 @@ export default function Footer(props: {}) {
         </a>
         <div>
           <span>This work is licensed under a </span>
-          <a rel="license" href="//creativecommons.org/licenses/by/4.0/">
+          <a
+            target="_blank"
+            rel="license noopener noreferrer"
+            href="//creativecommons.org/licenses/by/4.0/"
+          >
             Creative Commons Attribution 4.0 International License
           </a>
         </div>
       </div>
       <div>
         <span>Copyright &copy; {new Date().getFullYear()} </span>
-        <a href="//twitter.com/uhey22e">uhey22e</a>
+        <a
+          href="//twitter.com/uhey22e"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          uhey22e
+        </a>
       </div>
     </div>
   );
