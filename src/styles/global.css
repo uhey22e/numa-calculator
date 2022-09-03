@@ -10,10 +10,31 @@ a:hover {
   @apply underline;
 }
 
-.static-page-content p {
-  @apply mt-2 mb-2;
+p {
+  @apply leading-relaxed;
 }
 
-.static-page-content h1 {
-  @apply text-lg;
+.static-page-content h2 {
+  @apply text-xl;
+  @apply border-b-2 border-b-gray-200;
+  @apply pl-1 pb-2 my-4;
+}
+
+.static-page-content p {
+  @apply my-2;
+}
+
+.static-page-content ul {
+  @apply list-disc list-outside ml-6;
+  @apply leading-loose;
+}
+
+.static-page-content li {
+  @apply list-item;
+}
+
+.static-page-content .highlight {
+  @apply p-2 text-sm;
+  @apply bg-slate-50;
+  @apply whitespace-nowrap overflow-x-auto;
 }
