@@ -1,6 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { ExtraFoodInput } from "../src/components/ExtraFoodInput";
+import { ExtraFoodInput } from "../components/ExtraFoodInput";
 
 export default {
   title: "ExtraFoodInput",

@@ -1,7 +1,7 @@
 import React from "react";
-import { IngredientsTable } from "../src/components/IngredientsTable";
-import { Ingredient } from "../src/libs/calculator/calc";
-import { rice, chicken, getExtraFood } from "../src/libs/calculator/foodsData";
+import { IngredientsTable } from "../components/IngredientsTable";
+import { Ingredient } from "../libs/calculator/calc";
+import { rice, chicken, getExtraFood } from "../libs/calculator/foodsData";
 
 export default {
   title: "IngredientsTable",
