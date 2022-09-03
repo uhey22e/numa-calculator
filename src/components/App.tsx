@@ -15,6 +15,7 @@ import ShareButtons from "../components/ShareButtons";
 import { useCalculator } from "../libs/calculator/hooks";
 import { ExtraFoodInput } from "../components/ExtraFoodInput";
 import { getExtraFood } from "../libs/calculator/foodsData";
+import "../styles/global.css";
 
 const useStyles = makeStyles({
   paragraph: {
@@ -89,18 +90,15 @@ export const App = () => {
 
   return (
     <div>
-      <Box component="section" marginBottom={3}>
+      <section className="mb-6">
         <Box display="flex" justifyContent="center" marginBottom={3}>
           <Logo />
         </Box>
-
-        <Typography className={classes.paragraph}>
-          1日の摂取カロリーとPFCバランスから、沼のレシピを逆算します。
-        </Typography>
-        <Typography className={classes.paragraph}>
+        <p>1日の摂取カロリーとPFCバランスから、沼のレシピを逆算します。</p>
+        <p>
           「沼」については<Link to="/about">こちら</Link>をご覧ください。
-        </Typography>
-      </Box>
+        </p>
+      </section>
 
       <Box component="section" marginBottom={5}>
         <InputSection title="1日の目標摂取カロリーを入力">

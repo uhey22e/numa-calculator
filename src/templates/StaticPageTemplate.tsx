@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "gatsby";
 import { Layout } from "../layouts/Layout";
 import ShareButtons from "../components/ShareButtons";
-import "../styles/global.scss";
+import "../styles/global.css";
 import { Helmet } from "react-helmet";
 
 type StaticPageTemplateProps = {
