@@ -1,9 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-// @ts-ignore
-import * as logo from "./numa_logo.png";
-// @ts-ignore
-import * as logo2x from "./numa_logo@2x.png";
+import logo from "./numa_logo.png";
+import logo2x from "./numa_logo@2x.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
