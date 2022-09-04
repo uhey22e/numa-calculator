@@ -1,6 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import TargetCalorieInput from "../components/TargetCalorieInput";
+import { TargetCalorieInput } from "../components/TargetCalorieInput";
 
 export default {
   title: "TargetCalorieInput",
@@ -8,8 +8,5 @@ export default {
 };
 
 export const basicUsage = () => (
-  <TargetCalorieInput
-    onChange={action("onChange")}
-    onError={action("onError")}
-  />
+  <TargetCalorieInput onChange={action("onChange")} />
 );

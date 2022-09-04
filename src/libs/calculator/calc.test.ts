@@ -28,12 +28,11 @@ test("calcMainFoods(numa)", () => {
       quantity: 10.4,
     },
   ];
-  const { main: rice, chicken, diffs } = calcMainFoods(
-    target,
-    pfcBalance,
-    extraFoods,
-    "numa"
-  );
+  const {
+    main: rice,
+    chicken,
+    diffs,
+  } = calcMainFoods(target, pfcBalance, extraFoods, "numa");
   expect(rice.quantity).toBeCloseTo(227.3, 0);
   expect(chicken.quantity).toBeCloseTo(261.9, 0);
   expect(diffs.protein).toBeCloseTo(0);

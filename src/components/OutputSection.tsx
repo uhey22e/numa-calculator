@@ -2,14 +2,12 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 
-type OutputSectionProps = {
+export type OutputSectionProps = {
   title: string;
+  children?: React.ReactNode;
 };
 
-export const OutputSection: React.FC<OutputSectionProps> = ({
-  title,
-  children,
-}) => {
+export function OutputSection({ title, children }: OutputSectionProps) {
   return (
     <div className="mb-4">
       <div className="flex flex-row gap-2 items-center mb-2">
@@ -19,4 +17,4 @@ export const OutputSection: React.FC<OutputSectionProps> = ({
       {children}
     </div>
   );
-};
+}

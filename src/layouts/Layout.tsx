@@ -1,18 +1,16 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import Footer from "../components/Footer";
 import { config, dom } from "@fortawesome/fontawesome-svg-core";
+import Footer from "../components/Footer";
 
 config.autoAddCss = false;
 
-type LayoutProps = {
+export type LayoutProps = {
   title?: string;
+  children?: React.ReactNode;
 };
 
-export const Layout: React.FunctionComponent<LayoutProps> = ({
-  title = "かんたん沼計算機",
-  children,
-}) => {
+export function Layout({ title = "かんたん沼計算機", children }: LayoutProps) {
   return (
     <>
       <Helmet>
@@ -25,4 +23,4 @@ export const Layout: React.FunctionComponent<LayoutProps> = ({
       <style>{dom.css()}</style>
     </>
   );
-};
+}
