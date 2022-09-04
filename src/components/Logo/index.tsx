@@ -2,8 +2,7 @@ import React from "react";
 import logo from "./numa_logo.png";
 import logo2x from "./numa_logo@2x.png";
 
-export const Logo: React.FC = () => {
-  return (
+export const Logo: React.FC = () => (
     <h1 className="flex flex-row justify-center items-end text-3xl mb-3">
       <span>かんたん</span>
       <img
@@ -17,4 +16,3 @@ export const Logo: React.FC = () => {
       <span>計算機</span>
     </h1>
   );
-};

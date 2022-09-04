@@ -1,8 +1,8 @@
 import React from "react";
+import classNames from "classnames";
 import { PFCBalance } from "../libs/calculator/calc";
 import { validationErrorMessage } from "../utils/messages";
 import { ValidationFuncs, getValidationMessage } from "../utils/validation";
-import classNames from "classnames";
 import { Alert } from "./Alert";
 
 type Props = {
@@ -36,12 +36,12 @@ const defaultPFCBalance: PFCBalance = {
 
 const validationFuncs: ValidationFuncs<PFCBalance> = [
   (value) => {
-    for (let v of Object.values(value)) {
+    for (const v of Object.values(value)) {
       if (!v) return validationErrorMessage.INVALID_NUMBER;
     }
   },
   (value) => {
-    for (let v of Object.values(value)) {
+    for (const v of Object.values(value)) {
       if (v < 0) return validationErrorMessage.INVALID_MINUS_VALUE;
     }
   },
@@ -112,8 +112,7 @@ type InputProps = JSX.IntrinsicElements["input"] & {
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ unitName, ...inputProps }, ref) => {
-    return (
+  ({ unitName, ...inputProps }, ref) => (
       <div className="relative">
         <input
           ref={ref}
@@ -133,6 +132,5 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </div>
         )}
       </div>
-    );
-  }
+    )
 );

@@ -7,4 +7,6 @@ export default {
   component: Logo,
 } as ComponentMeta<typeof Logo>;
 
-export const Default = () => <Logo />;
+export function Default() {
+  return <Logo />
+}

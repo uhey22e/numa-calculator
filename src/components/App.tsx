@@ -1,20 +1,20 @@
 import React, { useMemo, useState } from "react";
 import { Link } from "gatsby";
 import { InputSection } from "./InputSection";
-import { OutputSection } from "../components/OutputSection";
-import TargetCalorieInput from "../components/TargetCalorieInput";
-import PFCBalanceInput from "../components/PFCBalanceInput";
-import { IngredientsTable } from "../components/IngredientsTable";
-import { NutrientsDetail } from "../components/NutrientsDetail";
+import { OutputSection } from "./OutputSection";
+import TargetCalorieInput from "./TargetCalorieInput";
+import PFCBalanceInput from "./PFCBalanceInput";
+import { IngredientsTable } from "./IngredientsTable";
+import { NutrientsDetail } from "./NutrientsDetail";
 import { Ingredient } from "../libs/calculator/calc";
-import { Logo } from "../components/Logo";
-import ShareButtons from "../components/ShareButtons";
+import { Logo } from "./Logo";
+import ShareButtons from "./ShareButtons";
 import { useCalculator } from "../libs/calculator/hooks";
-import { ExtraFoodInput } from "../components/ExtraFoodInput";
+import { ExtraFoodInput } from "./ExtraFoodInput";
 import { getExtraFood } from "../libs/calculator/foodsData";
 import { Alert } from "./Alert";
 
-export const App = () => {
+export function App() {
   const [egg, setEgg] = useState<Ingredient>({
     food: getExtraFood("egg"),
     quantity: 0,
@@ -134,4 +134,4 @@ export const App = () => {
       <ShareButtons />
     </div>
   );
-};
+}

@@ -9,8 +9,7 @@ type OutputSectionProps = {
 export const OutputSection: React.FC<OutputSectionProps> = ({
   title,
   children,
-}) => {
-  return (
+}) => (
     <div className="mb-4">
       <div className="flex flex-row gap-2 items-center mb-2">
         <FontAwesomeIcon icon={faCheckSquare} color="#1976d2" size="1x" />
@@ -19,4 +18,3 @@ export const OutputSection: React.FC<OutputSectionProps> = ({
       {children}
     </div>
   );
-};

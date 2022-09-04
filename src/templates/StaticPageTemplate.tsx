@@ -15,7 +15,7 @@ type StaticPageTemplateProps = {
   };
 };
 
-const StaticPageTemplate = ({ data }: StaticPageTemplateProps) => {
+function StaticPageTemplate({ data }: StaticPageTemplateProps) {
   const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
 
@@ -29,7 +29,7 @@ const StaticPageTemplate = ({ data }: StaticPageTemplateProps) => {
       <ShareButtons />
     </Layout>
   );
-};
+}
 export default StaticPageTemplate;
 
 export const pageQuery = graphql`

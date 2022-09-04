@@ -1,5 +1,4 @@
 *.md
-.cache
-package.json
-package-lock.json
-public
+/.cache
+/public
+/package-lock.json

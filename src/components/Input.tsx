@@ -6,8 +6,7 @@ export type InputProps = JSX.IntrinsicElements["input"] & {
 };
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ unitName, ...inputProps }, ref) => {
-    return (
+  ({ unitName, ...inputProps }, ref) => (
       <div className="relative">
         <input
           ref={ref}
@@ -27,6 +26,5 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </div>
         )}
       </div>
-    );
-  }
+    )
 );

@@ -14,9 +14,7 @@ export const useCalculator = (extraFoods: Ingredient[]) => {
     setCalcMode(calcMode === "numa" ? "jagabird" : "numa");
   }, [calcMode]);
 
-  const { main, chicken, diffs } = useMemo(() => {
-    return calcMainFoods(targetKcals, pfcBalance, extraFoods, calcMode);
-  }, [targetKcals, pfcBalance, extraFoods, calcMode]);
+  const { main, chicken, diffs } = useMemo(() => calcMainFoods(targetKcals, pfcBalance, extraFoods, calcMode), [targetKcals, pfcBalance, extraFoods, calcMode]);
 
   return {
     targetKcals,

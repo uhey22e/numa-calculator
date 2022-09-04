@@ -7,8 +7,7 @@ interface IngredientsTableProps {
 
 export const IngredientsTable: React.FunctionComponent<IngredientsTableProps> = ({
   ingredients,
-}) => {
-  return (
+}) => (
     <table className="w-full text-sm">
       <tbody>
         {ingredients.map((ingredient) => (
@@ -17,7 +16,6 @@ export const IngredientsTable: React.FunctionComponent<IngredientsTableProps> = 
       </tbody>
     </table>
   );
-};
 
 interface RowProps {
   ingredient: Ingredient;

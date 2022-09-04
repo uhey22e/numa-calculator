@@ -75,39 +75,30 @@ export const calcMainFoods = (
   };
 };
 
-const kcalsToGrams = (n: Nutrients) => {
-  return {
+const kcalsToGrams = (n: Nutrients) => ({
     protein: n.protein / 4,
     fat: n.fat / 9,
     carbs: n.carbs / 4,
-  };
-};
+  });
 
 export const calcKcalsFromGrams = ({
   protein,
   fat,
   carbs,
-}: Nutrients): number => {
-  return 4 * protein + 9 * fat + 4 * carbs;
-};
+}: Nutrients): number => 4 * protein + 9 * fat + 4 * carbs;
 
 const calcGramsSatisfyingProtein = (
   protein: number,
   food: FoodNutrients
-): number => {
-  return (protein / food.protein) * food.unitGram;
-};
+): number => (protein / food.protein) * food.unitGram;
 
 const calcGramsSatisfyingCarbs = (
   // grams
   carbs: number,
   food: FoodNutrients
-): number => {
-  return (carbs / food.carbs) * food.unitGram;
-};
+): number => (carbs / food.carbs) * food.unitGram;
 
-export const sumUpNutrients = (ingredients: Ingredient[]): Nutrients => {
-  return ingredients.reduce(
+export const sumUpNutrients = (ingredients: Ingredient[]): Nutrients => ingredients.reduce(
     (acc, v) => {
       const n: Nutrients = calcNetNutrients(v);
       return {
@@ -122,7 +113,6 @@ export const sumUpNutrients = (ingredients: Ingredient[]): Nutrients => {
       carbs: 0,
     }
   );
-};
 
 export const calcNetNutrients = (ingredient: Ingredient): Nutrients => {
   const g = calcNetGrams(ingredient);

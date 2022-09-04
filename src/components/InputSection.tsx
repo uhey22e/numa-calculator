@@ -14,7 +14,7 @@ export function InputSection({ title, children }: InputSectionProps) {
         <FontAwesomeIcon icon={faEdit} color="#1976d2" size="1x" />
         <h3>{title}</h3>
       </div>
-      <>{children}</>
+      {children}
     </div>
   );
 }
