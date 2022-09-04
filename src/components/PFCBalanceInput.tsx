@@ -67,26 +67,26 @@ export function PFCBalanceInput({
     validation(values) || ""
   );
 
-  const handleChange = (prop: keyof PFCBalance) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newValues = {
-      ...values,
-      [prop]: event.target.valueAsNumber,
-    };
-    setValues(newValues);
+  const handleChange =
+    (prop: keyof PFCBalance) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newValues = {
+        ...values,
+        [prop]: event.target.valueAsNumber,
+      };
+      setValues(newValues);
 
-    // Validate value
-    const errMsg = validation(newValues);
-    if (errMsg) {
-      setValidationError(errMsg);
-    } else {
-      setValidationError("");
-      if (onChange) {
-        onChange(newValues);
+      // Validate value
+      const errMsg = validation(newValues);
+      if (errMsg) {
+        setValidationError(errMsg);
+      } else {
+        setValidationError("");
+        if (onChange) {
+          onChange(newValues);
+        }
       }
-    }
-  };
+    };
 
   return (
     <div>

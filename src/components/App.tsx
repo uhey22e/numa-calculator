@@ -42,13 +42,10 @@ export default function App() {
     food: getExtraFood("oil"),
     quantity: 0,
   });
-  const extraFoods = useMemo(() => [egg, milk, proteinPowder, asari, oil], [
-    egg,
-    milk,
-    proteinPowder,
-    asari,
-    oil,
-  ]);
+  const extraFoods = useMemo(
+    () => [egg, milk, proteinPowder, asari, oil],
+    [egg, milk, proteinPowder, asari, oil]
+  );
   const validExtraFoods = useMemo(
     () => extraFoods.filter((f) => f.quantity > 0),
     [extraFoods]
