@@ -10,9 +10,11 @@
     "serve": "gatsby serve",
     "storybook": "start-storybook -p 6006",
     "test": "jest ./src",
-    "typecheck": "tsc --pretty",
+    "lint": "run-p lint:*",
+    "lint:prettier": "prettier . --check",
     "lint:eslint": "eslint ./src",
-    "fix": "run-p fix:prettier fix:eslint",
+    "lint:tsc": "tsc --pretty",
+    "fix": "run-s fix:prettier fix:eslint",
     "fix:prettier": "prettier . --write",
     "fix:eslint": "eslint ./src --fix"
   },

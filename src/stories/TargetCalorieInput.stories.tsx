@@ -8,8 +8,5 @@ export default {
 };
 
 export const basicUsage = () => (
-  <TargetCalorieInput
-    onChange={action("onChange")}
-    onError={action("onError")}
-  />
+  <TargetCalorieInput onChange={action("onChange")} />
 );

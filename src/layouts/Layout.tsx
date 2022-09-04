@@ -7,7 +7,7 @@ config.autoAddCss = false;
 
 export type LayoutProps = {
   title?: string;
-  children?: React.ReactElement;
+  children?: React.ReactNode;
 };
 
 export function Layout({ title = "かんたん沼計算機", children }: LayoutProps) {
