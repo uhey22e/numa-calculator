@@ -21,5 +21,23 @@ module.exports = {
     project: ["./tsconfig.json"],
   },
   plugins: ["@typescript-eslint"],
-  rules: {},
+  rules: {
+    // Typescriptを使うので
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off",
+  },
+  overrides: [
+    {
+      files: ["**/*.stories.tsx"],
+      rules: {
+        "import/no-extraneous-dependencies": "off",
+        "react/function-component-definition": [
+          "error",
+          {
+            namedComponents: "arrow-function",
+          },
+        ],
+      },
+    },
+  ],
 };

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { calcMainFoods, PFCBalance, CalcMode, Ingredient } from "./calc";
 
-export const useCalculator = (extraFoods: Ingredient[]) => {
+const useCalculator = (extraFoods: Ingredient[]) => {
   const [targetKcals, setTargetKcals] = useState<number>(1500);
   const [pfcBalance, setPFCBalance] = useState<PFCBalance>({
     proteinPct: 30,
@@ -14,7 +14,10 @@ export const useCalculator = (extraFoods: Ingredient[]) => {
     setCalcMode(calcMode === "numa" ? "jagabird" : "numa");
   }, [calcMode]);
 
-  const { main, chicken, diffs } = useMemo(() => calcMainFoods(targetKcals, pfcBalance, extraFoods, calcMode), [targetKcals, pfcBalance, extraFoods, calcMode]);
+  const { main, chicken, diffs } = useMemo(
+    () => calcMainFoods(targetKcals, pfcBalance, extraFoods, calcMode),
+    [targetKcals, pfcBalance, extraFoods, calcMode]
+  );
 
   return {
     targetKcals,
@@ -28,3 +31,5 @@ export const useCalculator = (extraFoods: Ingredient[]) => {
     diffs,
   };
 };
+
+export default useCalculator;

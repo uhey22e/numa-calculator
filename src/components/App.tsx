@@ -2,19 +2,19 @@ import React, { useMemo, useState } from "react";
 import { Link } from "gatsby";
 import { InputSection } from "./InputSection";
 import { OutputSection } from "./OutputSection";
-import TargetCalorieInput from "./TargetCalorieInput";
-import PFCBalanceInput from "./PFCBalanceInput";
+import { TargetCalorieInput } from "./TargetCalorieInput";
+import { PFCBalanceInput } from "./PFCBalanceInput";
 import { IngredientsTable } from "./IngredientsTable";
 import { NutrientsDetail } from "./NutrientsDetail";
 import { Ingredient } from "../libs/calculator/calc";
-import { Logo } from "./Logo";
+import Logo from "./Logo";
 import ShareButtons from "./ShareButtons";
-import { useCalculator } from "../libs/calculator/hooks";
+import useCalculator from "../libs/calculator/hooks";
 import { ExtraFoodInput } from "./ExtraFoodInput";
 import { getExtraFood } from "../libs/calculator/foodsData";
 import { Alert } from "./Alert";
 
-export function App() {
+export default function App() {
   const [egg, setEgg] = useState<Ingredient>({
     food: getExtraFood("egg"),
     quantity: 0,
@@ -67,7 +67,7 @@ export function App() {
   const fatAlert = useMemo(() => {
     const e = Math.abs(diffs.fat);
     if (e < 0.1) {
-      return <></>;
+      return null;
     }
     const message = diffs.fat > 0 ? "過剰です" : "不足しています";
     return (

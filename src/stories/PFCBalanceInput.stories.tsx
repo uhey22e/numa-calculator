@@ -1,6 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import PFCBalanceInput from "../components/PFCBalanceInput";
+import { PFCBalanceInput } from "../components/PFCBalanceInput";
 
 export default {
   title: "PFCBalanceInput",

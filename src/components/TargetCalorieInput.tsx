@@ -1,30 +1,30 @@
 import React from "react";
-import { validationErrorMessage } from "../utils/messages";
+import validationErrorMessage from "../utils/messages";
 import { ValidationFuncs, getValidationMessage } from "../utils/validation";
 import { Alert } from "./Alert";
 import { Input } from "./Input";
-
-type Props = {
-  // Called when target calorie is updated to valid value
-  onChange?: (value: number) => void;
-  // Called when error is happened
-  onError?: (errorMessage: string) => void;
-};
 
 const validationFuncs: ValidationFuncs<number> = [
   (calorie) => {
     if (!calorie) {
       return validationErrorMessage.INVALID_NUMBER;
     }
+    return undefined;
   },
   (calorie) => {
     if (calorie < 0) {
       return validationErrorMessage.INVALID_MINUS_VALUE;
     }
+    return undefined;
   },
 ];
 
-export default function TargetCalorieInput(props: Props) {
+export type TargetCalorieInputProps = {
+  // Called when target calorie is updated to valid value
+  onChange?: (value: number) => void;
+};
+
+export function TargetCalorieInput({ onChange }: TargetCalorieInputProps) {
   const validation = getValidationMessage<number>(validationFuncs);
 
   const [validationError, setValidationError] = React.useState<string>("");
@@ -38,15 +38,10 @@ export default function TargetCalorieInput(props: Props) {
       setValidationError(errMsg);
     } else {
       setValidationError("");
-      if (props.onChange) {
-        props.onChange(newValue);
+      if (onChange) {
+        onChange(newValue);
       }
     }
-  };
-
-  const validationErrorAlert = () => {
-    if (validationError === "") return;
-    return <Alert severity="error">{validationError}</Alert>;
   };
 
   return (
@@ -57,7 +52,9 @@ export default function TargetCalorieInput(props: Props) {
         onChange={handleChange}
         unitName="kcal"
       />
-      {validationErrorAlert()}
+      {validationError !== "" && (
+        <Alert severity="error">{validationError}</Alert>
+      )}
     </div>
   );
 }

@@ -18,14 +18,6 @@ export interface Unit {
   gramsPerUnit: number;
 }
 
-export const getExtraFood = (id: string): FoodNutrients => {
-  const food = extras.find((f) => f.id === id);
-  if (!food) {
-    throw new Error(`Invalid food ID: ${id}`);
-  }
-  return food;
-};
-
 export const rice: FoodNutrients = {
   id: "rice",
   shortName: "白米",
@@ -139,3 +131,11 @@ const extras: FoodNutrients[] = [
     ],
   },
 ];
+
+export const getExtraFood = (id: string): FoodNutrients => {
+  const food = extras.find((f) => f.id === id);
+  if (!food) {
+    throw new Error(`Invalid food ID: ${id}`);
+  }
+  return food;
+};

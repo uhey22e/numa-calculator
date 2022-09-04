@@ -5,14 +5,13 @@ import Footer from "../components/Footer";
 
 config.autoAddCss = false;
 
-type LayoutProps = {
+export type LayoutProps = {
   title?: string;
+  children?: React.ReactElement;
 };
 
-export const Layout: React.FunctionComponent<LayoutProps> = ({
-  title = "かんたん沼計算機",
-  children,
-}) => (
+export function Layout({ title = "かんたん沼計算機", children }: LayoutProps) {
+  return (
     <>
       <Helmet>
         <title>{title}</title>
@@ -24,3 +23,4 @@ export const Layout: React.FunctionComponent<LayoutProps> = ({
       <style>{dom.css()}</style>
     </>
   );
+}

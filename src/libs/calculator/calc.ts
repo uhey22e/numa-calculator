@@ -12,6 +12,70 @@ export interface Ingredient {
   unitName?: string;
 }
 
+export const calcNetGrams = ({
+  quantity,
+  food,
+  unitName = "g",
+}: Ingredient): number => {
+  if (unitName === "g") {
+    return quantity;
+  }
+  const unit = food.availableUnits.find((u) => u.unitName === unitName);
+  if (!unit) {
+    throw new Error(`Invalid unit name "${unitName}" for food "${food.id}"`);
+  }
+  return quantity * unit.gramsPerUnit;
+};
+
+export const calcNetNutrients = (ingredient: Ingredient): Nutrients => {
+  const g = calcNetGrams(ingredient);
+  return {
+    protein: (g * ingredient.food.protein) / ingredient.food.unitGram,
+    fat: (g * ingredient.food.fat) / ingredient.food.unitGram,
+    carbs: (g * ingredient.food.carbs) / ingredient.food.unitGram,
+  };
+};
+
+const kcalsToGrams = (n: Nutrients) => ({
+  protein: n.protein / 4,
+  fat: n.fat / 9,
+  carbs: n.carbs / 4,
+});
+
+export const calcKcalsFromGrams = ({
+  protein,
+  fat,
+  carbs,
+}: Nutrients): number => 4 * protein + 9 * fat + 4 * carbs;
+
+const calcGramsSatisfyingProtein = (
+  protein: number,
+  food: FoodNutrients
+): number => (protein / food.protein) * food.unitGram;
+
+const calcGramsSatisfyingCarbs = (
+  // grams
+  carbs: number,
+  food: FoodNutrients
+): number => (carbs / food.carbs) * food.unitGram;
+
+export const sumUpNutrients = (ingredients: Ingredient[]): Nutrients =>
+  ingredients.reduce(
+    (acc, v) => {
+      const n: Nutrients = calcNetNutrients(v);
+      return {
+        protein: acc.protein + n.protein,
+        fat: acc.fat + n.fat,
+        carbs: acc.carbs + n.carbs,
+      };
+    },
+    {
+      protein: 0,
+      fat: 0,
+      carbs: 0,
+    }
+  );
+
 export type PFCBalance = {
   proteinPct: number;
   fatPct: number;
@@ -73,67 +137,4 @@ export const calcMainFoods = (
     chicken,
     diffs,
   };
-};
-
-const kcalsToGrams = (n: Nutrients) => ({
-    protein: n.protein / 4,
-    fat: n.fat / 9,
-    carbs: n.carbs / 4,
-  });
-
-export const calcKcalsFromGrams = ({
-  protein,
-  fat,
-  carbs,
-}: Nutrients): number => 4 * protein + 9 * fat + 4 * carbs;
-
-const calcGramsSatisfyingProtein = (
-  protein: number,
-  food: FoodNutrients
-): number => (protein / food.protein) * food.unitGram;
-
-const calcGramsSatisfyingCarbs = (
-  // grams
-  carbs: number,
-  food: FoodNutrients
-): number => (carbs / food.carbs) * food.unitGram;
-
-export const sumUpNutrients = (ingredients: Ingredient[]): Nutrients => ingredients.reduce(
-    (acc, v) => {
-      const n: Nutrients = calcNetNutrients(v);
-      return {
-        protein: acc.protein + n.protein,
-        fat: acc.fat + n.fat,
-        carbs: acc.carbs + n.carbs,
-      };
-    },
-    {
-      protein: 0,
-      fat: 0,
-      carbs: 0,
-    }
-  );
-
-export const calcNetNutrients = (ingredient: Ingredient): Nutrients => {
-  const g = calcNetGrams(ingredient);
-  return {
-    protein: (g * ingredient.food.protein) / ingredient.food.unitGram,
-    fat: (g * ingredient.food.fat) / ingredient.food.unitGram,
-    carbs: (g * ingredient.food.carbs) / ingredient.food.unitGram,
-  };
-};
-
-export const calcNetGrams = ({
-  quantity,
-  food,
-  unitName = "g",
-}: Ingredient): number => {
-  if (unitName === "g") {
-    return quantity;
-  }
-  const unit = food.availableUnits.find((u) => u.unitName === unitName);
-  if (!unit) {
-    throw new Error(`Invalid unit name "${unitName}" for food "${food.id}"`);
-  }
-  return quantity * unit.gramsPerUnit;
 };

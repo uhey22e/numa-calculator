@@ -6,10 +6,7 @@ export interface ExtraFoodInputProps {
   onChange: (ingredient: Ingredient) => void;
 }
 
-export const ExtraFoodInput: React.FunctionComponent<ExtraFoodInputProps> = ({
-  ingredient,
-  onChange,
-}) => {
+export function ExtraFoodInput({ ingredient, onChange }: ExtraFoodInputProps) {
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const v = e.target.value;
@@ -47,4 +44,4 @@ export const ExtraFoodInput: React.FunctionComponent<ExtraFoodInputProps> = ({
       </div>
     </div>
   );
-};
+}
